@@ -1,0 +1,39 @@
+{
+  "name": "cvhub-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:clean": "npm run dev -- --force",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:silent": "npm run test -- --silent"
+  },
+  "engines": {
+    "node": ">=18.12.0",
+    "npm": ">=8.19.2"
+  },
+  "dependencies": {
+    "@nordcloud/gnui": "^8.1.1",
+    "formik": "^2.2.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.4",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^3.1.0",
+    "patch-package": "^6.4.7",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0",
+    "vitest": "^0.29.3"
+  }
+}

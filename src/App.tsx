@@ -1,24 +1,23 @@
-import React, { type ReactElement } from 'react'
-import './App.css'
+import { Navigation } from "@nordcloud/gnui";
 
-function App (): ReactElement {
+
+function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://github.com/nordcloud/cvhub-frontend"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CV-hub
-        </a>
-      </header>
+      <Navigation.Container>
+          <Navigation.Item as="a" href="http://google.com" target="_blank">
+            Google
+          </Navigation.Item>
+          <Navigation.Item as="a" href="http://google.com" target="_blank">
+            Google
+          </Navigation.Item>
+          <Navigation.Item as="a" href="http://google.com" target="_blank">
+            Google
+          </Navigation.Item>
+        </Navigation.Container>;
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

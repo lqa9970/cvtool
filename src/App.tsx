@@ -1,21 +1,13 @@
-import { Navigation } from "@nordcloud/gnui";
-
+import {AppRoutes} from "./routes/index"
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   
   return (
     <div className="App">
-      <Navigation.Container>
-          <Navigation.Item as="a" href="http://google.com" target="_blank">
-            Google
-          </Navigation.Item>
-          <Navigation.Item as="a" href="http://google.com" target="_blank">
-            Google
-          </Navigation.Item>
-          <Navigation.Item as="a" href="http://google.com" target="_blank">
-            Google
-          </Navigation.Item>
-        </Navigation.Container>;
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </div>
   );
 }

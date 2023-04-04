@@ -1,0 +1,13 @@
+@import "../../styles/mixins";
+
+.NavContent {
+  display: flex;
+  justify-content: space-between;
+  background-color: $nc_gray;
+  margin: auto;
+  &_left {
+    a {
+      margin: auto;
+    }
+  }
+}

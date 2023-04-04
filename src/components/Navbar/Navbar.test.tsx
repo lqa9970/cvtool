@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import Navbar from "./Navbar"
 
 describe("h1", () => {
-  it("has blue background", () => {
+  it("has been defined", () => {
     render(<Navbar />)
     expect(screen.getByText(/Navbar/)).toBeDefined()
   })

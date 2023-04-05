@@ -1,13 +1,41 @@
 @import "../../styles/mixins";
 
 .NavContent {
+  position: absolute;
   display: flex;
   justify-content: space-between;
-  background-color: $nc_gray;
-  margin: auto;
-  &_left {
+  flex-wrap: wrap;
+  height: 100px;
+  width: 100%;
+  background-color: $nc_dark_blue;
+  padding: 0 10%;
+  &_logo {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    img {
+      width: 60%;
+      height: auto;
+    }
+  }
+  &_pages {
+    display: flex;
+    align-items: center;
     a {
-      margin: auto;
+      display: inherit;
+      align-items: center;
+      margin: 0 2rem;
+      text-transform: capitalize;
+      color: $nc_white;
+      font-size: 24px;
+      height: 100%;
+      padding: 0 3%;
+      &:hover {
+        color: $nc_dark_blue;
+        background-color: $nc_white;
+        border-radius: 3px;
+        text-decoration: none;
+      }
     }
   }
 }

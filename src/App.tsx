@@ -1,20 +1,10 @@
-import { Navigation } from "@nordcloud/gnui"
 import Navbar from "./components/Navbar/Navbar"
+
+import "./styles/style.scss"
 
 function App() {
   return (
-    <div className="App">
-      <Navigation.Container>
-        <Navigation.Item as="a" href="http://google.com" target="_blank">
-          Google
-        </Navigation.Item>
-        <Navigation.Item as="a" href="http://google.com" target="_blank">
-          Google
-        </Navigation.Item>
-        <Navigation.Item as="a" href="http://google.com" target="_blank">
-          Google
-        </Navigation.Item>
-      </Navigation.Container>
+    <div className="App" id="App">
       <Navbar />
     </div>
   )

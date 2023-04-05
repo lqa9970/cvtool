@@ -1,23 +1,23 @@
 import { useState } from "react"
 import "./Navbar.scss"
-// import { StickyBar } from "@nordcloud/gnui"
+import logo from "../../assets/cloud-logo.png"
 
 const Navbar = () => {
   // const [item, setItem] = useState({})
   return (
     <>
-      {/* <StickyBar> */}
       <div className="NavContent">
-        <div className="NavContent left">
+        <div className="NavContent_logo">
+          <a href="">
+            <img src={logo} alt="Nordcloud, an IBM company" />
+          </a>
+        </div>
+        <div className="NavContent_pages">
           <a href="#">dashboard</a>
           <a href="#">projects</a>
           <a href="#">talents</a>
         </div>
-        <div className="NavContent right">
-          <a href="profile">profile</a>
-        </div>
       </div>
-      {/* </StickyBar> */}
     </>
   )
 }

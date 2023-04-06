@@ -3,24 +3,34 @@
 .NavContent {
   position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
-  height: 100px;
+  height: 8vh;
   width: 100%;
   background-color: $nc_dark_blue;
   padding: 0 10%;
   &_logo {
-    width: 30%;
+    width: 20%;
     display: flex;
     align-items: center;
-    img {
-      width: 60%;
-      height: auto;
+    a {
+      display: inherit;
+      justify-content: start;
+      align-items: center;
+      height: 100%;
+      width: 80%;
+      // margin: auto;
+      img {
+        width: 80%;
+        height: auto;
+      }
     }
   }
   &_pages {
     display: flex;
     align-items: center;
+    justify-content: start;
+    width: 60%;
     a {
       display: inherit;
       align-items: center;

@@ -1,6 +1,8 @@
 import { useState } from "react"
-import "./Navbar.scss"
 import logo from "../../assets/cloud-logo.png"
+import { Icon } from "semantic-ui-react"
+
+import "./Navbar.scss"
 
 const Navbar = () => {
   // const [item, setItem] = useState({})
@@ -13,9 +15,18 @@ const Navbar = () => {
           </a>
         </div>
         <div className="NavContent_pages">
-          <a href="#">dashboard</a>
-          <a href="#">projects</a>
-          <a href="#">talents</a>
+          <a href="#">
+            <Icon name="clipboard" size="small" />
+            dashboard
+          </a>
+          <a href="#">
+            <Icon name="bars" size="small" />
+            projects
+          </a>
+          <a href="#">
+            <Icon name="briefcase" size="small" />
+            talents
+          </a>
         </div>
       </div>
     </>

@@ -1,3 +1,18 @@
-.dashboard{
-    padding-top: 20px;
+.dashboard {
+  padding-top: 7em;
+}
+
+#cvArea {
+  border: 3px solid orange;
+  width: 100px;
+  height: 100px;
+  border-style: dotted;
+  padding: 30px;
+}
+
+#actLogs p span {
+  font-size: 12px;
+  color: gray;
+  padding-left: 50px;
+  display: inline-block;
 }

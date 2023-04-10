@@ -17,7 +17,7 @@ const reminder = (
   <>
     <Header size="medium">Reminder</Header>
     <div>
-      <Feed events={feedEvents} />
+      <Feed events={feedEvents} size='small'/>
     </div>
   </>
 );

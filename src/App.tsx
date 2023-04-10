@@ -7,10 +7,8 @@ import "./styles/style.scss";
 const App = () => {
   return (
     <div className="App" id="App">
-      <Container>
         <Navbar />
         <Dashboard />
-      </Container>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import { SetGlobalStyle } from "@nordcloud/gnui";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <SetGlobalStyle />
     <App />
   </React.StrictMode>
 );

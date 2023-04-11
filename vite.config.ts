@@ -16,5 +16,8 @@ export default defineConfig({
     // coverage: {
     //   reporter: ['text', 'json', 'html'],
     // }
+  },
+  server: {
+    port: 8080,
   }
 });

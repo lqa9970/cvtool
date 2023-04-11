@@ -1,5 +1,7 @@
 import { Card, Header, Feed } from "semantic-ui-react";
+import ninja from "../../assets/ninja.png"
 
+import "./index.css";
 const feedEvents = [
   {
     icon: "bell",
@@ -24,10 +26,10 @@ const reminder = (
 
 const UserCard = (): JSX.Element => {
   return (
-    <Card className='userCard'
-      image="https://react.semantic-ui.com/images/avatar/large/molly.png"
+    <Card id='userCard'
+      image={ninja}
       header="Junior developer"
-      meta="Sarah kallio, App-dev-1"
+      meta="Kukka kallio, App-dev-1"
       extra={reminder}
     />
   );

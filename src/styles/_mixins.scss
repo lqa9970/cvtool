@@ -15,6 +15,19 @@ $font-weight: (
   "thick": 500,
   "heavy": 700,
 );
+
 @function weight($w) {
   @return map-get($font-weight, $w);
+}
+
+@mixin small-screen {
+  @media (max-width: 1100px) {
+    @content;
+  }
+}
+
+@mixin large-screen {
+  @media (min-width: 1101px) {
+    @content;
+  }
 }

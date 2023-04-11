@@ -1,16 +1,13 @@
-import Navbar from "./components/Navbar/Navbar";
-import { Container } from "semantic-ui-react";
-import Dashboard from "./pages/Dashboard";
+import Navbar from "./components/Navbar/Navbar"
 
-import "./styles/style.scss";
+import "./styles/style.scss"
 
-const App = () => {
+function App() {
   return (
     <div className="App" id="App">
-        <Navbar />
-        <Dashboard />
+      <Navbar />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

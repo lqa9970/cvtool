@@ -1,0 +1,9 @@
+#userCard img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: block;
+  padding: 2px;
+  margin:10px auto 10px auto;
+  border: thick solid green;
+}

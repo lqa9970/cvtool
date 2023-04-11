@@ -1,15 +1,16 @@
-import {AppRoutes} from "./routes/index"
-import { BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import { Container } from "semantic-ui-react";
+import Dashboard from "./pages/Dashboard";
 
-function App() {
-  
+import "./styles/style.scss";
+
+const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+    <div className="App" id="App">
+        <Navbar />
+        <Dashboard />
     </div>
   );
-}
+};
 
 export default App;

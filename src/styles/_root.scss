@@ -1,0 +1,15 @@
+@import "./mixins";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: inherit;
+  text-decoration: none;
+}
+
+#App {
+  line-height: 1.15;
+  scroll-behavior: smooth;
+  font-weight: weight(medium);
+  font-family: $font;
+}

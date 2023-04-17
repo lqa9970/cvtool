@@ -3,10 +3,11 @@ import { Container, Grid, Image, Button, Card, Header, Dropdown, Input, Menu, Me
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import ninja from "../../assets/ninja.png"
-import BasicInfo from "../../components/BasicInfo/basicinfo"
+import BasicInfo from "../../components/BasicInfo/Basicinfo"
 
 interface ICVForm {
 }
+
 
 
 const CreateCV = () => {

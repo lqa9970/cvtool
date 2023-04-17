@@ -1,31 +1,38 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Dashboard from './Dashboard';
+import {OktaTokenPayload} from '../types/types';
+import {decodeOktaToken} from '../services/jwtDecodeService'
+
 
 export const  Login = () => {
     
+    const[loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>()
     const { oktaAuth, authState } = useOktaAuth();
     const isAuthenticated = authState?.isAuthenticated;
     const { pathname } = useLocation();
 
+    const navigate = useNavigate();
+
+
     if (isAuthenticated === false) {
         oktaAuth.signInWithRedirect({ originalUri: pathname });        
     }
-    if (isAuthenticated == true){
-        useEffect(() => {
-            const idToken = oktaAuth.getIdToken();
-            if (idToken) {
-                console.log(idToken);
-            }
-        }, []);
-    }
-    
+    useEffect(() => {
+        if (isAuthenticated == true){
+        const idToken = oktaAuth.getIdToken();
+        if (idToken) {
+            const decodedToken = decodeOktaToken(idToken);
+            setLoggedInUser(decodedToken)
+        }}
+    }, []);
+        
+
     return (
         isAuthenticated?
-        (<div>
-            <p>Logged in!</p>
-        </div>):
-        
+        (<Dashboard/>):
+
         (<div>
             <p>Logging In ...</p>
         </div>)

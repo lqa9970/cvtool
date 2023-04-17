@@ -2,6 +2,14 @@ import { Card, Header, Feed } from "semantic-ui-react";
 import ninja from "../../assets/ninja.png"
 
 import "./index.css";
+
+
+interface IUserCard{
+  name?: string;
+  email?: string;
+}
+
+
 const feedEvents = [
   {
     icon: "bell",
@@ -24,12 +32,13 @@ const reminder = (
   </>
 );
 
-const UserCard = (): JSX.Element => {
+const UserCard = (props: IUserCard): JSX.Element => {
+  
   return (
     <Card id='userCard'
       image={ninja}
-      header="Junior developer"
-      meta="Kukka kallio, App-dev-1"
+      header={props.name}
+      meta={props.email}
       extra={reminder}
     />
   );

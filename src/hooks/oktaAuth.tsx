@@ -2,7 +2,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 
 const oktaClientconfig = {
     issuer: 'https://dev-nordcloud.okta.com',
-    clientId: '',
+    clientId: '0oa8srt4yr0BUNzz05d7',
     redirectUri: window.location.origin + '/login/callback',
   };
 

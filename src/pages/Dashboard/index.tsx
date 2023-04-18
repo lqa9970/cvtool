@@ -5,18 +5,27 @@ import {
   Container,
   Segment,
   GridRow,
-  Icon,
-} from "semantic-ui-react";
-import UserCard from "../../components/UserCard";
+  Icon
+} from 'semantic-ui-react';
+import UserCard from '../../components/UserCard';
+import { useOktaAuth } from '@okta/okta-react';
+import { useNavigate } from 'react-router-dom';
 
-import "./index.css";
+import './index.css';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const { authState } = useOktaAuth();
+
   return (
     <Container className="dashboard">
       <Grid>
         <Grid.Column width={4}>
-          <UserCard />
+          <UserCard
+            name={authState?.idToken?.claims.name}
+            email={authState?.idToken?.claims.email}
+          />
         </Grid.Column>
         <GridColumn width={8}>
           <GridRow>
@@ -26,22 +35,23 @@ const Dashboard = () => {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => alert("hello")}
+                  onClick={() => navigate('/cv')}
                 />
-                You don't have a CV.
+                Create a new CV.
               </Header>
             </Segment>
-            <Header as="h3">Badges</Header>
+            {/* <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">
               <Header as="h4" icon>
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => alert("hello")}
+                  onClick={() => navigate('/cvprofile')
+                }
                 />
                 You haven't attach any badges.
               </Header>
-            </Segment>
+            </Segment> */}
           </GridRow>
         </GridColumn>
         <GridColumn width={4}>

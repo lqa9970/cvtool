@@ -18,20 +18,8 @@ const BasicInfo = () => {
 
   return (
     <>
-      <Container className="dashboard">
-        <Grid columns={2} stackable>
-            <Grid.Row>
-            <Grid.Column width={6}>
-                <Card>
-                    <Image src={ninja} size='small' wrapped ui={false} />
-                    <Card.Content extra>
-                        <Button disabled style={{backgroundColor: 'rgb(22,22,50)', color: 'white' }}>
-                            Change Avatar
-                        </Button>
-                    </Card.Content>
-                </Card>
-            </Grid.Column>
-            <Grid.Column width={10}>
+      
+            
                 <div className="field">
                     <Header as='h3' dividing>
                         Basic Info
@@ -63,10 +51,7 @@ const BasicInfo = () => {
                         {user.phone}
                     </Header.Subheader>
                 </div>   
-            </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    </Container>
+            
     </>
   );
 };

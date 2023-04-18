@@ -5,27 +5,27 @@ import {
   Container,
   Segment,
   GridRow,
-  Icon,
-} from "semantic-ui-react";
-import UserCard from "../../components/UserCard";
+  Icon
+} from 'semantic-ui-react';
+import UserCard from '../../components/UserCard';
 import { useOktaAuth } from '@okta/okta-react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import "./index.css";
-
+import './index.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
   const { authState } = useOktaAuth();
 
-  
-  
   return (
     <Container className="dashboard">
       <Grid>
         <Grid.Column width={4}>
-          <UserCard name={authState?.idToken?.claims.name} email={authState?.idToken?.claims.email} />
+          <UserCard
+            name={authState?.idToken?.claims.name}
+            email={authState?.idToken?.claims.email}
+          />
         </Grid.Column>
         <GridColumn width={8}>
           <GridRow>
@@ -35,8 +35,7 @@ const Dashboard = () => {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')
-                }
+                  onClick={() => navigate('/cv')}
                 />
                 Create a new CV.
               </Header>

@@ -1,7 +1,7 @@
-import logo from "../../assets/cloud-logo.png"
-import { Icon } from "semantic-ui-react"
+import logo from '../../assets/cloud-logo.png';
+import { Icon } from 'semantic-ui-react';
 
-import "./Navbar.scss"
+import './Navbar.scss';
 
 const Navbar = () => {
   // const [item, setItem] = useState({})
@@ -29,7 +29,7 @@ const Navbar = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

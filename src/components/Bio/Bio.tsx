@@ -11,35 +11,39 @@ const initialValues: FormValues = {
 
 const BioForm = () => {
   return (
-      <Grid.Column width={10}>
-        <Formik<FormValues>
-          initialValues={initialValues}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
-        >
-          {({ values, handleChange, handleSubmit, handleReset }) => (
-            <Form onSubmit={handleSubmit}>
-              <Grid>
-                <Grid.Column width={12}>
-                  <TextArea
-                    name="bioDescription"
-                    placeholder="Enter your description here..."
-                    value={values.bioDescription}
-                    onChange={handleChange}
-                    style={{ minHeight: 100, minWidth: 500}} 
-                    rows={6}
-                  />
-                </Grid.Column>
-              </Grid>
-              <Button type="submit">Save</Button>
-              <Button type="button" onClick={handleReset}>
-                Reset
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </Grid.Column>
+    <Grid.Column width={10}>
+      <Formik<FormValues>
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {({ values, handleChange, handleSubmit, handleReset }) => (
+          <Form onSubmit={handleSubmit}>
+            <Grid>
+              <Grid.Column width={12}>
+                <TextArea
+                  name="bioDescription"
+                  placeholder="Enter your description here..."
+                  value={values.bioDescription}
+                  onChange={handleChange}
+                  style={{ minHeight: 100, minWidth: 500 }}
+                  rows={6}
+                  primary
+                />
+              </Grid.Column>
+            </Grid>
+            <Button style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }} type="submit">Save</Button>
+            <Button
+              type="button"
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </Grid.Column>
   );
 };
 

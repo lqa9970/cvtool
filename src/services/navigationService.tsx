@@ -1,9 +1,8 @@
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-interface INavigate{
-}
+interface INavigate {}
 
-export const Navigate = async (path: string) =>{
-    const navigate = useNavigate();
-    return navigate(path)
-}
+export const Navigate = async (path: string) => {
+  const navigate = useNavigate();
+  return navigate(path);
+};

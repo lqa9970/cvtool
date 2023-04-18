@@ -55,7 +55,7 @@
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^21.1.1",
     "patch-package": "^6.4.7",
-    "prettier": "2.8.4",
+    "prettier": "^2.8.4",
     "typescript": "^5.0.2",
     "vite": "^4.2.0",
     "vitest": "^0.29.3"

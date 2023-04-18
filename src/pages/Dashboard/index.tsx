@@ -5,11 +5,17 @@ import {
   Container,
   Segment,
   GridRow,
+<<<<<<< HEAD
   Icon
 } from 'semantic-ui-react';
 import UserCard from '../../components/UserCard';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
+=======
+  Icon,
+} from "semantic-ui-react";
+import UserCard from "../../components/UserCard/UserCard";
+>>>>>>> 22c6ea1 (feat(cvhub-dropdown):reusable component)
 
 import './index.css';
 

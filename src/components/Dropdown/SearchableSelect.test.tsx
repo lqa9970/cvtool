@@ -14,7 +14,7 @@ const options = [
 describe("Multi option selected from drop down", () => {
   it("is rendered", () => {
     const handleChange= vi.fn()
-    render(<SearchableSelect multiSelected={true} allOptions={languageOptions} placeholder="Search..." filter={handleChange}/>)
+    render(<SearchableSelect multiSelected={true} allOptions={options} placeholder="Search..." filter={handleChange}/>)
     expect(screen.getByText('Finnish')).exist
   })
 })

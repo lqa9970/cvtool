@@ -7,9 +7,9 @@ import {
   GridRow,
   Icon
 } from 'semantic-ui-react';
-import UserCard from '../../components/UserCard';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
+import UserCard from '../../components/UserCard/UserCard';
 
 import './index.css';
 

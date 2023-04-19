@@ -32,7 +32,8 @@ const useUserDetails = (
             main_tech: user.data().main_tech,
             roles: user.data().roles,
             phone_number: user.data().phone_number,
-            experience_level: user.data().experience_level
+            experience_level: user.data().experience_level,
+            education: user.data().education
           });
         });
 

@@ -1,5 +1,4 @@
 import { SyntheticEvent } from "react";
-import Option from "react-select/dist/declarations/src/components/Option";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
 
 type SearchableSelectProps = {

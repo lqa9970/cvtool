@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Grid } from 'semantic-ui-react';
+
+
+import { Button, Grid, Container } from 'semantic-ui-react';
 
 import { User } from '../../types/types';
 
@@ -65,6 +67,7 @@ const SearchResultCard = () => {
                   })}
                 </div>
               </div>
+              <button>Read more</button>
             </Grid.Column>
           </Grid>
         </div>

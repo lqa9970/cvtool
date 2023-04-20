@@ -16,3 +16,13 @@
   padding-left: 50px;
   display: inline-block;
 }
+
+.search {
+  margin: 2em 0;
+  &_result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

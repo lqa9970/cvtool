@@ -58,7 +58,9 @@ const SearchResultCard = () => {
                 <h1>Tech stack:</h1>
                 <div className="card_details_stack">
                   {user.techStack.map((stack) => {
-                    return <span>{stack}</span>;
+                    return (
+                      <span key={user.techStack.indexOf(stack)}>{stack}</span>
+                    );
                   })}
                 </div>
               </div>

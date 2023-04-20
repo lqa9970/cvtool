@@ -27,7 +27,9 @@ export const Login = () => {
   }, []);
 
   return isAuthenticated ? (
-    <Dashboard />
+    <>
+      <Dashboard />
+    </>
   ) : (
     <div>
       <p>Logging In ...</p>

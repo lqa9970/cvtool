@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Security, LoginCallback } from '@okta/okta-react';
 import { Login } from '../pages/login';
 import { OktaAuth } from '@okta/okta-auth-js';
-import useAuthorizationOkta from '../hooks/oktaAuth';
+import useAuthorizationOkta from '../hooks/useOktaAuth';
 import Navbar from '../components/Navbar/Navbar';
 import CreateCV from '../pages/CVProfile';
 

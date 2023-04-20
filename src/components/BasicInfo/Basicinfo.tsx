@@ -1,58 +1,42 @@
-import { useState } from 'react';
-import ninja from '../../assets/ninja.png';
-import {
-  Container,
-  Grid,
-  Image,
-  Button,
-  Card,
-  Header
-} from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
+import { EmployeeUser } from '../../types/types';
 
-const BasicInfo = () => {
-  const [user, setUser] = useState({
-    name: 'Emilia Strömberg',
-    position: 'Design Lead, Team Lead',
-    address: 'Berlin, Germany',
-    email: 'emma.Stromberg@nordcloud.com',
-    phone: '+49 176 5432 1098',
-    desc: 'Team: Build/Design - DACHSuperior',
-    manager: 'Anna Doe',
-    managerEmail: 'anna.doe@nordcloud.com',
-    nationality: 'Finnish'
-  });
+interface IBasicInfo {
+  userDetails: EmployeeUser | null;
+}
 
+const BasicInfo = (props: IBasicInfo) => {
   return (
     <>
       <div className="field">
         <Header as="h3" dividing>
           Basic Info
         </Header>
-        <Header size="large">{user.name}</Header>
-        <Header size="small">{user.position}</Header>
+        <Header size="large">{props.userDetails?.name}</Header>
+        <Header size="small">{props.userDetails?.job_title}</Header>
         <Header.Subheader>
           <i className="envelope icon"></i>
-          {user.email}
+          {props.userDetails?.email}
         </Header.Subheader>
         <Header.Subheader>
           <i className="address card icon"></i>
-          {user.address}
+          {props.userDetails?.location}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="phone square icon"></i>
-          {user.nationality}
+          <i className="world square icon"></i>
+          {props.userDetails?.nationality}
         </Header.Subheader>
         <Header.Subheader>
           <i className="user square icon"></i>
-          Manager: {user.manager}
+          Manager: {props.userDetails?.manager_name}
         </Header.Subheader>
         <Header.Subheader>
           <i className="envelope square icon"></i>
-          Manger Email: {user.managerEmail}
+          Manger Email: {props.userDetails?.manager_email}
         </Header.Subheader>
         <Header.Subheader>
           <i className="phone square icon"></i>
-          {user.phone}
+          {props.userDetails?.phone_number}
         </Header.Subheader>
       </div>
     </>

@@ -35,7 +35,7 @@ const Dashboard = () => {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')}
+                  onClick={() => navigate('/staffing')}
                 />
                 Create a new CV.
               </Header>

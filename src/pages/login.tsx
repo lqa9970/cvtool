@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Dashboard from './Dashboard';
 import { OktaTokenPayload } from '../types/types';
 import { decodeOktaToken } from '../services/jwtDecodeService';
+import StaffingDashboard from './StaffingDashboard';
+
 
 export const Login = () => {
   const [loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>();
@@ -27,7 +29,10 @@ export const Login = () => {
   }, []);
 
   return isAuthenticated ? (
+    <>
     <Dashboard />
+    <StaffingDashboard />
+    </>
   ) : (
     <div>
       <p>Logging In ...</p>

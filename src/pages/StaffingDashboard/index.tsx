@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Container,
   Grid,
@@ -68,12 +69,13 @@ const employeeData = [
       { id: '2', name: 'Java' },
       { id: '3', name: 'Typescript' }
     ]
+
   }
-];
+]
 
 const displayMatchCard = (
   <Grid divided="vertically">
-    <Grid.Row >
+    <Grid.Row columns={5}>
       <Grid.Column>
         <Header as="h4"> Key word search</Header>
         <Search placeholder="search..." />
@@ -91,6 +93,7 @@ const displayMatchCard = (
 );
 
 const filterSection = (
+
   <Container>
     <Header as="h5">
       Hyperscaler
@@ -173,10 +176,12 @@ const StaffingDashboard = () => {
   return (
     <>
       {authState ? (
-         <Grid  id='grid-box'stackable divided doubling columns={2}>
-            <Grid.Column width={3}> {filterSection}</Grid.Column>
+        <Container className="dashboard">
+          <Grid stackable divided doubling columns={2}>
+            <Grid.Column width={4}>{filterSection}</Grid.Column>
             <Grid.Column width={12}> {displayMatchCard}</Grid.Column>
-        </Grid>
+          </Grid>
+        </Container>
       ) : (
         <>
           <p>null</p>

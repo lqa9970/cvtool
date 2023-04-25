@@ -1,5 +1,6 @@
 import { Formik, Form } from 'formik';
-import { Button, Grid, Header, TextArea } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
+import TextAreaInput from '../TextAreaInput/TextArea';
 
 interface FormValues {
   bioDescription: string;
@@ -18,28 +19,12 @@ const BioForm = () => {
           console.log(values);
         }}
       >
-        {({ values, handleChange, handleSubmit, handleReset }) => (
+        {({ values, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <Grid>
-              <Grid.Column width={12}>
-                <TextArea
-                  name="bioDescription"
-                  placeholder="Enter your description here..."
-                  value={values.bioDescription}
-                  onChange={handleChange}
-                  style={{ minHeight: 100, minWidth: 500 }}
-                  rows={6}
-                  primary
-                />
-              </Grid.Column>
-            </Grid>
+            <TextAreaInput value={values.bioDescription} name="bioDescription" placeholder='Enter your bio here' handleChange={handleChange}>
+
+            </TextAreaInput>
             <Button style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }} type="submit">Save</Button>
-            <Button
-              type="button"
-              onClick={handleReset}
-            >
-              Reset
-            </Button>
           </Form>
         )}
       </Formik>

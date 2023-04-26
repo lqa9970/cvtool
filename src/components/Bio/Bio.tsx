@@ -21,10 +21,19 @@ const BioForm = () => {
       >
         {({ values, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <TextAreaInput value={values.bioDescription} name="bioDescription" placeholder='Enter your bio here' handleChange={handleChange}>
-
-            </TextAreaInput>
-            <Button style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }} type="submit">Save</Button>
+            <TextAreaInput
+              value={values.bioDescription}
+              name="bioDescription"
+              placeholder="Enter your bio here"
+              handleChange={handleChange}
+              children={[]}
+            ></TextAreaInput>
+            <Button
+              style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }}
+              type="submit"
+            >
+              Save
+            </Button>
           </Form>
         )}
       </Formik>

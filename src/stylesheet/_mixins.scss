@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&family=Rubik+Distressed&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+// Colors
+$nc_gray: #ececf4;
+$nc_dark_blue: #161632;
+$nc_white: #fffff5;
+$nc_error:#DB1F1F;
+
+// Avatar colors
+$av_junior: #33ae4e;
+$av_mid: #5b68c0;
+$av_senior: #0a3586;
+$av_architect: #161632;
+$av_pro: #ed9111;
+
+// Text-colors
+$text_primary: #8E8EAC;
+$text_main:#161632;
+
+// Font
+$font: 'Roboto', sans-serif;
+$font-weight: (
+  "regular": 300,
+  "medium": 400,
+  "thick": 500,
+  "heavy": 700,
+);
+@function weight($w) {
+  @return map-get($font-weight, $w);
+}

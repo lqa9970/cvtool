@@ -5,13 +5,12 @@ import {
   Container,
   Segment,
   GridRow,
-  Icon
+  Icon,
+  Button
 } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
-import SearchableSelect from '../../components/search/SearchableSelect';
-import SearchResultCard from '../../components/SearchResultCard/SearchResultCard';
 
 import './index.scss';
 
@@ -65,35 +64,6 @@ const Dashboard = () => {
           </Segment>
         </GridColumn>
       </Grid>
-
-      {/* Temporal place for Search page. Will be moved later */}
-
-      <div className="search">
-        <div className="search_section">
-          <SearchableSelect
-            placeholder="Search here..."
-            options={[
-              { text: 'ABC', value: '123' },
-              { text: 'DEF', value: '123' },
-              { text: 'GHI', value: '123' },
-              { text: 'MNP', value: '123' },
-              { text: 'XYZ', value: '123' }
-            ]}
-          />
-        </div>
-        <div className="search_result">
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-        </div>
-      </div>
-
-      {/* Temporal place for Search result cards. Will be moved later */}
     </Container>
   );
 };

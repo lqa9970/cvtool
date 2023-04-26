@@ -1,4 +1,4 @@
-@import "./mixins";
+@import "mixins";
 
 * {
   margin: 0px;
@@ -13,3 +13,4 @@
   font-weight: weight(medium);
   font-family: $font;
 }
+

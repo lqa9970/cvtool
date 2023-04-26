@@ -1,34 +1,13 @@
-import { useState } from 'react';
+/*import { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 
-import { User } from '../../types/types';
+import { EmployeeUser, User } from '../../types/types';
 
 import ninja from '../../assets/ninja.png';
 import './SearchResultCard.scss';
 
 
-const SearchResultCard = () => {
-  const [user, setUser] = useState<User>({
-    name: 'Emilia Strömberg',
-    position: 'Design Lead, Team Lead',
-    address: 'Berlin, Germany',
-    email: 'emma.stromberg@nordcloud.com',
-    phone: '+49 176 5432 1098',
-    desc: 'Team: Build/Design - DACHSuperior',
-    manager: 'Anna Doe',
-    managerEmail: 'anna.doe@nordcloud.com',
-    nationality: 'Finnish',
-    techStack: [
-      'Lead',
-      'Boss',
-      'Design',
-      'PHP',
-      'React',
-      'CSS',
-      'HTML',
-      'Python'
-    ]
-  });
+*const SearchResultCard = () => {
 
   return (
     <>
@@ -74,3 +53,4 @@ const SearchResultCard = () => {
 };
 
 export default SearchResultCard;
+*/

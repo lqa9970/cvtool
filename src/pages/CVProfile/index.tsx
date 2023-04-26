@@ -6,12 +6,15 @@ import BioForm from '../../components/Bio/Bio';
 import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
 import useGetUser from '../../hooks/useGetUser';
 
+
 interface ICVForm {}
 
 const CreateCV = () => {
   const { authState } = useOktaAuth();
 
   const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
+
+
 
   return (
     <>

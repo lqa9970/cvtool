@@ -1,7 +1,6 @@
-import { describe, expect, it} from "vitest"
-import { render, screen } from "@testing-library/react"
-import SearchableSelect from "./SearchableSelect";
-
+import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import SearchableSelect from './SearchableSelect';
 
 const options = [
   { text: 'Finnish', value: 'finnish' },
@@ -11,10 +10,17 @@ const options = [
   { text: 'French', value: 'french' }
 ];
 
-describe("Multi option selected from drop down", () => {
-  it("is rendered", () => {
-    const handleChange= vi.fn()
-    render(<SearchableSelect multiSelected={true} allOptions={options} placeholder="Search..." filter={handleChange}/>)
-    expect(screen.getByText('Finnish')).exist
-  })
-})
+describe('Multi option selected from drop down', () => {
+  it('is rendered', () => {
+    const handleChange = vi.fn();
+    render(
+      <SearchableSelect
+        multiSelected={true}
+        allOptions={options}
+        placeholder="Search..."
+        filter={handleChange}
+      />
+    );
+    expect(screen.getByText('Finnish')).exist;
+  });
+});

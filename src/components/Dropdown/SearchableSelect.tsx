@@ -1,5 +1,5 @@
-import { SyntheticEvent } from "react";
-import { Dropdown, DropdownProps } from "semantic-ui-react";
+import { SyntheticEvent } from 'react';
+import { Dropdown, DropdownProps } from 'semantic-ui-react';
 
 type SearchableSelectProps = {
   allOptions: Option[];
@@ -17,7 +17,7 @@ const SearchableSelect = ({
   allOptions,
   placeholder,
   multiSelected,
-  filter,
+  filter
 }: SearchableSelectProps) => {
   const handleChange = (event: SyntheticEvent, data: DropdownProps) => {
     event.preventDefault();

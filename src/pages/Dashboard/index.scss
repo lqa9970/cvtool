@@ -1,9 +1,11 @@
+@import '../../stylesheet/mixins';
+
 .dashboard {
   padding-top: 7em;
 }
 
 #cvArea {
-  border: 3px solid orange;
+  border: 3px solid $av_pro;
   width: 100px;
   height: 100px;
   border-style: dotted;
@@ -15,4 +17,14 @@
   color: gray;
   padding-left: 50px;
   display: inline-block;
+}
+
+.search {
+  margin: 2em 0;
+  &_result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }

@@ -5,13 +5,14 @@ import {
   Container,
   Segment,
   GridRow,
-  Icon
+  Icon,
+  Button
 } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
 
-import './index.css';
+import './index.scss';
 
 const Dashboard = () => {
   const navigate = useNavigate();

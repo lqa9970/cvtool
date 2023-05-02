@@ -6,6 +6,7 @@ import {
   Segment,
   GridRow,
   Icon,
+  Button
 } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';

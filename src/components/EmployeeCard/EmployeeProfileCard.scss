@@ -1,16 +1,54 @@
-@import '../../stylesheet/mixins';
+@import "../../stylesheet/mixins";
 
-.container {
-  max-width: 30% !important;
+#card {
+  padding: 0.5em;
+  border-radius: 2%;
+  span{
+    text-align: center;
+    padding: 0.1em;
+    font-size: 12px;
+    font-weight:300;
+  }
+  button{
+    margin-top: 1rem;
+    font-size: small;
+    border: none;
+    margin-left: 2em;
+    height: 10%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background-color: $nc_white;
+      color: $nc_dark_blue;
+    }
+  }
+
 }
 
-.card {
-  border: 1px solid $text_primary;
+.ui.card .content img{ 
+  display: inline-block;
+  vertical-align: middle;
+  border: 5px solid $av_senior;
+  border-radius: 50%;
+  margin:0.5em 0.8em 0.8em;
+  padding: 0.2em 0.1em 0.2em;
+}
+
+
+@mixin border-color( $title){
+  @if $title == 'Senior developer'{
+    border: 5px solid $av_senior;
+  }
+}
+
+
+/*#card {
   border-radius: 2%;
   margin: 1rem;
   padding: 1rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
   &_icons {
     display: flex;
     flex-direction: column;
@@ -26,11 +64,11 @@
       width: 100%;
       height: auto;
       margin-bottom: 20%;
-      img {
-        width: 80%;
+      mg {
+        width: 100%;
         height: auto;
-        margin: 10%;
-      }
+        margin: 100%;
+      }i
     }
     &_badges {
       img {
@@ -82,4 +120,4 @@
       color: $nc_dark_blue;
     }
   }
-}
+}*/

@@ -7,7 +7,6 @@ const useUpdateUser = () => {
     id: string
   ) => {
     const user = doc(db, 'users', id);
-    console.log(user);
     await updateDoc(user, dataToUpdate)
       .then((response) => {
         console.log('user data updated', response);

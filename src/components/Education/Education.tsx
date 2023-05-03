@@ -1,13 +1,13 @@
-import React from 'react';
 import { Formik, Form } from 'formik';
 import { Education } from '../../types/types';
 import { Button, Grid, TextArea, Input } from 'semantic-ui-react';
 import { Header, Label, Icon } from 'semantic-ui-react';
 import { Datepicker, DayPicker } from '@nordcloud/gnui';
 import { useState } from 'react';
-import { educationSchema, defaultStartDate, uniqueIdGenerator } from './EducationUtils';
+import { educationSchema, defaultStartDate } from './EducationUtils';
 import { formatDate, initialValues, defaultEndDate } from './EducationUtils';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import { uniqueIdGenerator } from '../../utils/uid';
 import './Education.scss';
 
 type EducationProps = {
@@ -43,7 +43,6 @@ const EducationComponent = (props: EducationProps) => {
 
   const handleFormikSubmit = (values: Education) => {
     const degrees = props.education || [];
-    console.log(values);
     degrees.push({ ...values, id: uniqueIdGenerator() });
     updateUser({ education: degrees }, props.userId);
   };

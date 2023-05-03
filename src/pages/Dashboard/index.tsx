@@ -12,7 +12,6 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
 import SearchableSelect from '../../components/search/SearchableSelect';
-import SearchResultCard from '../../components/SearchResultCard/SearchResultCard';
 
 import './index.scss';
 
@@ -38,7 +37,7 @@ const Dashboard = () => {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/staffing')}
+                  onClick={() => navigate('/cv')}
                 />
                 Create a new CV.
               </Header>
@@ -82,16 +81,7 @@ const Dashboard = () => {
             ]}
           />
         </div>
-        <div className="search_result">
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-          <SearchResultCard />
-        </div>
+     
       </div>
 
       {/* Temporal place for Search result cards. Will be moved later */}

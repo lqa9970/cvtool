@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 import {
   Container,
+  Divider,
   Grid,
   GridColumn,
   Header,
@@ -73,7 +73,7 @@ const employeeData = [
   }
 ]
 
-const displayMatchCard = (
+const DisplayMatchCard = (
   <Grid divided="vertically">
     <Grid.Row columns={5}>
       <Grid.Column>
@@ -92,9 +92,11 @@ const displayMatchCard = (
   </Grid>
 );
 
-const filterSection = (
+const FilterSection = (
 
   <Container>
+    <Header as='h4'>Filter</Header>
+    <Divider/>
     <Header as="h5">
       Hyperscaler
       <SearchableSelect
@@ -141,15 +143,6 @@ const filterSection = (
       />
     </Header>
     <Header as="h5">
-      Location
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
       Languages
       <SearchableSelect
         allOptions={[ { text: 'French', value: 'french' },
@@ -176,12 +169,12 @@ const StaffingDashboard = () => {
   return (
     <>
       {authState ? (
-        <Container className="dashboard">
+        <div id="grid-box">
           <Grid stackable divided doubling columns={2}>
-            <Grid.Column width={4}>{filterSection}</Grid.Column>
-            <Grid.Column width={12}> {displayMatchCard}</Grid.Column>
+            <Grid.Column width={4}>{FilterSection}</Grid.Column>
+            <Grid.Column width={12}> {DisplayMatchCard}</Grid.Column>
           </Grid>
-        </Container>
+        </div>
       ) : (
         <>
           <p>null</p>

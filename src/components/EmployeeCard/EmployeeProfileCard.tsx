@@ -14,7 +14,7 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
     <Card id="card">
       <Card.Content>
       <Image size="tiny" floated="left" src={ninja} tittl={employee.job_title} />
-        <Card.Header>{employee.job_title}</Card.Header>
+        <Card.Header>{employee?.job_title}</Card.Header>
         <Card.Meta>{employee.name}</Card.Meta>
         <Card.Meta>{employee.location}</Card.Meta>
         <Card.Meta>{employee.phone_number}</Card.Meta>

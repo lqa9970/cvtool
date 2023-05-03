@@ -12,6 +12,7 @@ import SearchableSelect from '../../components/Dropdown/SearchableSelect';
 import EmployeeProfileCard from '../../components/EmployeeCard/EmployeeProfileCard';
 
 import './index.scss';
+import { Value } from 'sass';
 
 const employeeData = [
   {
@@ -74,7 +75,7 @@ const employeeData = [
 ]
 
 const DisplayMatchCard = (
-  <Grid divided="vertically">
+  <Grid divided="vertically" id="display">
     <Grid.Row columns={5}>
       <Grid.Column>
         <Header as="h4"> Key word search</Header>
@@ -93,7 +94,6 @@ const DisplayMatchCard = (
 );
 
 const FilterSection = (
-
   <Container>
     <Header as='h4'>Filter</Header>
     <Divider/>
@@ -102,7 +102,7 @@ const FilterSection = (
       <SearchableSelect
         allOptions={[]}
         multiSelected={true}
-        filter={() => console.log('option')}
+        filter={() => console.log()}
         placeholder=""
       />
     </Header>
@@ -148,7 +148,7 @@ const FilterSection = (
         allOptions={[ { text: 'French', value: 'french' },
         { text: 'German', value: 'German' }]}
         multiSelected={true}
-        filter={() => console.log('option')}
+        filter={(value) => console.log(value)}
         placeholder=""
       />
     </Header>

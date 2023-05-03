@@ -19,9 +19,9 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
         <Card.Meta>{employee.location}</Card.Meta>
         <Card.Meta>{employee.phone_number}</Card.Meta>
         <Card.Meta>Manager: {employee.manager_name}</Card.Meta>
-        <Image id="badge" size="mini" src={ninja} />
-        <Image id="badge" size="mini" src={ninja} />
-        <Image id="badge" size="mini" src={ninja} />
+        <Image id="badge" size="mini" src={ninja} alt="badge" />
+        <Image id="badge" size="mini" src={ninja} alt="badge" />
+        <Image id="badge" size="mini" src={ninja} alt="badge" />
         <Feed>
           <Feed.Content>
             <Card.Header as="h4">Tech Stack</Card.Header>

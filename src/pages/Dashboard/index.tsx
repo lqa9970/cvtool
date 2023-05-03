@@ -41,6 +41,7 @@ const Dashboard = () => {
                 />
                 Create a new CV.
               </Header>
+              <Button onClick={() => navigate('/staffing')}/>
             </Segment>
             {/* <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">

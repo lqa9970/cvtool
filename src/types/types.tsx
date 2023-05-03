@@ -33,7 +33,14 @@ export interface Reminders {
   datetime: string;
 }
 
-export interface Education {}
+export interface Education {
+  id: string;
+  school: string;
+  degree: string;
+  startMonthYear: string;
+  endMonthYear: string;
+  degreeDescription: string;
+}
 
 export interface EmployeeUser {
   id: string;

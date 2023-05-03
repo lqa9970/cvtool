@@ -43,23 +43,23 @@ export interface Education {
 }
 
 export interface EmployeeUser {
-  id: string;
-  name: string;
-  email: string;
-  location: string;
-  job_title: string;
-  manager_name: string;
-  manager_email: string;
-  nationality: string;
-  main_tech: string;
-  phone_number: string;
-  roles: Roles[];
+  id?: string;
+  name?: string;
+  email?: string;
+  location?: string;
+  job_title?: string;
+  manager_name?: string;
+  manager_email?: string;
+  nationality?: string;
+  main_tech?: string;
+  phone_number?: string;
+  roles?: Roles[];
   social_links?: SocialLinks[];
   bio?: string;
   languages?: Languages[];
   skills?: Skills[];
   workabroad?: boolean;
-  experience_level: string;
+  experience_level?: string;
   projects?: Project[];
   reminders?: Reminders[];
   last_activity?: string[];

@@ -11,6 +11,7 @@ import {
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
+import SearchableSelect from '../../components/search/SearchableSelect';
 
 import './index.scss';
 
@@ -40,6 +41,7 @@ const Dashboard = () => {
                 />
                 Create a new CV.
               </Header>
+              <Button onClick={() => navigate('/staffing')}/>
             </Segment>
             {/* <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">
@@ -64,6 +66,26 @@ const Dashboard = () => {
           </Segment>
         </GridColumn>
       </Grid>
+
+      {/* Temporal place for Search page. Will be moved later */}
+
+      <div className="search">
+        <div className="search_section">
+          <SearchableSelect
+            placeholder="Search here..."
+            options={[
+              { text: 'ABC', value: '123' },
+              { text: 'DEF', value: '123' },
+              { text: 'GHI', value: '123' },
+              { text: 'MNP', value: '123' },
+              { text: 'XYZ', value: '123' }
+            ]}
+          />
+        </div>
+     
+      </div>
+
+      {/* Temporal place for Search result cards. Will be moved later */}
     </Container>
   );
 };

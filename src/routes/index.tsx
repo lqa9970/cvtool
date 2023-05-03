@@ -5,6 +5,9 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import useAuthorizationOkta from '../hooks/useOktaAuth';
 import Navbar from '../components/Navbar/Navbar';
 import CreateCV from '../pages/CVProfile';
+import StaffingDashboard from '../pages/StaffingDashboard';
+
+
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ export const AppRoutes = () => {
         <Route path="/login/callback" Component={LoginCallback} />
         <Route path="/" element={<Login />} />
         <Route path="/cv" element={<CreateCV />} />
+        <Route path="/staffing" element={<StaffingDashboard/>}/>
       </Routes>
     </Security>
   );

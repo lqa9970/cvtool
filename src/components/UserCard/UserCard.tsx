@@ -1,7 +1,7 @@
 import { Card, Header, Feed } from 'semantic-ui-react';
 import ninja from '../../assets/ninja.png';
 
-import "./UserCard.scss";
+import './UserCard.scss';
 interface IUserCard {
   name?: string;
   email?: string;

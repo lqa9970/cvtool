@@ -5,16 +5,16 @@ import BasicInfo from '../../components/BasicInfo/Basicinfo';
 import BioForm from '../../components/Bio/Bio';
 import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
 import useGetUser from '../../hooks/useGetUser';
+import Education from '../../components/Education/Education';
 
 
 interface ICVForm {}
 
 const CreateCV = () => {
   const { authState } = useOktaAuth();
-
   const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
 
-
+  if (!userDetails || !userDetails.id) return null;
 
   return (
     <>
@@ -30,6 +30,15 @@ const CreateCV = () => {
                 Bio Description
               </Header>
               <BioForm />
+            </Grid.Column>
+            <Grid.Column width={16}>
+              <Header as="h3" dividing>
+                Educations
+              </Header>
+              <Education
+                education={userDetails?.education}
+                userId={userDetails?.id}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>

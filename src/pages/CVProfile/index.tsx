@@ -29,7 +29,7 @@ const CreateCV = () => {
               <Header as="h3" dividing>
                 Bio Description
               </Header>
-              <BioForm />
+              <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
             </Grid.Column>
             <Grid.Column width={16}>
               <Header as="h3" dividing>

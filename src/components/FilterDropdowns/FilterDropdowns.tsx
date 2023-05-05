@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import SearchableSelect from '../Dropdown/SearchableSelect';
 
+import useGetFirestoreCollection from '../../hooks/useGetCollectionData'
+
 type Filters = {
   hyperscaler: string[];
   mainTech: string[];
@@ -12,50 +14,6 @@ type Filters = {
   nationality: string[];
 };
 
-const allOptions = {
-  hyperscaler: [
-    { text: 'AWS', value: 'aws' },
-    { text: 'Azure', value: 'azure' },
-    { text: 'Google Cloud', value: 'gcp' }
-  ],
-  mainTech: [
-    { text: 'React', value: 'react' },
-    { text: 'Vue', value: 'vue' },
-    { text: 'Angular', value: 'angular' }
-  ],
-  skills: [
-    { text: 'Frontend Development', value: 'frontend' },
-    { text: 'Backend Development', value: 'backend' },
-    { text: 'Full Stack Development', value: 'fullstack' }
-  ],
-  certificate: [
-    { text: 'AWS Certified Solutions Architect', value: 'aws-architect' },
-    {
-      text: 'Google Certified Professional Cloud Architect',
-      value: 'gcp-architect'
-    },
-    {
-      text: 'Microsoft Certified: Azure Solutions Architect Expert',
-      value: 'azure-architect'
-    }
-  ],
-  location: [
-    { text: 'Helsinki', value: 'helsinki' },
-    { text: 'New York', value: 'new-york' },
-    { text: 'London', value: 'london' }
-  ],
-  languages: [
-    { text: 'Finnish', value: 'finnish' },
-    { text: 'English', value: 'english' },
-    { text: 'French', value: 'french' }
-  ],
-  nationality: [
-    { text: 'Finland', value: 'finland' },
-    { text: 'USA', value: 'usa' },
-    { text: 'France', value: 'french' }
-
-  ]
-};
 
 const FilterDropdowns = () => {
   const [filters, setFilters] = useState<Filters>({
@@ -68,7 +26,42 @@ const FilterDropdowns = () => {
     nationality: []
   });
 
-  console.log('Selected filters', filters);
+  const hyperscaler = useGetFirestoreCollection({ collection: 'hyperscaler' });
+  const hyperscalerData = hyperscaler.data.map((n) => {
+    return { text: n.name, value: n.name };
+  });
+
+  const mainTech = useGetFirestoreCollection({ collection: 'main_tech' });
+  const mainTechData = mainTech.data.map((n) => {
+    return { text: n.name, value: n.name };
+  });
+
+  const skills = useGetFirestoreCollection({ collection: 'skills' });
+  const skillsData = skills.data.map((n) => {
+    return { text: n.name, value: n.name };
+  });
+
+  const certifications = useGetFirestoreCollection({ collection: 'certification' });
+  const certificationData = certifications.data.map((n) => {
+    return { text: n.name, value: n.name };
+  });
+
+  const locations = useGetFirestoreCollection({ collection: 'location' });
+  const locationData = locations.data.map((n) => {
+    return { text: n.city, value: n.city };
+  });
+ 
+  const languages = useGetFirestoreCollection({ collection: 'languages' });
+  const languagesData = languages.data.map((n) => {
+    return { text: n.name, value: n.prefix };
+  });
+
+  const nationality = useGetFirestoreCollection({
+    collection: 'countries'
+  });
+  const nationalityData = nationality.data.map((n) => {
+    return { text: n.name, value: n.code };
+  });
   return (
     <>
       <Container>
@@ -77,7 +70,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Hyperscaler
           <SearchableSelect
-            allOptions={allOptions.hyperscaler}
+            allOptions={hyperscalerData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, hyperscaler: value })}
             placeholder=""
@@ -86,7 +79,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Main tech
           <SearchableSelect
-            allOptions={allOptions.mainTech}
+            allOptions={mainTechData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, mainTech: value })}
             placeholder=""
@@ -95,7 +88,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Skills
           <SearchableSelect
-            allOptions={allOptions.skills}
+            allOptions={skillsData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, skills: value })}
             placeholder=""
@@ -104,7 +97,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Certificates
           <SearchableSelect
-            allOptions={allOptions.certificate}
+            allOptions={certificationData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, certificate: value })}
             placeholder=""
@@ -113,7 +106,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Location
           <SearchableSelect
-            allOptions={allOptions.location}
+            allOptions={locationData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, location: value })}
             placeholder=""
@@ -122,7 +115,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Languages
           <SearchableSelect
-            allOptions={allOptions.languages}
+            allOptions={languagesData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, languages: value })}
             placeholder=""
@@ -131,7 +124,7 @@ const FilterDropdowns = () => {
         <Header as="h5">
           Nationality
           <SearchableSelect
-            allOptions={allOptions.nationality}
+            allOptions={nationalityData}
             multiSelected={true}
             filter={(value) => setFilters({ ...filters, nationality: value })}
             placeholder=""

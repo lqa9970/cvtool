@@ -1,42 +1,44 @@
 import { Formik, Form } from 'formik';
 import { Button, Grid } from 'semantic-ui-react';
 import TextAreaInput from '../TextAreaInput/TextArea';
+import useUpdateUser from '../../hooks/useUpdateUser';
 
-interface FormValues {
+type FormValues = {
   bioDescription: string;
-}
-
-const initialValues: FormValues = {
-  bioDescription: ''
 };
 
-const BioForm = () => {
+type BioProps = {
+  bio: string | undefined;
+  userId: string | undefined;
+};
+
+const BioForm = ({ bio, userId }: BioProps) => {
+  const [updateUser] = useUpdateUser();
+  if (bio === undefined) bio = '';
+
   return (
     <Grid.Column width={10}>
-      <Formik<FormValues>
-        initialValues={initialValues}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        {({ values, handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
-            <TextAreaInput
-              value={values.bioDescription}
-              name="bioDescription"
-              placeholder="Enter your bio here"
-              handleChange={handleChange}
-              children={[]}
-            ></TextAreaInput>
-            <Button
-              style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }}
-              type="submit"
-            >
-              Save
-            </Button>
-          </Form>
-        )}
-      </Formik>
+      {userId && (
+        <Formik<FormValues>
+          initialValues={{ bioDescription: bio }}
+          onSubmit={(values) => {
+            updateUser({ bio: values.bioDescription }, userId);
+          }}
+        >
+          {({ values, handleChange, handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <TextAreaInput
+                value={values.bioDescription}
+                name="bioDescription"
+                placeholder="Enter your bio here"
+                handleChange={handleChange}
+                children={[]}
+              ></TextAreaInput>
+              <Button type="submit">Save</Button>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Grid.Column>
   );
 };

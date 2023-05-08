@@ -33,7 +33,8 @@ const useUserDetails = (
             roles: user.data().roles,
             phone_number: user.data().phone_number,
             experience_level: user.data().experience_level,
-            education: user.data().education
+            education: user.data().education,
+            bio: user.data().bio
           });
         });
 

@@ -1,13 +1,5 @@
-import {
-  Grid,
-  GridColumn,
-  Header,
-  Container,
-  Segment,
-  GridRow,
-  Icon,
-  Button
-} from 'semantic-ui-react';
+import { Grid, GridColumn, Header, Container } from 'semantic-ui-react';
+import { Segment, GridRow, Icon, Button } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
@@ -41,7 +33,7 @@ const Dashboard = () => {
                 />
                 Create a new CV.
               </Header>
-              <Button onClick={() => navigate('/staffing')}/>
+              <Button onClick={() => navigate('/staffing')} />
             </Segment>
             {/* <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">
@@ -84,7 +76,6 @@ const Dashboard = () => {
 
           />
         </div>
-     
       </div>
 
       {/* Temporal place for Search result cards. Will be moved later */}

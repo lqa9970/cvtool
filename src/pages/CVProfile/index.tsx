@@ -6,6 +6,7 @@ import BioForm from '../../components/Bio/Bio';
 import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
 import useGetUser from '../../hooks/useGetUser';
 import Education from '../../components/Education/Education';
+import NotificationsComponent from '../../components/Notifications/Notifications';
 
 
 interface ICVForm {}
@@ -29,7 +30,7 @@ const CreateCV = () => {
               <Header as="h3" dividing>
                 Bio Description
               </Header>
-              <BioForm />
+              <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
             </Grid.Column>
             <Grid.Column width={16}>
               <Header as="h3" dividing>

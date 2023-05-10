@@ -3,7 +3,7 @@ import { Segment, GridRow, Icon, Button } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard/UserCard';
-import SearchableSelect from '../../components/search/SearchableSelect';
+import SearchableSelect from '../../components/Dropdown/SearchableSelect';
 
 import './index.scss';
 
@@ -64,14 +64,16 @@ const Dashboard = () => {
       <div className="search">
         <div className="search_section">
           <SearchableSelect
-            placeholder="Search here..."
-            options={[
+            allOptions={[
               { text: 'ABC', value: '123' },
               { text: 'DEF', value: '123' },
               { text: 'GHI', value: '123' },
               { text: 'MNP', value: '123' },
               { text: 'XYZ', value: '123' }
             ]}
+            filter={(value)=>console.log('selected value', value)}
+            placeholder="Search here..."
+
           />
         </div>
       </div>

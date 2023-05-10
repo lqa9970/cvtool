@@ -1,15 +1,8 @@
-import {
-  Container,
-  Divider,
-  Grid,
-  GridColumn,
-  Header,
-  Search
-} from 'semantic-ui-react';
+import { Grid, GridColumn, Header, Search } from 'semantic-ui-react';
 
 import { useOktaAuth } from '@okta/okta-react';
-import SearchableSelect from '../../components/Dropdown/SearchableSelect';
 import EmployeeProfileCard from '../../components/EmployeeCard/EmployeeProfileCard';
+import FilterDropdowns from '../../components/FilterDropdowns/FilterDropdowns';
 
 import './index.scss';
 import { Value } from 'sass';
@@ -70,9 +63,8 @@ const employeeData = [
       { id: '2', name: 'Java' },
       { id: '3', name: 'Typescript' }
     ]
-
   }
-]
+];
 
 const DisplayMatchCard = (
   <Grid divided="vertically" id="display">
@@ -93,77 +85,6 @@ const DisplayMatchCard = (
   </Grid>
 );
 
-const FilterSection = (
-  <Container>
-    <Header as='h4'>Filter</Header>
-    <Divider/>
-    <Header as="h5">
-      Hyperscaler
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log()}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Main tech
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Skills
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Certificates
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Location
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Languages
-      <SearchableSelect
-        allOptions={[ { text: 'French', value: 'french' },
-        { text: 'German', value: 'German' }]}
-        multiSelected={true}
-        filter={(value) => console.log(value)}
-        placeholder=""
-      />
-    </Header>
-    <Header as="h5">
-      Nationality
-      <SearchableSelect
-        allOptions={[]}
-        multiSelected={true}
-        filter={() => console.log('option')}
-        placeholder=""
-      />
-    </Header>
-  </Container>
-);
-
 const StaffingDashboard = () => {
   const { authState } = useOktaAuth();
   return (
@@ -171,7 +92,9 @@ const StaffingDashboard = () => {
       {authState ? (
         <div id="grid-box">
           <Grid stackable divided doubling columns={2}>
-            <Grid.Column width={4}>{FilterSection}</Grid.Column>
+            <Grid.Column width={4}>
+              <FilterDropdowns />
+            </Grid.Column>
             <Grid.Column width={12}> {DisplayMatchCard}</Grid.Column>
           </Grid>
         </div>

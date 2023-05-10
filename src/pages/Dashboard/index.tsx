@@ -71,9 +71,8 @@ const Dashboard = () => {
               { text: 'MNP', value: '123' },
               { text: 'XYZ', value: '123' }
             ]}
-            filter={(value)=>console.log('selected value', value)}
+            filter={(value) => console.log('selected value', value)}
             placeholder="Search here..."
-
           />
         </div>
       </div>

@@ -1,0 +1,32 @@
+@import '/src/styles/mixins';
+.container {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1em;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.radio-button-group {
+  margin-left: 1em;
+  .ui.radio.checkbox {
+    margin-right: 1.5em;
+  }
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.ui.label.language {
+  margin: 0.14285714em;
+}
+
+.ui.search.dropdown {
+  min-width: 24em;
+}
+
+.bottom-margin-md {
+  margin-bottom: 2em;
+}

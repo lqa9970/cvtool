@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export interface OktaTokenPayload {
   sub: string;
   email: string;
@@ -19,6 +21,8 @@ export interface SocialLinks {
 export interface Languages {
   id: string;
   name: string;
+  nativeName: string;
+  prefix: string;
 }
 
 export interface Skills {
@@ -42,6 +46,11 @@ export interface Education {
   degreeDescription: string;
 }
 
+export interface LanguagesWithProficiency {
+  name: string;
+  proficiency: string;
+}
+
 export interface EmployeeUser {
   id?: string;
   name?: string;
@@ -56,7 +65,7 @@ export interface EmployeeUser {
   roles?: Roles[];
   social_links?: SocialLinks[];
   bio?: string;
-  languages?: Languages[];
+  languages?: LanguagesWithProficiency[];
   skills?: Skills[];
   workabroad?: boolean;
   experience_level?: string;
@@ -65,3 +74,10 @@ export interface EmployeeUser {
   last_activity?: string[];
   education?: Education[];
 }
+
+export type FormikHandleChange = {
+  (e: ChangeEvent<any>): void;
+  <T = string | ChangeEvent<any>>(field: T): T extends ChangeEvent<any>
+    ? void
+    : (e: string | ChangeEvent<any>) => void;
+};

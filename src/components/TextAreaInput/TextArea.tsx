@@ -34,7 +34,6 @@ const TextAreaInput = ({
           onChange={handleChange}
           style={{ minHeight: 100, minWidth: 500 }}
           rows={6}
-          primary
         />
       </Grid.Column>
     </Grid>

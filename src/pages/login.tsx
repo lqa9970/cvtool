@@ -6,7 +6,6 @@ import { OktaTokenPayload } from '../types/types';
 import { decodeOktaToken } from '../services/jwtDecodeService';
 import StaffingDashboard from './StaffingDashboard';
 
-
 export const Login = () => {
   const [loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>();
   const { oktaAuth, authState } = useOktaAuth();
@@ -30,7 +29,7 @@ export const Login = () => {
 
   return isAuthenticated ? (
     <>
-    <StaffingDashboard />
+      <StaffingDashboard />
       <Dashboard />
     </>
   ) : (

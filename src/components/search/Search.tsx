@@ -2,17 +2,20 @@ import React from 'react';
 import { Search, SearchProps } from 'semantic-ui-react';
 
 type SearchComponentProps = {
-    placeholder: string
-    handleSearchChange: (event: React.MouseEvent<HTMLElement>, data: SearchProps) => void;
-}
+  placeholder: string;
+  handleSearchChange: (
+    event: React.MouseEvent<HTMLElement>,
+    data: SearchProps
+  ) => void;
+};
 
-const SearchComponent = ({placeholder, handleSearchChange }:SearchComponentProps) => {
- return (
-    <Search 
-        placeholder={placeholder}
-        onSearchChange={handleSearchChange}
-    />
- )
-}
+const SearchComponent = ({
+  placeholder,
+  handleSearchChange
+}: SearchComponentProps) => {
+  return (
+    <Search placeholder={placeholder} onSearchChange={handleSearchChange} />
+  );
+};
 
 export default SearchComponent;

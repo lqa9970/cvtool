@@ -1,11 +1,10 @@
 @import "../../stylesheet/mixins";
 
 .NavContent {
-  position: absolute;
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
-  height: 8vh;
+  height: 100px;
   width: 100%;
   background-color: $nc_dark_blue;
   padding: 0 10%;

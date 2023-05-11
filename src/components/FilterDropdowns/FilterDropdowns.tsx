@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import SearchableSelect from '../Dropdown/SearchableSelect';
 
-import useGetFirestoreCollection from '../../hooks/useGetCollectionData'
+import useGetFirestoreCollection from '../../hooks/useGetCollectionData';
 
 type Filters = {
   hyperscaler: string[];
@@ -13,7 +13,6 @@ type Filters = {
   languages: string[];
   nationality: string[];
 };
-
 
 const FilterDropdowns = () => {
   const [filters, setFilters] = useState<Filters>({
@@ -41,7 +40,9 @@ const FilterDropdowns = () => {
     return { text: n.name, value: n.name };
   });
 
-  const certifications = useGetFirestoreCollection({ collection: 'certification' });
+  const certifications = useGetFirestoreCollection({
+    collection: 'certification'
+  });
   const certificationData = certifications.data.map((n) => {
     return { text: n.name, value: n.name };
   });
@@ -50,7 +51,7 @@ const FilterDropdowns = () => {
   const locationData = locations.data.map((n) => {
     return { text: n.city, value: n.city };
   });
- 
+
   const languages = useGetFirestoreCollection({ collection: 'languages' });
   const languagesData = languages.data.map((n) => {
     return { text: n.name, value: n.prefix };

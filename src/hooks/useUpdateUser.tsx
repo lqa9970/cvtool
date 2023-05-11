@@ -13,11 +13,11 @@ const useUpdateUser = () => {
     const user = doc(db, 'users', id);
     await updateDoc(user, dataToUpdate)
       .then((response) => {
-        showNotification({message: "Updated Successfully!", type: "success"})
+        showNotification({ message: 'Updated Successfully!', type: 'success' });
       })
       .catch((error) => {
         console.log('useUpdateUser error: ', error.message);
-        showNotification({message: "Error occured", type: "error"})
+        showNotification({ message: 'Error occured', type: 'error' });
       });
   };
 

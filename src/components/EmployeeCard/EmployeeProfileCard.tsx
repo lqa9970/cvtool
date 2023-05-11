@@ -1,4 +1,4 @@
-import { Card, Image, Feed ,Button} from 'semantic-ui-react';
+import { Card, Image, Feed, Button } from 'semantic-ui-react';
 import { EmployeeUser, Skills } from '../../types/types';
 
 import ninja from '../../assets/ninja.png';
@@ -13,7 +13,12 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
   return (
     <Card id="card">
       <Card.Content>
-      <Image size="tiny" floated="left" src={ninja} tittl={employee.job_title} />
+        <Image
+          size="tiny"
+          floated="left"
+          src={ninja}
+          tittl={employee.job_title}
+        />
         <Card.Header>{employee?.job_title}</Card.Header>
         <Card.Meta>{employee.name}</Card.Meta>
         <Card.Meta>{employee.location}</Card.Meta>

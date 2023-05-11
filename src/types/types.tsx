@@ -14,8 +14,9 @@ export interface Roles {
 }
 
 export interface SocialLinks {
-  name: string;
-  url: string;
+  github: string;
+  linkedin: string;
+  website: string;
 }
 
 export interface Languages {
@@ -52,18 +53,18 @@ export interface LanguagesWithProficiency {
 }
 
 export interface EmployeeUser {
-  id?: string;
-  name?: string;
-  email?: string;
-  location?: string;
-  job_title?: string;
-  manager_name?: string;
-  manager_email?: string;
-  nationality?: string;
-  main_tech?: string;
-  phone_number?: string;
-  roles?: Roles[];
-  social_links?: SocialLinks[];
+  id: string;
+  name: string;
+  email: string;
+  location: string;
+  job_title: string;
+  manager_name: string;
+  manager_email: string;
+  nationality: string;
+  main_tech: string;
+  phone_number: string;
+  roles: Roles[];
+  social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
   skills?: Skills[];

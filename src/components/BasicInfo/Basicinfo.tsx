@@ -35,8 +35,16 @@ const BasicInfo = (props: IBasicInfo) => {
           Manger Email: {props.userDetails?.manager_email}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="phone square icon"></i>
-          {props.userDetails?.phone_number}
+          <i className="linkedin icon"></i>
+          <a href={props.userDetails?.social_links?.linkedin}>{props.userDetails?.social_links?.linkedin}</a>
+        </Header.Subheader>
+        <Header.Subheader>
+          <i className="github icon"></i>
+          <a href={props.userDetails?.social_links?.github}>{props.userDetails?.social_links?.github}</a>
+        </Header.Subheader>
+        <Header.Subheader>
+          <i className="world icon"></i>
+          <a href={props.userDetails?.social_links?.website}>{props.userDetails?.social_links?.website}</a>
         </Header.Subheader>
       </div>
     </>

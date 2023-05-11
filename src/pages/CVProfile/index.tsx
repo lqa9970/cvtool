@@ -4,6 +4,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import BasicInfo from '../../components/BasicInfo/Basicinfo';
 import BioForm from '../../components/Bio/Bio';
 import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
+import Socials from '../../components/Socials/Socials';
 import useGetUser from '../../hooks/useGetUser';
 import LanguagesSelect from '../../components/LanguagesSelect/LanguagesSelect';
 import Education from '../../components/Education/Education';
@@ -31,6 +32,10 @@ const CreateCV = () => {
                 Bio Description
               </Header>
               <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
+              <Header as="h3" dividing>
+                Links
+              </Header>
+              {userDetails && <Socials userDetails={userDetails} />}
             </Grid.Column>
             <Grid.Column width={16}>
               <Header as="h3">Language Skills</Header>

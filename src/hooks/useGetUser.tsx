@@ -33,6 +33,7 @@ const useUserDetails = (
             roles: user.data().roles,
             phone_number: user.data().phone_number,
             experience_level: user.data().experience_level,
+            social_links: user.data().social_links,
             education: user.data().education,
             bio: user.data().bio,
             languages: user.data().languages

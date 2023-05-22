@@ -5,6 +5,7 @@ type SearchableSelectProps = {
   allOptions: Option[];
   placeholder: string;
   multiSelected?: boolean;
+  value:string[];
   filter: (value: string[]) => void;
 };
 
@@ -17,6 +18,7 @@ const SearchableSelect = ({
   allOptions,
   placeholder,
   multiSelected,
+  value,
   filter
 }: SearchableSelectProps) => {
   const handleChange = (event: SyntheticEvent, data: DropdownProps) => {
@@ -32,6 +34,7 @@ const SearchableSelect = ({
       fluid
       selection
       options={allOptions}
+      value={value}
       onChange={handleChange}
     />
   );

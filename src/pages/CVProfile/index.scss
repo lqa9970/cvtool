@@ -1,0 +1,11 @@
+@import '/src/styles/mixins';
+
+#no-padding-top {
+  padding-top: 0;
+}
+
+#dark-blue-btn {
+  background-color: $nc_dark_blue;
+  color: white;
+  margin-bottom: 2.5rem;
+}

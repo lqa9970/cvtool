@@ -1,0 +1,12 @@
+@import '/src/styles/mixins';
+
+#bio-add-button {
+  background-color: $nc_dark_blue;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+#button-row-position {
+  padding-top: 0;
+  margin-top: -0.4rem;
+}

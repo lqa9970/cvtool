@@ -76,12 +76,15 @@ const EducationComponent = (props: EducationProps) => {
           setFieldValue
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Grid centered>
+            <Grid>
               <Grid.Row columns={1}>
+                <Input name="id" id="input-hidden" />
                 <Grid.Column width={9}>
-                  <Input name="id" id="input-hidden" />
                   {showErrors(errors.id, touched.id)}
-                  <Label id="form-labels">School Name</Label>
+                </Grid.Column>
+
+                <Grid.Column>
+                  <Label id="form-labels">Institution</Label>
                   <Input
                     value={values.school}
                     onChange={handleChange}
@@ -90,6 +93,10 @@ const EducationComponent = (props: EducationProps) => {
                     fluid
                   />
                   {showErrors(errors.school, touched.school)}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
                   <Label id="form-labels">Degree Name</Label>
                   <Input
                     value={values.degree}
@@ -103,61 +110,54 @@ const EducationComponent = (props: EducationProps) => {
               </Grid.Row>
 
               <Grid.Row>
-                <Grid.Column width={9}>
+                <Grid.Column>
                   <Label id="form-labels">Year of Study</Label>
-                </Grid.Column>
-              </Grid.Row>
+                  <div className="flex-container">
+                    <Input
+                      value={values.startMonthYear}
+                      onChange={handleChange}
+                      placeholder="Month/Year"
+                      name="startMonthYear"
+                      onClick={() => setOpenStartDatePick(true)}
+                    />
+                    {openStartDatePick ? (
+                      <Datepicker id="date-picker">
+                        <DayPicker
+                          mode="single"
+                          onSelect={(date) =>
+                            handleStartDateSelect(
+                              date || defaultStartDate,
+                              setFieldValue
+                            )
+                          }
+                        />
+                      </Datepicker>
+                    ) : null}
 
-              <Grid.Row columns={3}>
-                <Grid.Column width={3}>
-                  <Input
-                    value={values.startMonthYear}
-                    onChange={handleChange}
-                    placeholder="Month/Year"
-                    name="startMonthYear"
-                    onClick={() => setOpenStartDatePick(true)}
-                  />
-                  {openStartDatePick ? (
-                    <Datepicker id="date-picker">
-                      <DayPicker
-                        mode="single"
-                        onSelect={(date) =>
-                          handleStartDateSelect(
-                            date || defaultStartDate,
-                            setFieldValue
-                          )
-                        }
-                      />
-                    </Datepicker>
-                  ) : null}
-
-                  {showErrors(errors.startMonthYear, touched.startMonthYear)}
-                </Grid.Column>
-                <Grid.Column id="yos-to-grid" width={3} verticalAlign="middle">
-                  <p id="yos-to">TO</p>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Input
-                    value={values.endMonthYear}
-                    onChange={handleChange}
-                    placeholder="Month/Year"
-                    name="endMonthYear"
-                    onClick={() => setOpenEndDatePick(true)}
-                  />
-                  {openEndDatePick ? (
-                    <Datepicker id="date-picker">
-                      <DayPicker
-                        mode="single"
-                        onSelect={(date) =>
-                          handleEndDateSelect(
-                            date || defaultEndDate,
-                            setFieldValue
-                          )
-                        }
-                      />
-                    </Datepicker>
-                  ) : null}
-                  {showErrors(errors.endMonthYear, touched.endMonthYear)}
+                    {showErrors(errors.startMonthYear, touched.startMonthYear)}
+                    <p id="yos-to">TO</p>
+                    <Input
+                      value={values.endMonthYear}
+                      onChange={handleChange}
+                      placeholder="Month/Year"
+                      name="endMonthYear"
+                      onClick={() => setOpenEndDatePick(true)}
+                    />
+                    {openEndDatePick ? (
+                      <Datepicker id="date-picker">
+                        <DayPicker
+                          mode="single"
+                          onSelect={(date) =>
+                            handleEndDateSelect(
+                              date || defaultEndDate,
+                              setFieldValue
+                            )
+                          }
+                        />
+                      </Datepicker>
+                    ) : null}
+                    {showErrors(errors.endMonthYear, touched.endMonthYear)}
+                  </div>
                 </Grid.Column>
               </Grid.Row>
 
@@ -174,6 +174,10 @@ const EducationComponent = (props: EducationProps) => {
                     errors.degreeDescription,
                     touched.degreeDescription
                   )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row id="edu-button-row">
+                <Grid.Column>
                   <Button id="edu-add-button" type="submit">
                     Add
                   </Button>

@@ -61,7 +61,7 @@ const Dashboard = () => {
 
       {/* Temporal place for Search page. Will be moved later */}
 
-      <div className="search">
+      <div className="search-field">
         <div className="search_section">
           <SearchableSelect
             allOptions={[

@@ -1,4 +1,4 @@
-import { Button, Dropdown, DropdownProps } from 'semantic-ui-react';
+import { Button, Dropdown, DropdownProps, Grid } from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import useGetLanguages from '../../hooks/useGetLanguages';
 import LanguageProfiencies from './LanguageProficiencies/LanguageProficiencies';
@@ -80,31 +80,44 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Dropdown
-        name="language"
-        placeholder="Select a language"
-        search
-        selection
-        options={options}
-        onChange={handleDropdownChange}
-      />
-      <div className="container">
-        <LanguageProfiencies
-          handleProficiencyChange={handleProficiencyChange}
-        ></LanguageProfiencies>
-
-        <Button
-          size="small"
-          disabled={!formik.values.language && !formik.values.proficiency}
-          type="submit"
-        >
-          Add
-        </Button>
-      </div>
-      <LanguageCards
-        languages={languagesWithProficiencies}
-        onClickHandler={handleCardDelete}
-      />
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <Dropdown
+              name="language"
+              placeholder="Select a language"
+              search
+              selection
+              options={options}
+              onChange={handleDropdownChange}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row verticalAlign="middle" columns={2}>
+          <Grid.Column width={12}>
+            <LanguageProfiencies
+              handleProficiencyChange={handleProficiencyChange}
+            ></LanguageProfiencies>
+          </Grid.Column>
+          <Grid.Column width={2}>
+            <Button
+              id="language-add-button"
+              disabled={!formik.values.language && !formik.values.proficiency}
+              type="submit"
+            >
+              Add
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <LanguageCards
+              languages={languagesWithProficiencies}
+              onClickHandler={handleCardDelete}
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </form>
   );
 };

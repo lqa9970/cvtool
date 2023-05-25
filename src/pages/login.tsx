@@ -32,9 +32,6 @@ export const Login = () => {
     <>
       <StaffingDashboard />
       <Dashboard />
-      <CustomCalendar option="date" />
-      <CustomCalendar option="date time" />
-      <CustomCalendar option="date range" />
     </>
   ) : (
     <div>

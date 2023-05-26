@@ -39,7 +39,6 @@ const useUserDetails = (
             languages: user.data().languages
           });
         });
-
         setUserDetails(users[0]);
       }
     };

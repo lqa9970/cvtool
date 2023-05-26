@@ -8,7 +8,7 @@ export interface OktaTokenPayload {
   auth_time: string;
 }
 
-export interface Roles {
+export interface Role {
   id: string;
   name: string;
 }
@@ -53,18 +53,18 @@ export interface LanguagesWithProficiency {
 }
 
 export interface EmployeeUser {
-  id: string;
-  name: string;
-  email: string;
-  location: string;
-  job_title: string;
-  manager_name: string;
-  manager_email: string;
-  nationality: string;
-  main_tech: string;
-  phone_number: string;
-  roles: Roles[];
-  social_links?: SocialLinks;
+  id?: string;
+  name?: string;
+  email?: string;
+  location?: string;
+  job_title?: string;
+  manager_name?: string;
+  manager_email?: string;
+  nationality?: string;
+  main_tech?: string;
+  phone_number?: string;
+  roles: Role[];
+  social_links?: SocialLinks[];
   bio?: string;
   languages?: LanguagesWithProficiency[];
   skills?: Skills[];

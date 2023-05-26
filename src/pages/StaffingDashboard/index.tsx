@@ -16,6 +16,7 @@ const employeeData = [
     manager_name: 'Auiki kala',
     manager_email: 'Auiki@nordcloud.com',
     phone_number: '358 415163',
+    roles: [{ id: '1', name: 'staff' }],
     skills: [
       { id: '1', name: 'React' },
       { id: '2', name: 'Java' },
@@ -30,6 +31,7 @@ const employeeData = [
     manager_name: 'Auiki kala',
     manager_email: 'Auiki@nordcloud.com',
     phone_number: '358 415163',
+    roles: [{ id: '1', name: 'staff' }],
     skills: [
       { id: '1', name: 'React' },
       { id: '2', name: 'Java' },
@@ -44,6 +46,7 @@ const employeeData = [
     manager_name: 'Auiki kala',
     manager_email: 'Auiki@nordcloud.com',
     phone_number: '358 415163',
+    roles: [{ id: '1', name: 'staff' }],
     skills: [
       { id: '1', name: 'React' },
       { id: '2', name: 'Java' },
@@ -58,6 +61,7 @@ const employeeData = [
     manager_name: 'Auiki kala',
     manager_email: 'Auiki@nordcloud.com',
     phone_number: '358 415163',
+    roles: [{ id: '1', name: 'staff' }],
     skills: [
       { id: '1', name: 'React' },
       { id: '2', name: 'Java' },
@@ -76,10 +80,12 @@ const DisplayMatchCard = (
     </Grid.Row>
     <Header as="h3">Result: {Object.keys(employeeData).length}</Header>
     <Grid.Row columns={3}>
-      {employeeData.map((employee) => (
-        <GridColumn>
-          <EmployeeProfileCard employee={employee} />
-        </GridColumn>
+      {employeeData.map((employee, index) => (
+        <div key={index}>
+          <GridColumn>
+            <EmployeeProfileCard employee={employee} />
+          </GridColumn>
+        </div>
       ))}
     </Grid.Row>
   </Grid>

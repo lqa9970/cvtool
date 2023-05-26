@@ -1,10 +1,21 @@
-@import "../../stylesheet/mixins";
+@import '../../stylesheet/mixins';
+
+#Nav {
+  background-color: $nc_dark_blue;
+  border-radius: 0;
+}
+
+a {
+  cursor: pointer;
+}
 
 .NavContent {
+  position: sticky;
+  top: 0;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   flex-wrap: wrap;
-  height: 100px;
+  height: auto;
   width: 100%;
   background-color: $nc_dark_blue;
   padding: 0 10%;
@@ -18,9 +29,9 @@
       align-items: center;
       height: 100%;
       width: 80%;
-      // margin: auto;
+      margin-left: 2em;
       img {
-        width: 80%;
+        max-width: 80%;
         height: auto;
       }
     }
@@ -28,12 +39,11 @@
   &_pages {
     display: flex;
     align-items: center;
-    justify-content: start;
-    width: 60%;
+    justify-content: space-between;
+    width: 40%;
     a {
       display: inherit;
       align-items: center;
-      margin: 0 2rem;
       text-transform: capitalize;
       color: $nc_white;
       font-size: 16px;
@@ -46,5 +56,45 @@
         text-decoration: none;
       }
     }
+  }
+  &_user {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 2em;
+    margin: 0 2em 0 0;
+    p {
+      color: $nc_white;
+      font-size: 1.2em;
+      margin: 0 0.8rem 0 0;
+    }
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 10%;
+      margin: 0 4em 0 0;
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+        background-color: $nc_white;
+        margin-right: 1em;
+      }
+    }
+  }
+}
+
+.PopupContent {
+  line-height: normal;
+  h1 {
+    font-size: medium;
+  }
+  p {
+    font-size: small;
+  }
+  span {
+    text-transform: capitalize;
   }
 }

@@ -17,7 +17,7 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
           size="tiny"
           floated="left"
           src={ninja}
-          tittl={employee.job_title}
+          title={employee.job_title}
         />
         <Card.Header>{employee?.job_title}</Card.Header>
         <Card.Meta>{employee.name}</Card.Meta>
@@ -30,8 +30,10 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
         <Feed>
           <Feed.Content>
             <Card.Header as="h4">Tech Stack</Card.Header>
-            {employee.skills?.map((skill: Skills) => (
-              <span>{skill.name}</span>
+            {employee.skills?.map((skill: Skills, index) => (
+              <div key={index}>
+                <span>{skill.name}</span>
+              </div>
             ))}
           </Feed.Content>
         </Feed>

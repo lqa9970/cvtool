@@ -66,10 +66,10 @@ const Dashboard = () => {
           <SearchableSelect
             allOptions={[
               { text: 'ABC', value: '123' },
-              { text: 'DEF', value: '123' },
-              { text: 'GHI', value: '123' },
-              { text: 'MNP', value: '123' },
-              { text: 'XYZ', value: '123' }
+              { text: 'DEF', value: '234' },
+              { text: 'GHI', value: '345' },
+              { text: 'MNP', value: '456' },
+              { text: 'XYZ', value: '567' }
             ]}
             filter={(value) => console.log('selected value', value)}
             placeholder="Search here..."

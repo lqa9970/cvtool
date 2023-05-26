@@ -30,7 +30,6 @@ export const Login = () => {
 
   return isAuthenticated ? (
     <>
-      <StaffingDashboard />
       <Dashboard />
     </>
   ) : (

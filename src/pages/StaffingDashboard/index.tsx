@@ -3,96 +3,45 @@ import { Grid, GridColumn, Header, Search } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 import EmployeeProfileCard from '../../components/EmployeeCard/EmployeeProfileCard';
 import FilterDropdowns from '../../components/FilterDropdowns/FilterDropdowns';
+import useKeywordSearch from '../../hooks/useKeywordSearch';
 
 import './index.scss';
-import { Value } from 'sass';
-
-const employeeData = [
-  {
-    name: 'Satu Aurinko',
-    job_title: 'Senior Developer',
-    location: 'Turku, Finland',
-    nationality: 'Finnish',
-    manager_name: 'Auiki kala',
-    manager_email: 'Auiki@nordcloud.com',
-    phone_number: '358 415163',
-    roles: [{ id: '1', name: 'staff' }],
-    skills: [
-      { id: '1', name: 'React' },
-      { id: '2', name: 'Java' },
-      { id: '3', name: 'Typescript' }
-    ]
-  },
-  {
-    name: 'Satu Aurinko',
-    job_title: 'Junior Developer',
-    location: 'Turku, Finland',
-    nationality: 'Finnish',
-    manager_name: 'Auiki kala',
-    manager_email: 'Auiki@nordcloud.com',
-    phone_number: '358 415163',
-    roles: [{ id: '1', name: 'staff' }],
-    skills: [
-      { id: '1', name: 'React' },
-      { id: '2', name: 'Java' },
-      { id: '3', name: 'Typescript' }
-    ]
-  },
-  {
-    name: 'Satu Aurinko',
-    job_title: 'Senior Developer',
-    location: 'Turku, Finland',
-    nationality: 'Finnish',
-    manager_name: 'Auiki kala',
-    manager_email: 'Auiki@nordcloud.com',
-    phone_number: '358 415163',
-    roles: [{ id: '1', name: 'staff' }],
-    skills: [
-      { id: '1', name: 'React' },
-      { id: '2', name: 'Java' },
-      { id: '3', name: 'Typescript' }
-    ]
-  },
-  {
-    name: 'Satu Aurinko',
-    job_title: 'Senior Developer',
-    location: 'Turku, Finland',
-    nationality: 'Finnish',
-    manager_name: 'Auiki kala',
-    manager_email: 'Auiki@nordcloud.com',
-    phone_number: '358 415163',
-    roles: [{ id: '1', name: 'staff' }],
-    skills: [
-      { id: '1', name: 'React' },
-      { id: '2', name: 'Java' },
-      { id: '3', name: 'Typescript' }
-    ]
-  }
-];
-
-const DisplayMatchCard = (
-  <Grid divided="vertically" id="display">
-    <Grid.Row columns={5}>
-      <Grid.Column>
-        <Header as="h4"> Key word search</Header>
-        <Search placeholder="search..." />
-      </Grid.Column>
-    </Grid.Row>
-    <Header as="h3">Result: {Object.keys(employeeData).length}</Header>
-    <Grid.Row columns={3}>
-      {employeeData.map((employee, index) => (
-        <div key={index}>
-          <GridColumn>
-            <EmployeeProfileCard employee={employee} />
-          </GridColumn>
-        </div>
-      ))}
-    </Grid.Row>
-  </Grid>
-);
+import { useState } from 'react';
 
 const StaffingDashboard = () => {
   const { authState } = useOktaAuth();
+
+  const [keyword, setKeyword] = useState('');
+  const searchResults = useKeywordSearch(keyword);
+
+  const DisplayMatchCard = (
+    <Grid divided="vertically" id="display">
+      <Grid.Row columns={5}>
+        <Grid.Column>
+          <Header as="h4"> Key word search</Header>
+          <Search
+            onSearchChange={(e, data) => {
+              if (data.value !== undefined) {
+                setKeyword(data.value);
+              }
+            }}
+            results={searchResults}
+            value={keyword}
+            placeholder="search..."
+          />
+        </Grid.Column>
+      </Grid.Row>
+      <Header as="h3">Result: {Object.keys(searchResults).length}</Header>
+      <Grid.Row columns={3}>
+        {searchResults.map((employee: any) => (
+          <GridColumn>
+            <EmployeeProfileCard employee={employee} />
+          </GridColumn>
+        ))}
+      </Grid.Row>
+    </Grid>
+  );
+
   return (
     <>
       {authState ? (
@@ -101,13 +50,11 @@ const StaffingDashboard = () => {
             <Grid.Column width={4}>
               <FilterDropdowns />
             </Grid.Column>
-            <Grid.Column width={12}> {DisplayMatchCard}</Grid.Column>
+            <Grid.Column width={12}>{DisplayMatchCard}</Grid.Column>
           </Grid>
         </div>
       ) : (
-        <>
-          <p>null</p>
-        </>
+        <p>null</p>
       )}
     </>
   );

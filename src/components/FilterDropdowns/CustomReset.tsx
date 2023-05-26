@@ -1,7 +1,6 @@
 import { ReactNode, MouseEvent } from 'react';
 import { Header } from 'semantic-ui-react';
 
-
 type CustomButtonProps = {
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   label: ReactNode;

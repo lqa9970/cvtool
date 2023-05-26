@@ -5,7 +5,7 @@ type SearchableSelectProps = {
   allOptions: Option[];
   placeholder: string;
   multiSelected?: boolean;
-  value:string[];
+  value: string[];
   filter: (value: string[]) => void;
 };
 

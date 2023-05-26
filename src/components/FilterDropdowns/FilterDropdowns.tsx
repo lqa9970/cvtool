@@ -37,7 +37,7 @@ const FilterDropdowns = () => {
     const { data } = useGetFirestoreCollection({ collection });
 
     return data.map((n) => {
-      return { key:mapper(n), text: mapper(n), value: mapper(n) };
+      return { key: mapper(n), text: mapper(n), value: mapper(n) };
     });
   };
 
@@ -45,8 +45,11 @@ const FilterDropdowns = () => {
     'hyperscaler',
     (n) => n.name
   );
-  const mainTechData = fetchFieldData<{ name: string }>('main_tech', (n) => n.name);
-  console.log('maintechData',mainTechData);
+  const mainTechData = fetchFieldData<{ name: string }>(
+    'main_tech',
+    (n) => n.name
+  );
+  console.log('maintechData', mainTechData);
   const skillsData = fetchFieldData<{ name: string }>('skills', (n) => n.name);
   const certificationData = fetchFieldData<{ name: string }>(
     'certification',

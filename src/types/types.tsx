@@ -53,6 +53,7 @@ export interface LanguagesWithProficiency {
 }
 
 export interface EmployeeUser {
+  certifications?: any;
   id?: string;
   name?: string;
   email?: string;

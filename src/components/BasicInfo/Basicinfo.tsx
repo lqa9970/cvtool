@@ -36,15 +36,21 @@ const BasicInfo = (props: IBasicInfo) => {
         </Header.Subheader>
         <Header.Subheader>
           <i className="linkedin icon"></i>
-          <a href={props.userDetails?.social_links?.linkedin}>{props.userDetails?.social_links?.linkedin}</a>
+          <a href={props.userDetails?.social_links?.linkedin}>
+            {props.userDetails?.social_links?.linkedin}
+          </a>
         </Header.Subheader>
         <Header.Subheader>
           <i className="github icon"></i>
-          <a href={props.userDetails?.social_links?.github}>{props.userDetails?.social_links?.github}</a>
+          <a href={props.userDetails?.social_links?.github}>
+            {props.userDetails?.social_links?.github}
+          </a>
         </Header.Subheader>
         <Header.Subheader>
           <i className="world icon"></i>
-          <a href={props.userDetails?.social_links?.website}>{props.userDetails?.social_links?.website}</a>
+          <a href={props.userDetails?.social_links?.website}>
+            {props.userDetails?.social_links?.website}
+          </a>
         </Header.Subheader>
       </div>
     </>

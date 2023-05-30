@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import { Education } from '../../types/types';
-import { Button, Grid, TextArea, Input } from 'semantic-ui-react';
+import { Button, Grid, TextArea, Input, GridColumn } from 'semantic-ui-react';
 import { Header, Label, Icon } from 'semantic-ui-react';
 import { Datepicker, DayPicker } from '@nordcloud/gnui';
 import { useState } from 'react';
@@ -162,7 +162,8 @@ const EducationComponent = (props: EducationProps) => {
               </Grid.Row>
 
               <Grid.Row>
-                <Grid.Column width={9}>
+                <Grid.Column width={16}>
+                  <Label id="form-labels">Personal Description</Label>
                   <TextArea
                     name="degreeDescription"
                     placeholder="Enter your description here..."
@@ -187,22 +188,44 @@ const EducationComponent = (props: EducationProps) => {
           </Form>
         )}
       </Formik>
-      <Grid centered>
+      <Grid columns={3} textAlign="left" verticalAlign="top">
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h4">School name</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Degree name</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Date</Header>
+          </Grid.Column>
+        </Grid.Row>
         {props.education &&
           props.education.map((obj: Education, i: number) => {
             return (
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Header as="h4">{`${obj.degree} - ${obj.school}`}</Header>
-                  <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                <Grid.Column>
+                  <p>{obj.school}</p>
                 </Grid.Column>
-                <Grid.Column width={4} textAlign="right" verticalAlign="middle">
-                  <Icon
-                    onClick={() => handleDelete(obj.id)}
-                    color="orange"
-                    name="delete"
-                    circular
-                  />
+                <Grid.Column>
+                  <p>{obj.degree}</p>
+                </Grid.Column>
+                <Grid.Column textAlign="left">
+                  <Grid>
+                    <Grid.Row columns={2}>
+                      <Grid.Column width={10}>
+                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                      </Grid.Column>
+                      <Grid.Column width={6}>
+                        <Icon
+                          onClick={() => handleDelete(obj.id)}
+                          color="orange"
+                          name="delete"
+                          circular
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
                 </Grid.Column>
               </Grid.Row>
             );

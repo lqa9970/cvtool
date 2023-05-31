@@ -88,8 +88,8 @@ const EducationComponent = (props: EducationProps) => {
                   <Input
                     value={values.school}
                     onChange={handleChange}
-                    placeholder="School"
-                    name="school"
+                    placeholder="Institution"
+                    name="institution"
                     fluid
                   />
                   {showErrors(errors.school, touched.school)}
@@ -97,7 +97,7 @@ const EducationComponent = (props: EducationProps) => {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Label id="form-labels">Degree Name</Label>
+                  <Label id="form-labels">Degree</Label>
                   <Input
                     value={values.degree}
                     onChange={handleChange}
@@ -191,10 +191,10 @@ const EducationComponent = (props: EducationProps) => {
       <Grid columns={3} textAlign="left" verticalAlign="top">
         <Grid.Row>
           <Grid.Column>
-            <Header as="h4">School name</Header>
+            <Header as="h4">Institution</Header>
           </Grid.Column>
           <Grid.Column>
-            <Header as="h4">Degree name</Header>
+            <Header as="h4">Degree</Header>
           </Grid.Column>
           <Grid.Column>
             <Header as="h4">Date</Header>

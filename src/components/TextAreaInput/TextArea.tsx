@@ -3,6 +3,7 @@ import { TextArea, Grid } from 'semantic-ui-react';
 import './TextArea.scss';
 
 type TextAreaInputProps = {
+  id: string;
   children: never[];
   value: string;
   name: string;
@@ -18,6 +19,7 @@ type TextAreaInputProps = {
 };
 
 const TextAreaInput = ({
+  id,
   value,
   name,
   placeholder,
@@ -25,14 +27,13 @@ const TextAreaInput = ({
 }: TextAreaInputProps) => {
   return (
     <Grid>
-      <Grid.Column width={12}>
+      <Grid.Column>
         <TextArea
+          id={id}
           name={name}
-          className="text-area"
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
-          style={{ minHeight: 100, minWidth: 500 }}
           rows={6}
         />
       </Grid.Column>

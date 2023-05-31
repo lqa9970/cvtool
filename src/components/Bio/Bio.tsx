@@ -1,5 +1,5 @@
 import { Formik, Form } from 'formik';
-import { Button, Grid } from 'semantic-ui-react';
+import { Button, Grid, TextArea } from 'semantic-ui-react';
 import TextAreaInput from '../TextAreaInput/TextArea';
 import useUpdateUser from '../../hooks/useUpdateUser';
 import './Bio.scss';
@@ -31,13 +31,14 @@ const BioForm = ({ bio, userId }: BioProps) => {
               <Grid>
                 <Grid.Row>
                   <Grid.Column>
-                    <TextAreaInput
+                    <TextArea
+                      id="bio-text-area"
                       value={values.bioDescription}
                       name="bioDescription"
                       placeholder="Enter your bio here"
                       handleChange={handleChange}
                       children={[]}
-                    ></TextAreaInput>
+                    />
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row id="button-row-position">

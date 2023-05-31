@@ -4,6 +4,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import EmployeeProfileCard from '../../components/EmployeeCard/EmployeeProfileCard';
 import FilterDropdowns from '../../components/FilterDropdowns/FilterDropdowns';
 import useKeywordSearch from '../../hooks/useKeywordSearch';
+import { EmployeeUser } from '../../types/types';
 
 import './index.scss';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import { useState } from 'react';
 const StaffingDashboard = () => {
   const { authState } = useOktaAuth();
 
+  const [filterSearchResults, setFilterSearchResults] = useState<EmployeeUser[]>([]);
   const [keyword, setKeyword] = useState('');
   const searchResults = useKeywordSearch(keyword);
 
@@ -48,7 +50,9 @@ const StaffingDashboard = () => {
         <div id="grid-box">
           <Grid stackable divided doubling columns={2}>
             <Grid.Column width={4}>
-              <FilterDropdowns />
+              <FilterDropdowns
+                setFilterSearchResults={setFilterSearchResults}
+              />
             </Grid.Column>
             <Grid.Column width={12}>{DisplayMatchCard}</Grid.Column>
           </Grid>

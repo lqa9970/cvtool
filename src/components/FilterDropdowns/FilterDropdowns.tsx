@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import CustomReset from './CustomReset';
 import FilterDropdown from './FilterDropdown';
+import { EmployeeUser } from '../../types/types';
 import './FilterDropdowns.scss';
 
 import useGetFirestoreCollection from '../../hooks/useGetCollectionData';
@@ -17,6 +18,9 @@ type Filters = {
   nationality: string[];
 };
 
+// When you know the serach results type update the type never[] and 
+type SetFilterSearchResultsType = React.Dispatch<React.SetStateAction<EmployeeUser[]>>;
+
 const initialFilters: Filters = {
   hyperscaler: [],
   mainTech: [],
@@ -27,7 +31,7 @@ const initialFilters: Filters = {
   nationality: []
 };
 
-const FilterDropdowns = () => {
+const FilterDropdowns = ({ setFilterSearchResults }: { setFilterSearchResults: SetFilterSearchResultsType }) => {
   const [filters, setFilters] = useState<Filters>(initialFilters);
 
   const fetchFieldData = <T extends { name: string }>(

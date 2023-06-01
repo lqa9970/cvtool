@@ -9,6 +9,7 @@ import { formatDate, initialValues, defaultEndDate } from './EducationUtils';
 import useUpdateUser from '../../hooks/useUpdateUser';
 import { uniqueIdGenerator } from '../../utils/uid';
 import './Education.scss';
+import TextAreaInput from '../TextAreaInput/TextArea';
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -89,7 +90,7 @@ const EducationComponent = (props: EducationProps) => {
                     value={values.school}
                     onChange={handleChange}
                     placeholder="Institution"
-                    name="institution"
+                    name="school"
                     fluid
                   />
                   {showErrors(errors.school, touched.school)}
@@ -164,11 +165,11 @@ const EducationComponent = (props: EducationProps) => {
               <Grid.Row>
                 <Grid.Column width={16}>
                   <Label id="form-labels">Personal Description</Label>
-                  <TextArea
+                  <TextAreaInput
                     name="degreeDescription"
                     placeholder="Enter your description here..."
                     value={values.degreeDescription}
-                    onChange={handleChange}
+                    handleChange={handleChange}
                     id="edu-text-area"
                   />
                   {showErrors(

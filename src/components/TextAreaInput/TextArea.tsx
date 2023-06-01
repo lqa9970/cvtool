@@ -4,7 +4,6 @@ import './TextArea.scss';
 
 type TextAreaInputProps = {
   id: string;
-  children: never[];
   value: string;
   name: string;
   placeholder: string;

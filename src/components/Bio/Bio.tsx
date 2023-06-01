@@ -31,13 +31,12 @@ const BioForm = ({ bio, userId }: BioProps) => {
               <Grid>
                 <Grid.Row>
                   <Grid.Column>
-                    <TextArea
+                    <TextAreaInput
                       id="bio-text-area"
                       value={values.bioDescription}
                       name="bioDescription"
                       placeholder="Enter your bio here"
                       handleChange={handleChange}
-                      children={[]}
                     />
                   </Grid.Column>
                 </Grid.Row>

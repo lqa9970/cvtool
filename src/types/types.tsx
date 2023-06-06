@@ -31,7 +31,17 @@ export interface Skills {
   name: string;
 }
 
-export interface Project {}
+export interface ProjectHistory {
+  accountName: string;
+  currentlyInProject: string;
+  endMonthYear: string;
+  id: string;
+  industry: string;
+  projectDescription: string;
+  projectTitle: string;
+  role: string;
+  startMonthYear: string;
+}
 
 export interface Reminders {
   title: string;
@@ -52,8 +62,12 @@ export interface LanguagesWithProficiency {
   proficiency: string;
 }
 
+export interface Certifications {
+  name: string;
+  date: string;
+}
+
 export interface EmployeeUser {
-  certifications?: any;
   id?: string;
   name?: string;
   email?: string;
@@ -65,16 +79,17 @@ export interface EmployeeUser {
   main_tech?: string;
   phone_number?: string;
   roles: Role[];
-  social_links?: SocialLinks[];
+  social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
   skills?: Skills[];
   workabroad?: boolean;
   experience_level?: string;
-  projects?: Project[];
+  projects?: ProjectHistory[];
   reminders?: Reminders[];
   last_activity?: string[];
   education?: Education[];
+  certifications?: Certifications[];
 }
 
 export type FormikHandleChange = {

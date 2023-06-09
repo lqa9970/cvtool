@@ -19,7 +19,7 @@
   display: inline-block;
 }
 
-.search {
+.search-field {
   margin: 2em 0;
   &_result {
     display: flex;
@@ -28,5 +28,3 @@
     align-items: center;
   }
 }
-
-

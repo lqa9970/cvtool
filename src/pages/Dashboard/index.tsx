@@ -33,20 +33,19 @@ const Dashboard = () => {
                 />
                 Create a new CV.
               </Header>
-              <Button onClick={() => navigate('/staffing')} />
             </Segment>
-            {/* <Header as="h3">Badges</Header>
+            <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">
               <Header as="h4" icon>
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cvprofile')
+                  onClick={() => navigate('/cv')
                 }
                 />
                 You haven't attach any badges.
               </Header>
-            </Segment> */}
+            </Segment>
           </GridRow>
         </GridColumn>
         <GridColumn width={4}>
@@ -58,26 +57,6 @@ const Dashboard = () => {
           </Segment>
         </GridColumn>
       </Grid>
-
-      {/* Temporal place for Search page. Will be moved later */}
-
-      <div className="search">
-        <div className="search_section">
-          <SearchableSelect
-            allOptions={[
-              { text: 'ABC', value: '123' },
-              { text: 'DEF', value: '123' },
-              { text: 'GHI', value: '123' },
-              { text: 'MNP', value: '123' },
-              { text: 'XYZ', value: '123' }
-            ]}
-            filter={(value) => console.log('selected value', value)}
-            placeholder="Search here..."
-          />
-        </div>
-      </div>
-
-      {/* Temporal place for Search result cards. Will be moved later */}
     </Container>
   );
 };

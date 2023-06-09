@@ -1,7 +1,8 @@
 import { Formik, Form } from 'formik';
-import { Button, Grid } from 'semantic-ui-react';
+import { Button, Grid, TextArea } from 'semantic-ui-react';
 import TextAreaInput from '../TextAreaInput/TextArea';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import './Bio.scss';
 
 type FormValues = {
   bioDescription: string;
@@ -17,7 +18,7 @@ const BioForm = ({ bio, userId }: BioProps) => {
   if (bio === undefined) bio = '';
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column>
       {userId && (
         <Formik<FormValues>
           initialValues={{ bioDescription: bio }}
@@ -27,14 +28,26 @@ const BioForm = ({ bio, userId }: BioProps) => {
         >
           {({ values, handleChange, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <TextAreaInput
-                value={values.bioDescription}
-                name="bioDescription"
-                placeholder="Enter your bio here"
-                handleChange={handleChange}
-                children={[]}
-              ></TextAreaInput>
-              <Button type="submit">Save</Button>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column>
+                    <TextAreaInput
+                      id="bio-text-area"
+                      value={values.bioDescription}
+                      name="bioDescription"
+                      placeholder="Enter your bio here"
+                      handleChange={handleChange}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row id="button-row-position">
+                  <Grid.Column>
+                    <Button id="bio-add-button" type="submit">
+                      Save
+                    </Button>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </Form>
           )}
         </Formik>

@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import { Education } from '../../types/types';
-import { Button, Grid, TextArea, Input } from 'semantic-ui-react';
+import { Button, Grid, TextArea, Input, GridColumn } from 'semantic-ui-react';
 import { Header, Label, Icon } from 'semantic-ui-react';
 import { Datepicker, DayPicker } from '@nordcloud/gnui';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ import { formatDate, initialValues, defaultEndDate } from './EducationUtils';
 import useUpdateUser from '../../hooks/useUpdateUser';
 import { uniqueIdGenerator } from '../../utils/uid';
 import './Education.scss';
+import TextAreaInput from '../TextAreaInput/TextArea';
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -76,21 +77,28 @@ const EducationComponent = (props: EducationProps) => {
           setFieldValue
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Grid centered>
+            <Grid>
               <Grid.Row columns={1}>
+                <Input name="id" id="input-hidden" />
                 <Grid.Column width={9}>
-                  <Input name="id" id="input-hidden" />
                   {showErrors(errors.id, touched.id)}
-                  <Label id="form-labels">School Name</Label>
+                </Grid.Column>
+
+                <Grid.Column>
+                  <Label id="form-labels">Institution</Label>
                   <Input
                     value={values.school}
                     onChange={handleChange}
-                    placeholder="School"
+                    placeholder="Institution"
                     name="school"
                     fluid
                   />
                   {showErrors(errors.school, touched.school)}
-                  <Label id="form-labels">Degree Name</Label>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Label id="form-labels">Degree</Label>
                   <Input
                     value={values.degree}
                     onChange={handleChange}
@@ -103,77 +111,75 @@ const EducationComponent = (props: EducationProps) => {
               </Grid.Row>
 
               <Grid.Row>
-                <Grid.Column width={9}>
+                <Grid.Column>
                   <Label id="form-labels">Year of Study</Label>
-                </Grid.Column>
-              </Grid.Row>
+                  <div className="flex-container">
+                    <Input
+                      value={values.startMonthYear}
+                      onChange={handleChange}
+                      placeholder="Month/Year"
+                      name="startMonthYear"
+                      onClick={() => setOpenStartDatePick(true)}
+                    />
+                    {openStartDatePick ? (
+                      <Datepicker id="date-picker">
+                        <DayPicker
+                          mode="single"
+                          onSelect={(date) =>
+                            handleStartDateSelect(
+                              date || defaultStartDate,
+                              setFieldValue
+                            )
+                          }
+                        />
+                      </Datepicker>
+                    ) : null}
 
-              <Grid.Row columns={3}>
-                <Grid.Column width={3}>
-                  <Input
-                    value={values.startMonthYear}
-                    onChange={handleChange}
-                    placeholder="Month/Year"
-                    name="startMonthYear"
-                    onClick={() => setOpenStartDatePick(true)}
-                  />
-                  {openStartDatePick ? (
-                    <Datepicker id="date-picker">
-                      <DayPicker
-                        mode="single"
-                        onSelect={(date) =>
-                          handleStartDateSelect(
-                            date || defaultStartDate,
-                            setFieldValue
-                          )
-                        }
-                      />
-                    </Datepicker>
-                  ) : null}
-
-                  {showErrors(errors.startMonthYear, touched.startMonthYear)}
-                </Grid.Column>
-                <Grid.Column id="yos-to-grid" width={3} verticalAlign="middle">
-                  <p id="yos-to">TO</p>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Input
-                    value={values.endMonthYear}
-                    onChange={handleChange}
-                    placeholder="Month/Year"
-                    name="endMonthYear"
-                    onClick={() => setOpenEndDatePick(true)}
-                  />
-                  {openEndDatePick ? (
-                    <Datepicker id="date-picker">
-                      <DayPicker
-                        mode="single"
-                        onSelect={(date) =>
-                          handleEndDateSelect(
-                            date || defaultEndDate,
-                            setFieldValue
-                          )
-                        }
-                      />
-                    </Datepicker>
-                  ) : null}
-                  {showErrors(errors.endMonthYear, touched.endMonthYear)}
+                    {showErrors(errors.startMonthYear, touched.startMonthYear)}
+                    <p id="yos-to">TO</p>
+                    <Input
+                      value={values.endMonthYear}
+                      onChange={handleChange}
+                      placeholder="Month/Year"
+                      name="endMonthYear"
+                      onClick={() => setOpenEndDatePick(true)}
+                    />
+                    {openEndDatePick ? (
+                      <Datepicker id="date-picker">
+                        <DayPicker
+                          mode="single"
+                          onSelect={(date) =>
+                            handleEndDateSelect(
+                              date || defaultEndDate,
+                              setFieldValue
+                            )
+                          }
+                        />
+                      </Datepicker>
+                    ) : null}
+                    {showErrors(errors.endMonthYear, touched.endMonthYear)}
+                  </div>
                 </Grid.Column>
               </Grid.Row>
 
               <Grid.Row>
-                <Grid.Column width={9}>
-                  <TextArea
+                <Grid.Column width={16}>
+                  <Label id="form-labels">Personal Description</Label>
+                  <TextAreaInput
                     name="degreeDescription"
                     placeholder="Enter your description here..."
                     value={values.degreeDescription}
-                    onChange={handleChange}
+                    handleChange={handleChange}
                     id="edu-text-area"
                   />
                   {showErrors(
                     errors.degreeDescription,
                     touched.degreeDescription
                   )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row id="edu-button-row">
+                <Grid.Column>
                   <Button id="edu-add-button" type="submit">
                     Add
                   </Button>
@@ -183,22 +189,44 @@ const EducationComponent = (props: EducationProps) => {
           </Form>
         )}
       </Formik>
-      <Grid centered>
+      <Grid columns={3} textAlign="left" verticalAlign="top">
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h4">Institution</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Degree</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h4">Date</Header>
+          </Grid.Column>
+        </Grid.Row>
         {props.education &&
           props.education.map((obj: Education, i: number) => {
             return (
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Header as="h4">{`${obj.degree} - ${obj.school}`}</Header>
-                  <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                <Grid.Column>
+                  <p>{obj.school}</p>
                 </Grid.Column>
-                <Grid.Column width={4} textAlign="right" verticalAlign="middle">
-                  <Icon
-                    onClick={() => handleDelete(obj.id)}
-                    color="orange"
-                    name="delete"
-                    circular
-                  />
+                <Grid.Column>
+                  <p>{obj.degree}</p>
+                </Grid.Column>
+                <Grid.Column textAlign="left">
+                  <Grid>
+                    <Grid.Row columns={2}>
+                      <Grid.Column width={10}>
+                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                      </Grid.Column>
+                      <Grid.Column width={6}>
+                        <Icon
+                          onClick={() => handleDelete(obj.id)}
+                          color="orange"
+                          name="delete"
+                          circular
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
                 </Grid.Column>
               </Grid.Row>
             );

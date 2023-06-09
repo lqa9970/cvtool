@@ -1,9 +1,4 @@
 @import '/src/styles/mixins';
-.container {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 1em;
-}
 
 .display-flex {
   display: flex;
@@ -23,10 +18,11 @@
   margin: 0.14285714em;
 }
 
-.ui.search.dropdown {
-  min-width: 24em;
+.bottom-margin-md {
+  margin-bottom: 2rem;
 }
 
-.bottom-margin-md {
-  margin-bottom: 2em;
+#language-add-button {
+  background-color: $nc_dark_blue;
+  color: white;
 }

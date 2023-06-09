@@ -36,10 +36,12 @@ const useUserDetails = (
             social_links: user.data().social_links,
             education: user.data().education,
             bio: user.data().bio,
-            languages: user.data().languages
+            languages: user.data().languages,
+            certifications: user.data().certifications,
+            projects: user.data().projects,
+            skills: user.data().skills
           });
         });
-
         setUserDetails(users[0]);
       }
     };

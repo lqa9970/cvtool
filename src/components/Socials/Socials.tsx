@@ -33,12 +33,12 @@ const Socials = (props: ISocials) => {
   };
 
   return (
-    <Grid.Column width={8}>
+    <Grid.Column>
       <Grid>
         <SocialLink link={linkedin} iconName="linkedin" setLink={setLinkedin} />
         <SocialLink link={github} iconName="github" setLink={setGitHub} />
         <SocialLink link={website} iconName="world" setLink={setWebsite} />
-        <Grid.Row columns={1}>
+        <Grid.Row id="soc-button-row">
           <Grid.Column>
             <Button id="soc-add-button" onClick={handleSocialLinks}>
               Save

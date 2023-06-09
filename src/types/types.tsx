@@ -8,7 +8,7 @@ export interface OktaTokenPayload {
   auth_time: string;
 }
 
-export interface Roles {
+export interface Role {
   id: string;
   name: string;
 }
@@ -31,7 +31,17 @@ export interface Skills {
   name: string;
 }
 
-export interface Project {}
+export interface ProjectHistory {
+  accountName: string;
+  currentlyInProject: string;
+  endMonthYear: string;
+  id: string;
+  industry: string;
+  projectDescription: string;
+  projectTitle: string;
+  role: string;
+  startMonthYear: string;
+}
 
 export interface Reminders {
   title: string;
@@ -52,28 +62,34 @@ export interface LanguagesWithProficiency {
   proficiency: string;
 }
 
-export interface EmployeeUser {
-  id: string;
+export interface Certifications {
   name: string;
-  email: string;
-  location: string;
-  job_title: string;
-  manager_name: string;
-  manager_email: string;
-  nationality: string;
-  main_tech: string;
-  phone_number: string;
-  roles: Roles[];
+  date: string;
+}
+
+export interface EmployeeUser {
+  id?: string;
+  name?: string;
+  email?: string;
+  location?: string;
+  job_title?: string;
+  manager_name?: string;
+  manager_email?: string;
+  nationality?: string;
+  main_tech?: string;
+  phone_number?: string;
+  roles: Role[];
   social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
   skills?: Skills[];
   workabroad?: boolean;
   experience_level?: string;
-  projects?: Project[];
+  projects?: ProjectHistory[];
   reminders?: Reminders[];
   last_activity?: string[];
   education?: Education[];
+  certifications?: Certifications[];
 }
 
 export type FormikHandleChange = {

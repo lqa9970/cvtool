@@ -11,7 +11,7 @@ type Filter = {
   location: string[];
 };
 
-const useUsersWithFilter = (filters: Filter) => {
+const useFilter = (filters: Filter) => {
   const [users, setUsers] = useState<EmployeeUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<EmployeeUser[]>([]);
 
@@ -65,4 +65,4 @@ const useUsersWithFilter = (filters: Filter) => {
   return filteredUsers;
 };
 
-export default useUsersWithFilter;
+export default useFilter;

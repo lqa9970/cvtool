@@ -1,6 +1,8 @@
 import { Header } from 'semantic-ui-react';
 import { EmployeeUser } from '../../types/types';
 
+import './BasicInfo.scss';
+
 interface IBasicInfo {
   userDetails: EmployeeUser | null;
 }
@@ -9,9 +11,6 @@ const BasicInfo = (props: IBasicInfo) => {
   return (
     <>
       <div className="field">
-        <Header as="h3" dividing>
-          Basic Info
-        </Header>
         <Header size="large">{props.userDetails?.name}</Header>
         <Header size="small">{props.userDetails?.job_title}</Header>
         <Header.Subheader>

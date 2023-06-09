@@ -164,7 +164,7 @@ const EducationComponent = (props: EducationProps) => {
 
               <Grid.Row>
                 <Grid.Column width={16}>
-                  <Label id="form-labels">Personal Description</Label>
+                  <Label id="form-labels">Description</Label>
                   <TextAreaInput
                     name="degreeDescription"
                     placeholder="Enter your description here..."
@@ -220,7 +220,7 @@ const EducationComponent = (props: EducationProps) => {
                       <Grid.Column width={6}>
                         <Icon
                           onClick={() => handleDelete(obj.id)}
-                          color="orange"
+                          style={{ color: '#161632' }}
                           name="delete"
                           circular
                         />

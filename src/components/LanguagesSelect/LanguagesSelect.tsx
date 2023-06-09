@@ -31,11 +31,16 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
 
   const languages = useGetLanguages();
 
-  const options = languages.map((language) => ({
-    key: language.id,
-    value: language.name,
-    text: language.name
-  }));
+  const options = languages
+    .map((language) => ({
+      key: language.id,
+      value: language.name,
+      text: language.name
+    }))
+    .filter((language) => {
+      // Filter selected languages
+      return !languagesWithProficiencies.some((i) => i.name === language.value);
+    });
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -43,6 +48,8 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
       proficiency: ''
     },
     onSubmit: (values) => {
+      formik.resetForm();
+
       setLanguagesWithProficiencies([
         { name: values.language, proficiency: values.proficiency },
         ...languagesWithProficiencies
@@ -96,13 +103,14 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
         <Grid.Row verticalAlign="middle" columns={2}>
           <Grid.Column width={12}>
             <LanguageProfiencies
+              proficiency={formik.values.proficiency}
               handleProficiencyChange={handleProficiencyChange}
             ></LanguageProfiencies>
           </Grid.Column>
           <Grid.Column width={2}>
             <Button
               id="language-add-button"
-              disabled={!formik.values.language && !formik.values.proficiency}
+              disabled={!formik.values.language || !formik.values.proficiency}
               type="submit"
             >
               Add

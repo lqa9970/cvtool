@@ -1,4 +1,5 @@
 import { Container, Grid, Header } from 'semantic-ui-react';
+import { Button, TransitionablePortal, Segment } from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import BasicInfo from '../../components/BasicInfo/Basicinfo';
@@ -8,14 +9,25 @@ import Socials from '../../components/Socials/Socials';
 import useGetUser from '../../hooks/useGetUser';
 import LanguagesSelect from '../../components/LanguagesSelect/LanguagesSelect';
 import Education from '../../components/Education/Education';
+import CVPreview from '../CVPreview';
+import { useState } from 'react';
 
-interface ICVForm {}
+import './index.scss';
 
 const CreateCV = () => {
   const { authState } = useOktaAuth();
   const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
+  const [openPreview, setOpenPreview] = useState({ open: false });
 
   if (!userDetails || !userDetails.id) return null;
+
+  const handleOpen = () => {
+    setOpenPreview({ open: true });
+  };
+
+  const handleClose = () => {
+    setOpenPreview({ open: false });
+  };
 
   return (
     <>
@@ -24,6 +36,18 @@ const CreateCV = () => {
           <Grid.Row>
             <Grid.Column width={5}>
               <AvatarCard />
+              <TransitionablePortal
+                closeOnTriggerClick
+                onOpen={handleOpen}
+                onClose={handleClose}
+                transition={{ animation: 'fade left', duration: '500' }}
+                openOnTriggerClick
+                trigger={<Button content={'Preview CV'} secondary />}
+              >
+                <Segment id="cv-preview-container">
+                  <CVPreview />
+                </Segment>
+              </TransitionablePortal>
             </Grid.Column>
             <Grid.Column>
               <BasicInfo userDetails={userDetails} />

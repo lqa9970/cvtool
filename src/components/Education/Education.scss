@@ -27,7 +27,19 @@
 #edu-text-area {
   min-height: 150px;
   min-width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
+  background-color: $nc_gray;
+  border: none;
+  outline: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom: solid 0.2em rgb(151, 30, 151);
+  caret-color: rgb(151, 30, 151);
+  opacity: 60%;
+  resize: none;
+  &:focus::-webkit-input-placeholder {
+    color: transparent;
+  }
 }
 
 #input-hidden {

@@ -6,7 +6,6 @@ import useAuthorizationOkta from '../hooks/useOktaAuth';
 import Navbar from '../components/Navbar/Navbar';
 import CreateCV from '../pages/CVProfile';
 import StaffingDashboard from '../pages/StaffingDashboard';
-import TestingHook from '../pages/testingHook';
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ export const AppRoutes = () => {
         <Route path="/" element={<Login />} />
         <Route path="/cv" element={<CreateCV />} />
         <Route path="/staffing" element={<StaffingDashboard />} />
-        <Route path="/test" element={<TestingHook />} />
       </Routes>
     </Security>
   );

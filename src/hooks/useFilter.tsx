@@ -1,69 +1,68 @@
 import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../services/firestoreService';
+import { collection, getDocs, DocumentData } from 'firebase/firestore';
+import { EmployeeUser } from '../types/types';
 
-type User = {
-  id: string,
-  name: string,
-  email: string,
-  location: string,
-  job_title: string,
-  manager_name: string,
-  manager_email: string,
-  nationality: string,
-  main_tech: string,
-  hyperscaler: string[],    
-  languages: string[],
-  skills: string[],
-};
 
 type Filter = {
-  skills?: string[];
-  languages?: string[];
-  nationality?: string[];
-  location?: string[];
-  hyperscaler?: string[];
-  main_tech?: string[];
+  skills: string[];
+  languages: string[];
+  nationality: string[];
+  location: string[];
 };
 
-const initialFilter: Filter = {};
+const useUsersWithFilter = (filters: Filter) => {
+  const [users, setUsers] = useState<EmployeeUser[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<EmployeeUser[]>([]);
 
-const useFirestoreFilter = () => {
-  const [data, setData] = useState<User[]>([]);
-  const [filter, setFilter] = useState<Filter>(initialFilter);
-  const [filteredData, setFilteredData] = useState<User[]>([]);
-
-  // Fetch data from Firestore for the first time
+  // Fetch all users
   useEffect(() => {
-    const fetchData = async () => {
-      const keys = Object.keys(filter).filter((key) => filter[key as keyof Filter]?.length);
-      let firestoreQuery : any = collection(db, 'users');
-      if (keys.length > 0) {
-        const conditions = keys.map((key) => where(key, 'array-contains-any', filter[key as keyof Filter]));
-        firestoreQuery = query(firestoreQuery, ...conditions);
-      }
-      const querySnapshot = await getDocs(firestoreQuery);
-      const fetchedData = querySnapshot.docs.map((doc) => doc.data() as User);
-      setData(fetchedData);
-      setFilteredData(fetchedData);
+    const fetchUsers = async () => {
+      const usersCollection = collection(db, 'users');
+      const usersSnapshot = await getDocs(usersCollection);
+      const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
+        (doc: DocumentData) => {
+          const data = doc.data() as EmployeeUser;
+          return { ...data, id: doc.id };
+        }
+      );
+      setUsers(fetchedUsers);
     };
-    fetchData();
+    fetchUsers();
   }, []);
 
-  // Filter data in frontend for subsequent filter changes
+  // Filter users
   useEffect(() => {
-    const newFilteredData = data.filter((item) =>
-      Object.keys(filter).every((key) =>
-        filter[key as keyof Filter]?.length ? filter[key as keyof Filter]?.some(f => item[key as keyof User]?.includes(f)) : true
-      )
-    );
-    setFilteredData(newFilteredData);
-  }, [filter]);
+    let result = [...users];
 
-  return {
-    data: filteredData,
-    setFilter,
-  };
+    if (filters.skills.length > 0) {
+      result = result.filter(user => 
+        user.skills?.some(skill => filters.skills.includes(skill.name))
+      );
+    }
+
+    if (filters.languages.length > 0) {
+      result = result.filter(user =>
+        user.languages?.some(language => filters.languages.includes(language.name))
+      );
+    }
+
+    if (filters.nationality.length > 0) {
+      result = result.filter(user =>
+        filters.nationality.includes(user.nationality)
+      );
+    }
+
+    if (filters.location.length > 0) {
+      result = result.filter(user =>
+        filters.location.includes(user.location)
+      );
+    }
+
+    setFilteredUsers(result);
+  }, [users, filters]);
+
+  return filteredUsers;
 };
 
-export default useFirestoreFilter;
+export default useUsersWithFilter;

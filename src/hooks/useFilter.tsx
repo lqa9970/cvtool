@@ -1,23 +1,15 @@
 import { useState, useEffect } from 'react';
 import { db } from '../services/firestoreService';
 import { collection, getDocs, DocumentData } from 'firebase/firestore';
-import { EmployeeUser } from '../types/types';
+import { EmployeeUser, Filters } from '../types/types';
 
-
-type Filter = {
-  skills: string[];
-  languages: string[];
-  nationality: string[];
-  location: string[];
-};
-
-const useFilter = (filters: Filter) => {
+const useFilter = (filters: Filters) => {
   const [users, setUsers] = useState<EmployeeUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<EmployeeUser[]>([]);
 
   // Fetch all users
   useEffect(() => {
-    const fetchUsers = async () => {
+    (async () => {
       const usersCollection = collection(db, 'users');
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
@@ -27,14 +19,13 @@ const useFilter = (filters: Filter) => {
         }
       );
       setUsers(fetchedUsers);
-    };
-    fetchUsers();
+    })();
   }, []);
 
   // Filter users
   useEffect(() => {
+    console.log('filters',filters)
     let result = [...users];
-
     if (filters.skills.length > 0) {
       result = result.filter(user => 
         user.skills?.some(skill => filters.skills.includes(skill.name))
@@ -62,6 +53,7 @@ const useFilter = (filters: Filter) => {
     setFilteredUsers(result);
   }, [users, filters]);
 
+  console.log('filteredUsers',filteredUsers);
   return filteredUsers;
 };
 

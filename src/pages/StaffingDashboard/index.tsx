@@ -1,48 +1,29 @@
-import { Grid, GridColumn, Header, Search } from 'semantic-ui-react';
-
-import { useOktaAuth } from '@okta/okta-react';
-import EmployeeProfileCard from '../../components/EmployeeCard/EmployeeProfileCard';
-import FilterDropdowns from '../../components/FilterDropdowns/FilterDropdowns';
-import useKeywordSearch from '../../hooks/useKeywordSearch';
-import { EmployeeUser } from '../../types/types';
-
-import './index.scss';
 import { useState } from 'react';
+import { Grid} from 'semantic-ui-react';
+import { useOktaAuth } from '@okta/okta-react';
+
+import EmployeeFilter from '../../components/EmployeeFilter/EmployeeFilter';
+import EmployeeSearch from '../../components/EmployeeSearch/EmployeeSearch';
+import DisplayMatchCard from '../../components/DisplayMatchCard/DisplayMatchCard';
+import { EmployeeUser } from '../../types/types';
+import './index.scss';
 
 const StaffingDashboard = () => {
   const { authState } = useOktaAuth();
 
-  const [filterSearchResults, setFilterSearchResults] = useState<EmployeeUser[]>([]);
-  const [keyword, setKeyword] = useState('');
-  const searchResults = useKeywordSearch(keyword);
+  const [filterResults, setFilterResults] = useState<EmployeeUser[]>([]);
+  const [searchResults, setSearchResults] = useState<EmployeeUser[]>([]);
+  const [lastUpdated, setLastUpdated] = useState<string>('');
 
-  const DisplayMatchCard = (
-    <Grid divided="vertically" id="display">
-      <Grid.Row columns={5}>
-        <Grid.Column>
-          <Header as="h4"> Key word search</Header>
-          <Search
-            onSearchChange={(e, data) => {
-              if (data.value !== undefined) {
-                setKeyword(data.value);
-              }
-            }}
-            results={searchResults}
-            value={keyword}
-            placeholder="search..."
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Header as="h3">Result: {Object.keys(searchResults).length}</Header>
-      <Grid.Row columns={3}>
-        {searchResults.map((employee: any) => (
-          <GridColumn>
-            <EmployeeProfileCard employee={employee} />
-          </GridColumn>
-        ))}
-      </Grid.Row>
-    </Grid>
-  );
+  let displayComponent;
+
+  if (lastUpdated === 'search') {
+    displayComponent = <DisplayMatchCard results={searchResults} />;
+  } else if (lastUpdated === 'filter') {
+    displayComponent = <DisplayMatchCard results={filterResults} />;
+  } else {
+    displayComponent = <p></p>;
+  }
 
   return (
     <>
@@ -50,11 +31,12 @@ const StaffingDashboard = () => {
         <div id="grid-box">
           <Grid stackable divided doubling columns={2}>
             <Grid.Column width={4}>
-              <FilterDropdowns
-                setFilterSearchResults={setFilterSearchResults}
-              />
+              <EmployeeFilter setLastUpdated= {setLastUpdated} setFilterResults={setFilterResults} />
             </Grid.Column>
-            <Grid.Column width={12}>{DisplayMatchCard}</Grid.Column>
+            <Grid.Column width={12}>
+              <EmployeeSearch setLastUpdated= {setLastUpdated} setSearchResults={setSearchResults} />
+              { displayComponent }
+            </Grid.Column>
           </Grid>
         </div>
       ) : (

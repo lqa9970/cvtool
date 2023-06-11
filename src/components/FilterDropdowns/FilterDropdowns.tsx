@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { Container, Divider, Header } from 'semantic-ui-react';
 
 import CustomReset from './CustomReset';
@@ -9,7 +8,7 @@ import './FilterDropdowns.scss';
 
 type FilterDropdownsProps = {
   filters: Filters
-  setFilters: Dispatch<SetStateAction<Filters>>;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 };
 
 const initialFilters: Filters = {

@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 
 import useFilter from '../../hooks/useFilter';
 import { EmployeeUser, Filters } from '../../types/types';
@@ -15,8 +15,8 @@ const initialFilters: Filters = {
 };
 
 type EmployeeFilterProps = {
-  setLastUpdated: Dispatch<SetStateAction<string>>;
-  setFilterResults: Dispatch<SetStateAction<EmployeeUser[]>>;
+  setLastUpdated: React.Dispatch<React.SetStateAction<string>>;
+  setFilterResults: React.Dispatch<React.SetStateAction<EmployeeUser[]>>;
 };
 
 const EmployeeFilter = ({

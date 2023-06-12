@@ -189,49 +189,51 @@ const EducationComponent = (props: EducationProps) => {
           </Form>
         )}
       </Formik>
-      <Grid columns={3} textAlign="left" verticalAlign="top">
-        <Grid.Row>
-          <Grid.Column>
-            <Header as="h4">Institution</Header>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as="h4">Degree</Header>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as="h4">Date</Header>
-          </Grid.Column>
-        </Grid.Row>
-        {props.education &&
-          props.education.map((obj: Education, i: number) => {
-            return (
-              <Grid.Row>
-                <Grid.Column>
-                  <p>{obj.school}</p>
-                </Grid.Column>
-                <Grid.Column>
-                  <p>{obj.degree}</p>
-                </Grid.Column>
-                <Grid.Column textAlign="left">
-                  <Grid>
-                    <Grid.Row columns={2}>
-                      <Grid.Column width={10}>
-                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
-                      </Grid.Column>
-                      <Grid.Column width={6}>
-                        <Icon
-                          onClick={() => handleDelete(obj.id)}
-                          style={{ color: '#161632' }}
-                          name="delete"
-                          circular
-                        />
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
-              </Grid.Row>
-            );
-          })}
-      </Grid>
+      {props.education?.toString() != '' && (
+        <Grid columns={3} textAlign="left" verticalAlign="top">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h4">Institution</Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4">Degree</Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4">Date</Header>
+            </Grid.Column>
+          </Grid.Row>
+          {props.education &&
+            props.education.map((obj: Education, i: number) => {
+              return (
+                <Grid.Row>
+                  <Grid.Column>
+                    <p>{obj.school}</p>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <p>{obj.degree}</p>
+                  </Grid.Column>
+                  <Grid.Column textAlign="left">
+                    <Grid>
+                      <Grid.Row columns={2}>
+                        <Grid.Column width={10}>
+                          <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                        </Grid.Column>
+                        <Grid.Column width={6}>
+                          <Icon
+                            onClick={() => handleDelete(obj.id)}
+                            style={{ color: '#161632' }}
+                            name="delete"
+                            circular
+                          />
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                  </Grid.Column>
+                </Grid.Row>
+              );
+            })}
+        </Grid>
+      )}
     </Grid.Column>
   );
 };

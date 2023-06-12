@@ -40,7 +40,7 @@ function CreateCV() {
               trigger={<Button content="Preview CV" secondary />}
             >
               <Segment id="cv-preview-container">
-                <CVPreview employee={null} />
+                <CVPreview employee={userDetails} />
               </Segment>
             </TransitionablePortal>
           </Grid.Column>

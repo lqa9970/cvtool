@@ -9,7 +9,7 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersCollection = collection(db, 'users');
+      const usersCollection = collection(db, 'test_users');
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
         (doc: DocumentData) => {

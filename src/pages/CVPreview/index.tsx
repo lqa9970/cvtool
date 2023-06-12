@@ -1,26 +1,33 @@
-import { Container, Grid, Header, Label, Icon } from 'semantic-ui-react';
-import { Image, Divider, List } from 'semantic-ui-react';
-import { EmployeeUser } from '../../types/types';
-import CloudLogo from '../../assets/cloud-logo.png';
-import Ninja from '../../assets/ninja.png';
+import {
+  Container,
+  Grid,
+  Header,
+  Label,
+  Icon,
+  Image,
+  Divider,
+  List,
+} from "semantic-ui-react";
+import CloudLogo from "../../assets/cloud-logo.png";
+import Ninja from "../../assets/ninja.png";
+import { EmployeeUser } from "../../types/types";
 
-import './index.scss';
+import "./index.scss";
 
-interface IEmployee {
-  employee: EmployeeUser;
-}
+type IEmployee = {
+  employee: EmployeeUser | null;
+};
 
-const CVPreview = ({ employee }: IEmployee) => {
-
-  if (!employee || !employee.id) return null;
+function CVPreview({ employee }: IEmployee) {
+  if (!employee?.id) {return <p>Generating preview failed</p>;}
 
   return (
     <Container id="cv-preview">
-      <Grid columns={2} stackable>
+      <Grid stackable columns={2}>
         <Grid.Row>
           <Grid.Column width={6} id="preview-left-col">
-            <Image src={CloudLogo} fluid id="preview-logo" />
-            <Image src={Ninja} fluid id="preview-ninja" />
+            <Image fluid src={CloudLogo} id="preview-logo" />
+            <Image fluid src={Ninja} id="preview-ninja" />
             {employee.languages && (
               <>
                 <Divider horizontal>
@@ -31,7 +38,7 @@ const CVPreview = ({ employee }: IEmployee) => {
                 <Container>
                   <List bulleted id="preview-list">
                     {employee.languages.map((lang) => (
-                      <List.Item id="preview-list-item">
+                      <List.Item key={lang.name} id="preview-list-item">
                         {lang.name} - {lang.proficiency}
                       </List.Item>
                     ))}
@@ -49,7 +56,7 @@ const CVPreview = ({ employee }: IEmployee) => {
                 </Divider>
                 <List bulleted id="preview-list">
                   {employee.education?.map((edu) => (
-                    <List.Item id="preview-list-item">
+                    <List.Item key={edu.id} id="preview-list-item">
                       <List.Header id="preview-list-header">
                         {edu.degree}
                       </List.Header>
@@ -69,7 +76,7 @@ const CVPreview = ({ employee }: IEmployee) => {
                 </Divider>
                 <List bulleted id="preview-list">
                   {employee.certifications?.map((certificate) => (
-                    <List.Item id="preview-list-item">
+                    <List.Item key={certificate.name} id="preview-list-item">
                       <List.Header id="preview-list-header">
                         {certificate.name}
                       </List.Header>
@@ -102,7 +109,7 @@ const CVPreview = ({ employee }: IEmployee) => {
                 </Divider>
                 <Label.Group size="medium">
                   {employee.skills.map((skill) => (
-                    <Label>{skill.name}</Label>
+                    <Label key={skill.id}>{skill.name}</Label>
                   ))}
                 </Label.Group>
               </>
@@ -117,7 +124,7 @@ const CVPreview = ({ employee }: IEmployee) => {
                 </Divider>
                 <Label.Group size="medium">
                   {employee.skills.map((skill) => (
-                    <Label>{skill.name}</Label>
+                    <Label key={skill.id}>{skill.name}</Label>
                   ))}
                 </Label.Group>
               </>
@@ -182,23 +189,23 @@ const CVPreview = ({ employee }: IEmployee) => {
               <Divider section />
             </Grid>
             <Container>
-              {employee?.bio || 'Write a few words here about yourself here'}
+              {employee?.bio || "Write a few words here about yourself here"}
             </Container>
             <Divider section />
             <Header as="h3">PROJECT EXPERIENCE</Header>
             <Divider section />
             {employee.projects?.map((project) => (
-              <List bulleted>
+              <List key={project.id} bulleted>
                 <List.Item>
                   <Header as="h3">{project.role}</Header>
-                  <div style={{ paddingTop: '5px' }}>
+                  <div style={{ paddingTop: "5px" }}>
                     {project.projectTitle}
                   </div>
                   <div
-                    style={{ paddingTop: '5px' }}
+                    style={{ paddingTop: "5px" }}
                   >{`${project.startMonthYear} - ${project.endMonthYear}`}</div>
-                  <div style={{ paddingTop: '5px' }}>{project.industry}</div>
-                  <Container style={{ paddingTop: '15px' }}>
+                  <div style={{ paddingTop: "5px" }}>{project.industry}</div>
+                  <Container style={{ paddingTop: "15px" }}>
                     {project.projectDescription}
                   </Container>
                   <Divider section />
@@ -210,6 +217,6 @@ const CVPreview = ({ employee }: IEmployee) => {
       </Grid>
     </Container>
   );
-};
+}
 
 export default CVPreview;

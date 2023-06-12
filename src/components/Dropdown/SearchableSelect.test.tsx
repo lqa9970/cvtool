@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import SearchableSelect from './SearchableSelect';
 
 const options = [
@@ -15,7 +15,7 @@ describe('Multi option selected from drop down', () => {
     const handleChange = vi.fn();
     render(
       <SearchableSelect
-        multiSelected={true}
+        multiSelected
         allOptions={options}
         placeholder="Search..."
         filter={handleChange}

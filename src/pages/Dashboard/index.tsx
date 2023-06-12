@@ -1,13 +1,19 @@
-import { Grid, GridColumn, Header, Container } from 'semantic-ui-react';
-import { Segment, GridRow, Icon, Button } from 'semantic-ui-react';
-import { useOktaAuth } from '@okta/okta-react';
-import { useNavigate } from 'react-router-dom';
-import UserCard from '../../components/UserCard/UserCard';
-import SearchableSelect from '../../components/Dropdown/SearchableSelect';
+import { useOktaAuth } from "@okta/okta-react";
+import { useNavigate } from "react-router-dom";
+import {
+  Grid,
+  GridColumn,
+  Header,
+  Container,
+  Segment,
+  GridRow,
+  Icon,
+} from "semantic-ui-react";
+import UserCard from "../../components/UserCard/UserCard";
 
-import './index.scss';
+import "./index.scss";
 
-const Dashboard = () => {
+function Dashboard() {
   const navigate = useNavigate();
 
   const { authState } = useOktaAuth();
@@ -25,25 +31,24 @@ const Dashboard = () => {
           <GridRow>
             <Header as="h3">My CV</Header>
             <Segment placeholder textAlign="center">
-              <Header as="h4" icon>
+              <Header icon as="h4">
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')}
+                  onClick={() => navigate("/cv")}
                 />
                 Create a new CV.
               </Header>
             </Segment>
             <Header as="h3">Badges</Header>
             <Segment placeholder textAlign="center">
-              <Header as="h4" icon>
+              <Header icon as="h4">
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')
-                }
+                  onClick={() => navigate("/cv")}
                 />
-                You haven't attach any badges.
+                You haven&apos;t attach unknown badges.
               </Header>
             </Segment>
           </GridRow>
@@ -59,5 +64,5 @@ const Dashboard = () => {
       </Grid>
     </Container>
   );
-};
+}
 export default Dashboard;

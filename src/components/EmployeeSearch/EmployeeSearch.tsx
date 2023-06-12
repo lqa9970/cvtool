@@ -9,7 +9,7 @@ type EmployeeSearchProps = {
   setSearchResults: React.Dispatch<React.SetStateAction<EmployeeUser[]>>;
 };
 
-const EmployeeSearch = ({ setLastUpdated, setSearchResults }: EmployeeSearchProps) => {
+function EmployeeSearch({ setLastUpdated, setSearchResults }: EmployeeSearchProps) {
   const [keyword, setKeyword] = useState('');
   const searchResults = useKeywordSearch(keyword);
   setSearchResults(searchResults); // Empty array when search doesn't match
@@ -32,15 +32,15 @@ const EmployeeSearch = ({ setLastUpdated, setSearchResults }: EmployeeSearchProp
         <Grid.Column>
           <Header as="h4"> Keyword search</Header>
           <Search
-            onSearchChange={handleSearchChange}
             value={keyword}
             showNoResults={false}
             placeholder="search..."
+            onSearchChange={handleSearchChange}
           />
         </Grid.Column>
       </Grid.Row>
     </Grid>
   );
-};
+}
 
 export default EmployeeSearch;

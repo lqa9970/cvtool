@@ -9,13 +9,13 @@ type SearchComponentProps = {
   ) => void;
 };
 
-const SearchComponent = ({
+function SearchComponent({
   placeholder,
   handleSearchChange
-}: SearchComponentProps) => {
+}: SearchComponentProps) {
   return (
     <Search placeholder={placeholder} onSearchChange={handleSearchChange} />
   );
-};
+}
 
 export default SearchComponent;

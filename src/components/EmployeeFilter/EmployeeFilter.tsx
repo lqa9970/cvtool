@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import useFilter from '../../hooks/useFilter';
 import { EmployeeUser, Filters } from '../../types/types';
-import FilterDropdowns from '../../components/FilterDropdowns/FilterDropdowns';
+import FilterDropdowns from "../FilterDropdowns/FilterDropdowns";
 
 const initialFilters: Filters = {
   hyperscaler: [],
@@ -19,10 +19,10 @@ type EmployeeFilterProps = {
   setFilterResults: React.Dispatch<React.SetStateAction<EmployeeUser[]>>;
 };
 
-const EmployeeFilter = ({
+function EmployeeFilter({
   setLastUpdated,
   setFilterResults
-}: EmployeeFilterProps) => {
+}: EmployeeFilterProps) {
   const [filters, setFilters] = useState<Filters>(initialFilters)
   const results = useFilter(filters);
   setFilterResults(results); // Empty array when search doesn't match
@@ -33,6 +33,6 @@ const EmployeeFilter = ({
   }, [filters]);
 
   return <FilterDropdowns filters= {filters} setFilters={setFilters} />;
-};
+}
 
 export default EmployeeFilter;

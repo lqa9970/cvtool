@@ -1,6 +1,6 @@
-import { TextArea, Grid } from 'semantic-ui-react';
+import { TextArea, Grid } from "semantic-ui-react";
 
-import './TextArea.scss';
+import "./TextArea.scss";
 
 type TextAreaInputProps = {
   id: string;
@@ -8,22 +8,23 @@ type TextAreaInputProps = {
   name: string;
   placeholder: string;
   handleChange: {
-    (e: React.ChangeEvent<any>): void;
-    <T = string | React.ChangeEvent<any>>(
+    (error: React.ChangeEvent<unknown>): void;
+    <T = React.ChangeEvent<unknown> | string>(
       field: T
-    ): T extends React.ChangeEvent<any>
-      ? void
-      : (e: string | React.ChangeEvent<any>) => void;
+    ): T extends React.ChangeEvent<unknown>
+      ? // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        void
+      : (error: React.ChangeEvent<unknown> | string) => void;
   };
 };
 
-const TextAreaInput = ({
+function TextAreaInput({
   id,
   value,
   name,
   placeholder,
-  handleChange
-}: TextAreaInputProps) => {
+  handleChange,
+}: TextAreaInputProps) {
   return (
     <Grid>
       <Grid.Column>
@@ -32,12 +33,12 @@ const TextAreaInput = ({
           name={name}
           placeholder={placeholder}
           value={value}
-          onChange={handleChange}
           rows={6}
+          onChange={handleChange}
         />
       </Grid.Column>
     </Grid>
   );
-};
+}
 
 export default TextAreaInput;

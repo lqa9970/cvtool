@@ -1,7 +1,7 @@
-import React from 'react';
-import { Header } from 'semantic-ui-react';
-import SearchableSelect from '../Dropdown/SearchableSelect';
-import { Filters } from '../../types/types';
+import React from "react";
+import { Header } from "semantic-ui-react";
+import { Filters } from "../../types/types";
+import SearchableSelect from "../Dropdown/SearchableSelect";
 
 type FilterDropdownProps = {
   label: string;
@@ -11,23 +11,25 @@ type FilterDropdownProps = {
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 };
 
-const FilterDropdown: React.FC<FilterDropdownProps> = ({
+function FilterDropdown({
   label,
   options,
   filterKey,
   filters,
-  setFilters
-}) => (
-  <Header as="h5">
-    {label}
-    <SearchableSelect
-      allOptions={options}
-      multiSelected={true}
-      value={filters[filterKey]}
-      filter={(value) => setFilters({ ...filters, [filterKey]: value })}
-      placeholder=""
-    />
-  </Header>
-);
+  setFilters,
+}: FilterDropdownProps) {
+  return (
+    <Header as="h5">
+      {label}
+      <SearchableSelect
+        multiSelected
+        allOptions={options}
+        value={filters[filterKey]}
+        filter={(value) => setFilters({ ...filters, [filterKey]: value })}
+        placeholder=""
+      />
+    </Header>
+  );
+}
 
 export default FilterDropdown;

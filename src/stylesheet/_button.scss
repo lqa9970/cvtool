@@ -1,11 +1,11 @@
 @import 'mixins';
 
-#nc-btn {
-    background-color:$nc_dark_blue;
-    color: $nc_white;
-  }
+.nc-btn {
+  background-color: $nc-dark-blue;
+  color: $nc-white;
+}
 
-#nc-btn-error{
-    background-color:$nc_error;
-    color:$nc_white
+.nc-btn-error {
+  background-color: $nc-error;
+  color: $nc-white
 }

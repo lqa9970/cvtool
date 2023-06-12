@@ -1,16 +1,7 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 import SearchableSelect from '../Dropdown/SearchableSelect';
-
-type Filters = {
-  hyperscaler: string[];
-  mainTech: string[];
-  skills: string[];
-  certificate: string[];
-  location: string[];
-  languages: string[];
-  nationality: string[];
-};
+import { Filters } from '../../types/types';
 
 type FilterDropdownProps = {
   label: string;

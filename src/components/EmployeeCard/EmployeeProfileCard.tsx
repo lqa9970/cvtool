@@ -1,5 +1,7 @@
-import { Card, Image, Feed, Button } from 'semantic-ui-react';
+import { useState } from 'react';
+import { Card, Image, Feed, Button, TransitionablePortal, Segment } from 'semantic-ui-react';
 import { EmployeeUser, Skills } from '../../types/types';
+import CVPreview from '../../pages/CVPreview';
 
 import ninja from '../../assets/ninja.png';
 
@@ -39,7 +41,16 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
         </Feed>
       </Card.Content>
       <Card.Content extra>
-        <Button id="nc-btn">Read more</Button>
+      <TransitionablePortal
+                closeOnTriggerClick
+                transition={{ animation: 'fade left', duration: '500' }}
+                openOnTriggerClick
+                trigger={<Button content={'See CV'} secondary />}
+              >
+                <Segment id="cv-preview-container">
+                  <CVPreview employee={employee}/>
+                </Segment>
+              </TransitionablePortal>
       </Card.Content>
     </Card>
   );

@@ -17,17 +17,8 @@ import './index.scss';
 const CreateCV = () => {
   const { authState } = useOktaAuth();
   const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
-  const [openPreview, setOpenPreview] = useState({ open: false });
 
   if (!userDetails || !userDetails.id) return null;
-
-  const handleOpen = () => {
-    setOpenPreview({ open: true });
-  };
-
-  const handleClose = () => {
-    setOpenPreview({ open: false });
-  };
 
   return (
     <>

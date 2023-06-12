@@ -1,22 +1,28 @@
-import { useState } from 'react';
-import { Formik, Form } from 'formik';
-import { Button, Grid, TextArea, Input, GridColumn , Header, Label, Icon } from 'semantic-ui-react';
-import { Datepicker, DayPicker } from '@nordcloud/gnui';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import { Education } from '../../types/types';
-import { uniqueIdGenerator } from '../../utils/uid';
-import './Education.scss';
-import TextAreaInput from '../TextAreaInput/TextArea';
-import { educationSchema, defaultStartDate , formatDate, initialValues, defaultEndDate } from './EducationUtils';
+import { useState } from "react";
+import { Formik, Form } from "formik";
+import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
+import { Datepicker, DayPicker } from "@nordcloud/gnui";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { Education } from "../../types/types";
+import { uniqueIdGenerator } from "../../utils/uid";
+import "./Education.scss";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import {
+  educationSchema,
+  defaultStartDate,
+  formatDate,
+  initialValues,
+  defaultEndDate,
+} from "./EducationUtils";
 
 type EducationProps = {
   education: Education[] | undefined;
   userId: string;
 };
 
-type setFieldValue = (
+type SetFieldValue = (
   field: string,
-  value: any,
+  value: unknown,
   shouldValidate?: boolean | undefined
 ) => void;
 
@@ -25,27 +31,30 @@ function EducationComponent(props: EducationProps) {
   const [openStartDatePick, setOpenStartDatePick] = useState(false);
   const [openEndDatePick, setOpenEndDatePick] = useState(false);
 
-  const handleStartDateSelect = (date: Date, setFieldValue: setFieldValue) => {
-    setFieldValue('startMonthYear', formatDate(date));
+  const handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+    setFieldValue("startMonthYear", formatDate(date));
     setOpenStartDatePick(false);
   };
 
-  const handleEndDateSelect = (date: Date, setFieldValue: setFieldValue) => {
-    setFieldValue('endMonthYear', formatDate(date));
+  const handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+    setFieldValue("endMonthYear", formatDate(date));
     setOpenEndDatePick(false);
   };
 
   const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((object) => object.id != id);
-    updateUser({ education: deleteDegree }, props.userId);
+    const deleteDegree = props?.education?.filter((object) => object.id !== id);
+    updateUser({ education: deleteDegree }, props.userId)
+      .then(() => null)
+      .catch(() => null);
   };
 
   const handleFormikSubmit = (values: Education) => {
     const degrees = props.education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
-    updateUser({ education: degrees }, props.userId);
+    updateUser({ education: degrees }, props.userId)
+      .then(() => null)
+      .catch(() => null);
   };
-
   const showErrors = (
     error: string | undefined,
     touched: boolean | undefined
@@ -58,13 +67,12 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
-
   return (
     <Grid.Column>
       <Formik
         initialValues={initialValues}
         validationSchema={educationSchema}
-        onSubmit={(values, { resetForm }) => handleFormikSubmit(values)}
+        onSubmit={(values) => handleFormikSubmit(values)}
       >
         {({
           values,
@@ -72,7 +80,7 @@ function EducationComponent(props: EducationProps) {
           handleSubmit,
           errors,
           touched,
-          setFieldValue
+          setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -81,7 +89,6 @@ function EducationComponent(props: EducationProps) {
                 <Grid.Column width={9}>
                   {showErrors(errors.id, touched.id)}
                 </Grid.Column>
-
                 <Grid.Column>
                   <Label id="form-labels">Institution</Label>
                   <Input
@@ -107,7 +114,6 @@ function EducationComponent(props: EducationProps) {
                   {showErrors(errors.degree, touched.degree)}
                 </Grid.Column>
               </Grid.Row>
-
               <Grid.Row>
                 <Grid.Column>
                   <Label id="form-labels">Year of Study</Label>
@@ -132,7 +138,6 @@ function EducationComponent(props: EducationProps) {
                         />
                       </Datepicker>
                     ) : null}
-
                     {showErrors(errors.startMonthYear, touched.startMonthYear)}
                     <p id="yos-to">TO</p>
                     <Input
@@ -159,7 +164,6 @@ function EducationComponent(props: EducationProps) {
                   </div>
                 </Grid.Column>
               </Grid.Row>
-
               <Grid.Row>
                 <Grid.Column width={16}>
                   <Label id="form-labels">Personal Description</Label>
@@ -199,36 +203,35 @@ function EducationComponent(props: EducationProps) {
             <Header as="h4">Date</Header>
           </Grid.Column>
         </Grid.Row>
-        {props.education &&
-          props.education.map((object: Education, index: number) => {
-            return (
-              <Grid.Row>
-                <Grid.Column>
-                  <p>{object.school}</p>
-                </Grid.Column>
-                <Grid.Column>
-                  <p>{object.degree}</p>
-                </Grid.Column>
-                <Grid.Column textAlign="left">
-                  <Grid>
-                    <Grid.Row columns={2}>
-                      <Grid.Column width={10}>
-                        <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
-                      </Grid.Column>
-                      <Grid.Column width={6}>
-                        <Icon
-                          circular
-                          color="orange"
-                          name="delete"
-                          onClick={() => handleDelete(object.id)}
-                        />
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                </Grid.Column>
-              </Grid.Row>
-            );
-          })}
+        {props.education?.map((object: Education) => {
+          return (
+            <Grid.Row key={object.id}>
+              <Grid.Column>
+                <p>{object.school}</p>
+              </Grid.Column>
+              <Grid.Column>
+                <p>{object.degree}</p>
+              </Grid.Column>
+              <Grid.Column textAlign="left">
+                <Grid>
+                  <Grid.Row columns={2}>
+                    <Grid.Column width={10}>
+                      <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                      <Icon
+                        circular
+                        color="orange"
+                        name="delete"
+                        onClick={() => handleDelete(object.id)}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+          );
+        })}
       </Grid>
     </Grid.Column>
   );

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { query, collection, getDocs, where } from 'firebase/firestore';
-import { db as database } from '../services/firestoreService';
-import { EmployeeUser } from '../types/types';
+import { useState, useEffect } from "react";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { db as database } from "../services/firestoreService";
+import { EmployeeUser } from "../types/types";
 
 const useUserDetails = (
   email: string
@@ -12,8 +12,8 @@ const useUserDetails = (
   useEffect(() => {
     const getUser = async () => {
       if (email) {
-        const collection_ref = collection(database, 'users');
-        const q = query(collection_ref, where('email', '==', email));
+        const collection_ref = collection(database, "users");
+        const q = query(collection_ref, where("email", "==", email));
 
         const documentSnap = await getDocs(q);
 
@@ -39,7 +39,7 @@ const useUserDetails = (
             languages: user.data().languages,
             certifications: user.data().certifications,
             projects: user.data().projects,
-            skills: user.data().skills
+            skills: user.data().skills,
           });
         });
         setUserDetails(users[0]);

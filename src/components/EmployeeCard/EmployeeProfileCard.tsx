@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import { Card, Image, Feed, Button, TransitionablePortal, Segment } from 'semantic-ui-react';
-import ninja from '../../assets/ninja.png';
-import CVPreview from '../../pages/CVPreview';
-import { EmployeeUser, Skills } from '../../types/types';
+import {
+  Card,
+  Image,
+  Feed,
+  Button,
+  TransitionablePortal,
+  Segment,
+} from "semantic-ui-react";
+import ninja from "../../assets/ninja.png";
+import CVPreview from "../../pages/CVPreview";
+import { EmployeeUser, Skills } from "../../types/types";
 
-
-import './EmployeeProfileCard.scss';
+import "./EmployeeProfileCard.scss";
 
 type IEmployee = {
   employee: EmployeeUser;
-}
+};
 
 function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
   return (
@@ -41,16 +46,16 @@ function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
         </Feed>
       </Card.Content>
       <Card.Content extra>
-      <TransitionablePortal
-                closeOnTriggerClick
-                openOnTriggerClick
-                transition={{ animation: 'fade left', duration: '500' }}
-                trigger={<Button secondary content="See CV" />}
-              >
-                <Segment id="cv-preview-container">
-                  <CVPreview employee={employee}/>
-                </Segment>
-              </TransitionablePortal>
+        <TransitionablePortal
+          closeOnTriggerClick
+          openOnTriggerClick
+          transition={{ animation: "fade left", duration: "500" }}
+          trigger={<Button secondary content="See CV" />}
+        >
+          <Segment id="cv-preview-container">
+            <CVPreview employee={employee} />
+          </Segment>
+        </TransitionablePortal>
       </Card.Content>
     </Card>
   );

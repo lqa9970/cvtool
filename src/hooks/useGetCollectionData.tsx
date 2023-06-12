@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db as database } from '../services/firestoreService';
-import { getDataFromIDB, storeDataInIDB } from '../services/idbServices';
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db as database } from "../services/firestoreService";
+import { getDataFromIDB, storeDataInIDB } from "../services/idbServices";
 
 type UseFirestoreCollectionOptions = {
   collection: string;
-}
+};
 
 const useGetFirestoreCollection = (options: UseFirestoreCollectionOptions) => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<unknown[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -30,7 +30,7 @@ const useGetFirestoreCollection = (options: UseFirestoreCollectionOptions) => {
           );
           const documents = querySnapshot.docs.map((document_) => ({
             id: document_.id,
-            ...document_.data()
+            ...document_.data(),
           }));
 
           if (isMounted) {

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db as database } from '../services/firestoreService';
-import { Languages } from '../types/types';
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db as database } from "../services/firestoreService";
+import { Languages } from "../types/types";
 
 const useGetLanguages = () => {
   const [languages, setLanguages] = useState<Languages[]>([]);
@@ -9,7 +9,7 @@ const useGetLanguages = () => {
   useEffect(() => {
     const getLanguages = async () => {
       const temporaryLanguages: Languages[] = [];
-      const languagesRef = collection(database, '/languages');
+      const languagesRef = collection(database, "/languages");
 
       try {
         const languagesSnapshot = await getDocs(languagesRef);
@@ -17,9 +17,9 @@ const useGetLanguages = () => {
           setLanguages(temporaryLanguages);
           temporaryLanguages.push({
             id: language.id,
-            name: language.data().name,
-            nativeName: language.data().nativeName,
-            prefix: language.data().prefix
+            name: language.data().name as string,
+            nativeName: language.data().nativeName as string,
+            prefix: language.data().prefix as string,
           });
         });
       } catch (error) {
@@ -27,7 +27,9 @@ const useGetLanguages = () => {
       }
     };
 
-    getLanguages();
+    getLanguages()
+      .then(() => null)
+      .catch(() => null);
   }, []);
 
   return languages;

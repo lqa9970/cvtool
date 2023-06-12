@@ -1,10 +1,19 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { useNavigate } from 'react-router-dom';
-import { Grid, GridColumn, Header, Container , Segment, GridRow, Icon, Button } from 'semantic-ui-react';
-import SearchableSelect from '../../components/Dropdown/SearchableSelect';
-import UserCard from '../../components/UserCard/UserCard';
+import { useOktaAuth } from "@okta/okta-react";
+import { useNavigate } from "react-router-dom";
+import {
+  Grid,
+  GridColumn,
+  Header,
+  Container,
+  Segment,
+  GridRow,
+  Icon,
+  Button,
+} from "semantic-ui-react";
+import SearchableSelect from "../../components/Dropdown/SearchableSelect";
+import UserCard from "../../components/UserCard/UserCard";
 
-import './index.scss';
+import "./index.scss";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -28,7 +37,7 @@ function Dashboard() {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')}
+                  onClick={() => navigate("/cv")}
                 />
                 Create a new CV.
               </Header>
@@ -39,10 +48,9 @@ function Dashboard() {
                 <Icon
                   id="cvArea"
                   name="plus square outline"
-                  onClick={() => navigate('/cv')
-                }
+                  onClick={() => navigate("/cv")}
                 />
-                You haven't attach any badges.
+                You haven't attach unknown badges.
               </Header>
             </Segment>
           </GridRow>

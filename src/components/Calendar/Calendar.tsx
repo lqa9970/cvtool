@@ -1,13 +1,13 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from "react";
 import {
   DateInput,
   TimeInput,
   DateTimeInput,
-  DatesRangeInput
-} from 'semantic-ui-calendar-react-yz';
-import { Form } from 'semantic-ui-react';
+  DatesRangeInput,
+} from "semantic-ui-calendar-react-yz";
+import { Form } from "semantic-ui-react";
 
-import './Calendar.scss';
+import "./Calendar.scss";
 
 type Calendar = {
   date: string;
@@ -17,25 +17,26 @@ type Calendar = {
 };
 
 type CalendarProps = {
-  option: 'date range' | 'date time' | 'date' | 'time';
+  option: "date range" | "date time" | "date" | "time";
 };
 
 function CustomCalendar({ option }: CalendarProps) {
   const [calendar, setCalendar] = useState<Calendar>({
-    date: '',
-    time: '',
-    dateTime: '',
-    datesRange: ''
+    date: "",
+    time: "",
+    dateTime: "",
+    datesRange: "",
   });
 
   const handleChange = (
     event: SyntheticEvent,
     { name, value }: { name: string; value: string }
   ) => {
+    // eslint-disable-next-line no-prototype-builtins
     if (calendar.hasOwnProperty(name)) {
       setCalendar((prevState) => ({
         ...prevState,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -44,7 +45,7 @@ function CustomCalendar({ option }: CalendarProps) {
     <div className="calender">
       {(() => {
         switch (option) {
-          case 'date':
+          case "date":
             return (
               <>
                 <Form>
@@ -61,7 +62,7 @@ function CustomCalendar({ option }: CalendarProps) {
               </>
             );
 
-          case 'time':
+          case "time":
             return (
               <>
                 <Form>
@@ -78,7 +79,7 @@ function CustomCalendar({ option }: CalendarProps) {
               </>
             );
 
-          case 'date time':
+          case "date time":
             return (
               <>
                 <Form>
@@ -95,7 +96,7 @@ function CustomCalendar({ option }: CalendarProps) {
               </>
             );
 
-          case 'date range':
+          case "date range":
             return (
               <>
                 <Form>

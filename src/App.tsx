@@ -8,7 +8,7 @@ import { AppRoutes } from "./routes";
 
 function App() {
   return (
-    <div className="app">
+    <div id="App">
       <BrowserRouter>
         <NotificationProvider>
           <AppRoutes />

@@ -38,7 +38,7 @@
   opacity: 0.6;
   resize: none;
 
-  &:focus::input-placeholder {
+  &:focus::placeholder {
     color: transparent;
   }
 }

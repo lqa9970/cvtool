@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
 export type OktaTokenPayload = {
   sub: string;
@@ -6,30 +6,30 @@ export type OktaTokenPayload = {
   name: string;
   preferred_username: string;
   auth_time: string;
-}
+};
 
 export type Role = {
   id: string;
   name: string;
-}
+};
 
 export type SocialLinks = {
   github: string;
   linkedin: string;
   website: string;
-}
+};
 
 export type Languages = {
   id: string;
   name: string;
   nativeName: string;
   prefix: string;
-}
+};
 
 export type Skills = {
   id: string;
   name: string;
-}
+};
 
 export type ProjectHistory = {
   accountName: string;
@@ -41,12 +41,12 @@ export type ProjectHistory = {
   projectTitle: string;
   role: string;
   startMonthYear: string;
-}
+};
 
 export type Reminders = {
   title: string;
   datetime: string;
-}
+};
 
 export type Education = {
   id: string;
@@ -55,17 +55,17 @@ export type Education = {
   startMonthYear: string;
   endMonthYear: string;
   degreeDescription: string;
-}
+};
 
 export type LanguagesWithProficiency = {
   name: string;
   proficiency: string;
-}
+};
 
 export type Certifications = {
   name: string;
   date: string;
-}
+};
 
 export type EmployeeUser = {
   id?: string;
@@ -90,13 +90,13 @@ export type EmployeeUser = {
   last_activity?: string[];
   education?: Education[];
   certifications?: Certifications[];
-}
+};
 
 export type FormikHandleChange = {
-  (e: ChangeEvent<any>): void;
-  <T = ChangeEvent<any> | string>(field: T): T extends ChangeEvent<any>
-    ? void
-    : (e: ChangeEvent<any> | string) => void;
+  (error: ChangeEvent<unknown>): void;
+  <T = ChangeEvent<unknown> | string>(field: T): T extends ChangeEvent<unknown>
+    ? undefined
+    : (error: ChangeEvent<unknown> | string) => void;
 };
 
 export type Filters = {

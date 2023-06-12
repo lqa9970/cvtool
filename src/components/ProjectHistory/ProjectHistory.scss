@@ -1,0 +1,63 @@
+@import '/src/styles/mixins';
+#datepicker-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+#project-info-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em 0;
+}
+
+#no-bottom-margin {
+  margin-bottom: 0;
+}
+
+#no-padding-y {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#no-padding-bottom {
+  padding-bottom: 0;
+}
+
+.center-child {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-info-row {
+  display: flex;
+  gap: 1em;
+  font-size: 16px;
+  i {
+    color: $text_primary;
+  }
+}
+
+.max-width-hidden {
+  max-width: 60em;
+  overflow-wrap: break-word;
+}
+
+#delete-project {
+  //background-color: $nc_white;
+  background-color: white;
+  color: $nc_dark_blue;
+}
+
+#industry {
+  font-weight: 500;
+}
+
+#duration {
+  color: $text_primary;
+  padding-bottom: 1em;
+}
+
+#project-card * {
+  margin: 0 0 0 0;
+}

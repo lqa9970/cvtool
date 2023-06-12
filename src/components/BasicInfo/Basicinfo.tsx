@@ -10,7 +10,7 @@ type IBasicInfo = {
 function BasicInfo(props: IBasicInfo) {
   return (
     <>
-      <div className="field">
+      <div className="field bottom-margin-3">
         <Header size="large">{props.userDetails?.name}</Header>
         <Header size="small">{props.userDetails?.job_title}</Header>
         <Header.Subheader>

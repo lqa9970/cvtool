@@ -18,6 +18,7 @@ import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
 
 import "./index.scss";
+import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 
 function CreateCV() {
   const { authState } = useOktaAuth();
@@ -68,6 +69,17 @@ function CreateCV() {
                 </Header>
                 {userDetails && <Socials userDetails={userDetails} />}
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+            <Grid.Column>
+              <Header as="h3" dividing>
+                Project History
+              </Header>
+              <ProjectHistoryComponent
+                projectHistory={userDetails?.projects}
+                userId={userDetails.id}
+              ></ProjectHistoryComponent>
+            </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>

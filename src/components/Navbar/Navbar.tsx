@@ -66,12 +66,12 @@ const Navbar = () => {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="https://nordcloud.com/" target="_blank">
+                <a href="/">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
               <div className="NavContent_pages">
-                <a>
+                <a href="/staffing">
                   <Icon name="clipboard" size="small" />
                   dashboard
                 </a>

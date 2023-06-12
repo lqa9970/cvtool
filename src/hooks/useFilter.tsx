@@ -10,7 +10,7 @@ const useFilter = (filters: Filters) => {
   // Fetch all users
   useEffect(() => {
     (async () => {
-      const usersCollection = collection(database, "dummy_users");
+      const usersCollection = collection(database, "test_users");
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
         (document_: DocumentData) => {

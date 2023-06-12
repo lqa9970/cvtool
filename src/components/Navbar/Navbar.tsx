@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useOktaAuth } from '@okta/okta-react';
-import { Icon, Segment, Popup, Button } from 'semantic-ui-react';
-import logo from '../../assets/cloud-logo.png';
+import { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import { Icon, Segment, Popup, Button } from "semantic-ui-react";
+import logo from "../../assets/cloud-logo.png";
 
-import ninja from '../../assets/ninja.png';
-import useGetUser from '../../hooks/useGetUser';
+import ninja from "../../assets/ninja.png";
+import useGetUser from "../../hooks/useGetUser";
 
-import './Navbar.scss';
+import "./Navbar.scss";
 
 function Navbar() {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [userRole, setUserRole] = useState<string | undefined>('talent');
+  const [userRole, setUserRole] = useState<string | undefined>("talent");
   const { authState } = useOktaAuth();
   const [user] = useGetUser(authState?.idToken?.claims.email!);
 
@@ -34,14 +34,14 @@ function Navbar() {
             <div
               key={index}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginBottom: '1em'
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: "1em",
               }}
             >
               {userRole == role.name ? (
                 <Button
-                  style={{ backgroundColor: '#161632' }}
+                  style={{ backgroundColor: "#161632" }}
                   color="green"
                   onClick={() => handleChangeRole(role.name)}
                 >
@@ -61,17 +61,17 @@ function Navbar() {
 
   if (loading == false) {
     switch (userRole) {
-      case 'staff':
+      case "staff":
         return (
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="https://nordcloud.com/" target="_blank" rel="noreferrer">
+                <a href="/">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
               <div className="NavContent_pages">
-                <a>
+                <a href="/staffing">
                   <Icon name="clipboard" size="small" />
                   dashboard
                 </a>
@@ -93,7 +93,7 @@ function Navbar() {
                   trigger={
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
-                      <p>{user?.name?.split(' ')[0]}</p>
+                      <p>{user?.name?.split(" ")[0]}</p>
                       {openModal == false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
@@ -109,12 +109,16 @@ function Navbar() {
           </>
         );
 
-      case 'talent':
+      case "talent":
         return (
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="https://nordcloud.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://nordcloud.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
@@ -127,7 +131,7 @@ function Navbar() {
                   trigger={
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
-                      <p>{user?.name?.split(' ')[0]}</p>
+                      <p>{user?.name?.split(" ")[0]}</p>
                       {openModal == false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
@@ -146,7 +150,9 @@ function Navbar() {
       default:
         break;
     }
-  } else {return <p>Loading...</p>;}
+  } else {
+    return <p>Loading...</p>;
+  }
 }
 
 export default Navbar;

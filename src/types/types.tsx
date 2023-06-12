@@ -33,7 +33,7 @@ export type Skills = {
 
 export type ProjectHistory = {
   accountName: string;
-  currentlyInProject: string;
+  currentlyInProject: boolean;
   endMonthYear: string;
   id: string;
   industry: string;

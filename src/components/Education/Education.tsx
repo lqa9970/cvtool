@@ -1,19 +1,15 @@
-import { useState } from "react";
-import { Formik, Form } from "formik";
-import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
-import { Datepicker, DayPicker } from "@nordcloud/gnui";
-import useUpdateUser from "../../hooks/useUpdateUser";
-import { Education } from "../../types/types";
-import { uniqueIdGenerator } from "../../utils/uid";
-import "./Education.scss";
-import TextAreaInput from "../TextAreaInput/TextArea";
-import {
-  educationSchema,
-  defaultStartDate,
-  formatDate,
-  initialValues,
-  defaultEndDate,
-} from "./EducationUtils";
+import { Formik, Form } from 'formik';
+import { Education } from '../../types/types';
+import { Button, Grid, Input } from 'semantic-ui-react';
+import { Header, Label, Icon } from 'semantic-ui-react';
+import { useState } from 'react';
+import { educationSchema } from './EducationUtils';
+import { formatDate, initialValues } from './EducationUtils';
+import useUpdateUser from '../../hooks/useUpdateUser';
+import { uniqueIdGenerator } from '../../utils/uid';
+import './Education.scss';
+import TextAreaInput from '../TextAreaInput/TextArea';
+import CustomCalendar from '../Calendar/Calendar';
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -118,48 +114,23 @@ function EducationComponent(props: EducationProps) {
                 <Grid.Column>
                   <Label id="form-labels">Year of Study</Label>
                   <div className="flex-container">
-                    <Input
-                      value={values.startMonthYear}
-                      placeholder="Month/Year"
+                    <CustomCalendar
                       name="startMonthYear"
-                      onChange={handleChange}
-                      onClick={() => setOpenStartDatePick(true)}
-                    />
-                    {openStartDatePick ? (
-                      <Datepicker id="date-picker">
-                        <DayPicker
-                          mode="single"
-                          onSelect={(date) =>
-                            handleStartDateSelect(
-                              date || defaultStartDate,
-                              setFieldValue
-                            )
-                          }
-                        />
-                      </Datepicker>
-                    ) : null}
+                      option="date"
+                      placeholder="Month/Year"
+                      setFieldValue={setFieldValue}
+                      value={values.startMonthYear}
+                    ></CustomCalendar>
+
                     {showErrors(errors.startMonthYear, touched.startMonthYear)}
                     <p id="yos-to">TO</p>
-                    <Input
-                      value={values.endMonthYear}
-                      placeholder="Month/Year"
+                    <CustomCalendar
                       name="endMonthYear"
-                      onChange={handleChange}
-                      onClick={() => setOpenEndDatePick(true)}
-                    />
-                    {openEndDatePick ? (
-                      <Datepicker id="date-picker">
-                        <DayPicker
-                          mode="single"
-                          onSelect={(date) =>
-                            handleEndDateSelect(
-                              date || defaultEndDate,
-                              setFieldValue
-                            )
-                          }
-                        />
-                      </Datepicker>
-                    ) : null}
+                      option="date"
+                      placeholder="Month/Year"
+                      setFieldValue={setFieldValue}
+                      value={values.endMonthYear}
+                    ></CustomCalendar>
                     {showErrors(errors.endMonthYear, touched.endMonthYear)}
                   </div>
                 </Grid.Column>

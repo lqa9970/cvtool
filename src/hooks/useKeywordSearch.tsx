@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../services/firestoreService';
+import { database } from '../services/firestoreService';
 import { collection, getDocs, DocumentData } from 'firebase/firestore';
 import { EmployeeUser } from '../types/types';
 
@@ -9,7 +9,7 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersCollection = collection(db, 'test_users');
+      const usersCollection = collection(database, 'test_users');
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
         (doc: DocumentData) => {

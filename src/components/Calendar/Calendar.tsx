@@ -1,115 +1,95 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from 'react';
 import {
   DateInput,
   TimeInput,
   DateTimeInput,
-  DatesRangeInput,
-} from "semantic-ui-calendar-react-yz";
-import { Form } from "semantic-ui-react";
-
-import "./Calendar.scss";
-
-type Calendar = {
-  date: string;
-  time: string;
-  dateTime: string;
-  datesRange: string;
-};
+  DatesRangeInput
+} from 'semantic-ui-calendar-react-yz';
 
 type CalendarProps = {
-  option: "date range" | "date time" | "date" | "time";
+  option: 'date' | 'time' | 'date time' | 'date range';
+  value: string;
+  name: string;
+  placeholder?: string;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
 };
 
-function CustomCalendar({ option }: CalendarProps) {
-  const [calendar, setCalendar] = useState<Calendar>({
-    date: "",
-    time: "",
-    dateTime: "",
-    datesRange: "",
-  });
-
-  const handleChange = (
-    event: SyntheticEvent,
-    { name, value }: { name: string; value: string }
+const CustomCalendar = ({
+  option,
+  value,
+  name,
+  placeholder = 'Date',
+  setFieldValue
+}: CalendarProps) => {
+  const handleCalendarChange = (
+    event: SyntheticEvent<HTMLElement, Event>,
+    { name, value }: any
   ) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (calendar.hasOwnProperty(name)) {
-      setCalendar((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
+    setFieldValue(name, value);
   };
 
   return (
-    <div className="calender">
+    <>
       {(() => {
         switch (option) {
           case "date":
             return (
-              <>
-                <Form>
-                  <DateInput
-                    closable
-                    clearable
-                    name="date"
-                    placeholder="Date"
-                    value={calendar.date}
-                    iconPosition="left"
-                    onChange={handleChange}
-                  />
-                </Form>
-              </>
+              <DateInput
+                closable
+                name={name}
+                placeholder={placeholder}
+                value={value}
+                iconPosition="left"
+                onChange={handleCalendarChange}
+              />
             );
 
           case "time":
             return (
               <>
-                <Form>
-                  <TimeInput
-                    closable
-                    clearable
-                    name="time"
-                    placeholder="Time"
-                    value={calendar.time}
-                    iconPosition="left"
-                    onChange={handleChange}
-                  />
-                </Form>
+                <TimeInput
+                  closable
+                  clearable
+                  name={name}
+                  placeholder={placeholder}
+                  value={value}
+                  iconPosition="left"
+                  onChange={handleCalendarChange}
+                />
               </>
             );
 
           case "date time":
             return (
               <>
-                <Form>
-                  <DateTimeInput
-                    closable
-                    clearable
-                    name="dateTime"
-                    placeholder="Date Time"
-                    value={calendar.dateTime}
-                    iconPosition="left"
-                    onChange={handleChange}
-                  />
-                </Form>
+                <DateTimeInput
+                  closable
+                  clearable
+                  name={name}
+                  placeholder={placeholder}
+                  value={value}
+                  iconPosition="left"
+                  onChange={handleCalendarChange}
+                />
               </>
             );
 
           case "date range":
             return (
               <>
-                <Form>
-                  <DatesRangeInput
-                    clearable
-                    closable
-                    name="datesRange"
-                    placeholder="From - To"
-                    value={calendar.datesRange}
-                    iconPosition="left"
-                    onChange={handleChange}
-                  />
-                </Form>
+                <DatesRangeInput
+                  clearable
+                  closable
+                  name={name}
+                  placeholder={placeholder}
+                  value={value}
+                  iconPosition="left"
+                  onChange={handleCalendarChange}
+                />
               </>
             );
           default:
@@ -117,7 +97,7 @@ function CustomCalendar({ option }: CalendarProps) {
             break;
         }
       })()}
-    </div>
+    </>
   );
 }
 

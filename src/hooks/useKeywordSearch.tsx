@@ -31,34 +31,28 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
       const lowerCasedKeyword = keyword.toLowerCase();
       const result = profiles.filter(
         (profile) =>
-          profile.name?.toLowerCase().includes(lowerCasedKeyword) ||
-          (profile.bio &&
-            profile.bio.toLowerCase().includes(lowerCasedKeyword)) ||
-          profile.email?.toLowerCase().includes(lowerCasedKeyword) ||
-          (profile.experience_level &&
-            profile.experience_level
-              .toLowerCase()
-              .includes(lowerCasedKeyword)) ||
-          profile.job_title?.toLowerCase().includes(lowerCasedKeyword) ||
-          profile.location?.toLowerCase().includes(lowerCasedKeyword) ||
-          profile.manager_email?.toLowerCase().includes(lowerCasedKeyword) ||
-          profile.manager_name?.toLowerCase().includes(lowerCasedKeyword) ||
-          profile.nationality?.toLowerCase().includes(lowerCasedKeyword) ||
-          profile.phone_number?.includes(lowerCasedKeyword) ||
-          profile.main_tech?.toLowerCase().includes(lowerCasedKeyword) ||
-          (profile.education &&
-            profile.education.some((edu) =>
-              edu.school.toLowerCase().includes(lowerCasedKeyword)
-            )) ||
-          (profile.languages &&
-            profile.languages.some((lang) =>
-              lang.name.toLowerCase().includes(lowerCasedKeyword)
-            ))
+          (profile.name && profile.name.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.bio && profile.bio.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.email && profile.email.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.experience_level && profile.experience_level.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.job_title && profile.job_title.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.location && profile.location.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.manager_email && profile.manager_email.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.manager_name && profile.manager_name.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.nationality && profile.nationality.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.phone_number && profile.phone_number.includes(lowerCasedKeyword)) ||
+          (profile.main_tech && profile.main_tech.toLowerCase().includes(lowerCasedKeyword)) ||
+          (profile.education && profile.education.some((edu) =>
+            edu.school && edu.school.toLowerCase().includes(lowerCasedKeyword)
+          )) ||
+          (profile.languages && profile.languages.some((lang) =>
+            lang.name && lang.name.toLowerCase().includes(lowerCasedKeyword)
+          ))
       );
       setFilteredProfiles(result);
     }
   }, [profiles, keyword]);
-
+  
   return filteredProfiles;
 }
 

@@ -20,9 +20,9 @@
   outline: none;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  border-bottom: solid 0.2em rgb(151, 30, 151);
-  caret-color: rgb(151, 30, 151);
-  opacity: 60%;
+  border-bottom: solid 0.2em $nc_dark_blue;
+  caret-color: $nc_dark_blue;
+  opacity: 80%;
   resize: none;
   &:focus::-webkit-input-placeholder {
     color: transparent;

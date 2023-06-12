@@ -98,3 +98,13 @@ export type FormikHandleChange = {
     ? void
     : (e: string | ChangeEvent<any>) => void;
 };
+
+export type Filters = {
+  hyperscaler: string[];
+  mainTech: string[];
+  skills: string[];
+  certificate: string[];
+  location: string[];
+  languages: string[];
+  nationality: string[];
+};

@@ -1,23 +1,24 @@
-import { Button, Dropdown, DropdownProps, Grid } from 'semantic-ui-react';
-import { useFormik } from 'formik';
-import useGetLanguages from '../../hooks/useGetLanguages';
-import LanguageProfiencies from './LanguageProficiencies/LanguageProficiencies';
-import LanguageCards from './LanguageCards/LanguageCards';
-import { FC, useEffect, useState } from 'react';
-import { LanguagesWithProficiency } from '../../types/types';
-import './LanguageSelect.scss';
-import useUpdateUser from '../../hooks/useUpdateUser';
-export interface FormValues {
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { Button, Dropdown, DropdownProps, Grid } from "semantic-ui-react";
+import useGetLanguages from "../../hooks/useGetLanguages";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { LanguagesWithProficiency } from "../../types/types";
+import LanguageCards from "./LanguageCards/LanguageCards";
+import LanguageProfiencies from "./LanguageProficiencies/LanguageProficiencies";
+import "./LanguageSelect.scss";
+
+export type FormValues = {
   language: string;
   proficiency: string;
-}
+};
 
 export type LanguageSelectProps = {
   profileLanguages: LanguagesWithProficiency[] | undefined;
   userId: string;
 };
 
-const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
+function LanguagesSelect(props: LanguageSelectProps) {
   const [languagesWithProficiencies, setLanguagesWithProficiencies] = useState<
     LanguagesWithProficiency[]
   >([]);
@@ -35,54 +36,68 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
     .map((language) => ({
       key: language.id,
       value: language.name,
-      text: language.name
+      text: language.name,
     }))
     .filter((language) => {
       // Filter selected languages
-      return !languagesWithProficiencies.some((i) => i.name === language.value);
+      return !languagesWithProficiencies.some(
+        (index) => index.name === language.value
+      );
     });
 
   const formik = useFormik<FormValues>({
     initialValues: {
-      language: '',
-      proficiency: ''
+      language: "",
+      proficiency: "",
     },
     onSubmit: (values) => {
       formik.resetForm();
 
       setLanguagesWithProficiencies([
         { name: values.language, proficiency: values.proficiency },
-        ...languagesWithProficiencies
+        ...languagesWithProficiencies,
       ]);
 
       updateUser(
         {
           languages: [
             { name: values.language, proficiency: values.proficiency },
-            ...languagesWithProficiencies
-          ]
+            ...languagesWithProficiencies,
+          ],
         },
         props.userId
-      );
-    }
+      )
+        .then(() => null)
+        .catch(() => null);
+    },
   });
 
   const handleDropdownChange = (
     event: React.SyntheticEvent<HTMLElement>,
     { value }: DropdownProps
   ) => {
-    formik.setFieldValue('language', value);
+    formik
+      .setFieldValue("language", value)
+      .then(() => null)
+      .catch(() => null);
   };
 
   const handleProficiencyChange = (value: string) => {
-    formik.setFieldValue('proficiency', value);
+    formik
+      .setFieldValue("proficiency", value)
+      .then(() => null)
+      .catch(() => null);
   };
 
   const handleCardDelete = (index: number) => {
-    const newState = languagesWithProficiencies.filter((_, i) => i !== index);
+    const newState = languagesWithProficiencies.filter(
+      (_, index_) => index_ !== index
+    );
     setLanguagesWithProficiencies(newState);
 
-    updateUser({ languages: newState }, props.userId);
+    updateUser({ languages: newState }, props.userId)
+      .then(() => null)
+      .catch(() => null);
   };
 
   return (
@@ -91,10 +106,10 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
         <Grid.Row>
           <Grid.Column>
             <Dropdown
-              name="language"
-              placeholder="Select a language"
               search
               selection
+              name="language"
+              placeholder="Select a language"
               options={options}
               onChange={handleDropdownChange}
             />
@@ -105,7 +120,7 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
             <LanguageProfiencies
               proficiency={formik.values.proficiency}
               handleProficiencyChange={handleProficiencyChange}
-            ></LanguageProfiencies>
+            />
           </Grid.Column>
           <Grid.Column width={2}>
             <Button
@@ -128,5 +143,5 @@ const LanguagesSelect: FC<LanguageSelectProps> = (props) => {
       </Grid>
     </form>
   );
-};
+}
 export default LanguagesSelect;

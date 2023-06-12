@@ -19,6 +19,32 @@ module.exports = {
 
   ignorePatterns: ['*.js', 'vite.config.ts'],
 
+  rules: {
+    "@typescript-eslint/naming-convention": [
+      'error', 
+      {
+        selector: 'default',
+        format: ['camelCase', 'snake_case'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'variable',
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'typeLike',
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'function',
+        format: ['PascalCase', 'camelCase'],
+      }
+    ]
+  },
+
   overrides: [
     {
       files: ['scripts/**/*.js'],

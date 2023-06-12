@@ -1,8 +1,8 @@
-import { Formik, Form } from 'formik';
-import { Button, Grid, TextArea } from 'semantic-ui-react';
-import TextAreaInput from '../TextAreaInput/TextArea';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import './Bio.scss';
+import { Formik, Form } from "formik";
+import { Button, Grid } from "semantic-ui-react";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import "./Bio.scss";
 
 type FormValues = {
   bioDescription: string;
@@ -13,9 +13,12 @@ type BioProps = {
   userId: string | undefined;
 };
 
-const BioForm = ({ bio, userId }: BioProps) => {
+function BioForm({ bio, userId }: BioProps) {
   const [updateUser] = useUpdateUser();
-  if (bio === undefined) bio = '';
+  if (bio === undefined) {
+    // eslint-disable-next-line no-param-reassign
+    bio = "";
+  }
 
   return (
     <Grid.Column>
@@ -23,7 +26,9 @@ const BioForm = ({ bio, userId }: BioProps) => {
         <Formik<FormValues>
           initialValues={{ bioDescription: bio }}
           onSubmit={(values) => {
-            updateUser({ bio: values.bioDescription }, userId);
+            updateUser({ bio: values.bioDescription }, userId)
+              .then(() => null)
+              .catch(() => null);
           }}
         >
           {({ values, handleChange, handleSubmit }) => (
@@ -54,6 +59,6 @@ const BioForm = ({ bio, userId }: BioProps) => {
       )}
     </Grid.Column>
   );
-};
+}
 
 export default BioForm;

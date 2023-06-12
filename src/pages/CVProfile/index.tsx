@@ -1,24 +1,31 @@
-import { Container, Grid, Header } from 'semantic-ui-react';
-import { Button, TransitionablePortal, Segment } from 'semantic-ui-react';
-import { useOktaAuth } from '@okta/okta-react';
+import { useOktaAuth } from "@okta/okta-react";
+import {
+  Container,
+  Grid,
+  Header,
+  Button,
+  TransitionablePortal,
+  Segment,
+} from "semantic-ui-react";
 
-import BasicInfo from '../../components/BasicInfo/Basicinfo';
-import BioForm from '../../components/Bio/Bio';
-import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
-import Socials from '../../components/Socials/Socials';
-import useGetUser from '../../hooks/useGetUser';
-import LanguagesSelect from '../../components/LanguagesSelect/LanguagesSelect';
-import Education from '../../components/Education/Education';
-import CVPreview from '../CVPreview';
-import { useState } from 'react';
+import BasicInfo from "../../components/BasicInfo/Basicinfo";
+import BioForm from "../../components/Bio/Bio";
+import Education from "../../components/Education/Education";
+import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
+import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
+import Socials from "../../components/Socials/Socials";
+import useGetUser from "../../hooks/useGetUser";
+import CVPreview from "../CVPreview";
 
-import './index.scss';
+import "./index.scss";
 
-const CreateCV = () => {
+function CreateCV() {
   const { authState } = useOktaAuth();
-  const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
+  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
 
-  if (!userDetails || !userDetails.id) return null;
+  if (!userDetails?.id) {
+    return <p />;
+  }
 
   return (
     <>
@@ -28,14 +35,12 @@ const CreateCV = () => {
             <AvatarCard />
             <TransitionablePortal
               closeOnTriggerClick
-              onOpen={handleOpen}
-              onClose={handleClose}
-              transition={{ animation: 'fade left', duration: '500' }}
+              transition={{ animation: "fade left", duration: "500" }}
               openOnTriggerClick
-              trigger={<Button content={'Preview CV'} secondary />}
+              trigger={<Button content="Preview CV" secondary />}
             >
               <Segment id="cv-preview-container">
-                <CVPreview />
+                <CVPreview employee={null} />
               </Segment>
             </TransitionablePortal>
           </Grid.Column>
@@ -91,6 +96,6 @@ const CreateCV = () => {
       </Container>
     </>
   );
-};
+}
 
 export default CreateCV;

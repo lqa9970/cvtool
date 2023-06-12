@@ -1,23 +1,23 @@
-import { FormEvent, useState } from 'react';
-import { Button, Grid } from 'semantic-ui-react';
-import { EmployeeUser } from '../../types/types';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import SocialLink from '../SocialLink/SocialLink';
-import './Socials.scss';
+import { FormEvent, useState } from "react";
+import { Button, Grid } from "semantic-ui-react";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { EmployeeUser } from "../../types/types";
+import SocialLink from "../SocialLink/SocialLink";
+import "./Socials.scss";
 
-interface ISocials {
+type ISocials = {
   userDetails: EmployeeUser | null;
-}
+};
 
-const Socials = (props: ISocials) => {
+function Socials(props: ISocials) {
   const [github, setGitHub] = useState(
-    props.userDetails?.social_links?.github || ''
+    props.userDetails?.social_links?.github || ""
   );
   const [linkedin, setLinkedin] = useState(
-    props.userDetails?.social_links?.linkedin || ''
+    props.userDetails?.social_links?.linkedin || ""
   );
   const [website, setWebsite] = useState(
-    props.userDetails?.social_links?.website || ''
+    props.userDetails?.social_links?.website || ""
   );
 
   const [updateUser] = useUpdateUser();
@@ -26,10 +26,10 @@ const Socials = (props: ISocials) => {
     event.preventDefault();
     // add some error handling incase userDetails can't be fetched
     props.userDetails &&
-      updateUser(
+      (await updateUser(
         { social_links: { github, linkedin, website } },
-        props.userDetails.id
-      );
+        props.userDetails.id || ""
+      ));
   };
 
   return (
@@ -48,6 +48,6 @@ const Socials = (props: ISocials) => {
       </Grid>
     </Grid.Column>
   );
-};
+}
 
 export default Socials;

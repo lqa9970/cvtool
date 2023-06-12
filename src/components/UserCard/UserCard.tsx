@@ -2,7 +2,8 @@ import { Card, Header, Feed } from 'semantic-ui-react';
 import ninja from '../../assets/ninja.png';
 
 import './UserCard.scss';
-interface IUserCard {
+
+type IUserCard = {
   name?: string;
   email?: string;
 }
@@ -29,7 +30,7 @@ const reminder = (
   </>
 );
 
-const UserCard = (props: IUserCard): JSX.Element => {
+function UserCard(props: IUserCard): JSX.Element {
   return (
     <Card
       id="userCard"
@@ -39,5 +40,5 @@ const UserCard = (props: IUserCard): JSX.Element => {
       extra={reminder}
     />
   );
-};
+}
 export default UserCard;

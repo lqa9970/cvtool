@@ -14,13 +14,13 @@ type Option = {
   value: string;
 };
 
-const SearchableSelect = ({
+function SearchableSelect({
   allOptions,
   placeholder,
   multiSelected,
   value,
   filter
-}: SearchableSelectProps) => {
+}: SearchableSelectProps) {
   const handleChange = (event: SyntheticEvent, data: DropdownProps) => {
     event.preventDefault();
     filter(data.value as string[]);
@@ -28,16 +28,16 @@ const SearchableSelect = ({
 
   return (
     <Dropdown
-      placeholder={placeholder}
-      multiple={multiSelected}
       search
       fluid
       selection
+      placeholder={placeholder}
+      multiple={multiSelected}
       options={allOptions}
       value={value}
       onChange={handleChange}
     />
   );
-};
+}
 
 export default SearchableSelect;

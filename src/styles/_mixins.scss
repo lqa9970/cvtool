@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap';
 
 // Colors
-$nc_gray: #ececf4;
-$nc_white: #fff;
-$nc_dark_blue: #161632;
-$nc_white: #fffff5;
-$text_primary: #676783;
+$nc-gray: #ececf4;
+$nc-white: #fff;
+$nc-dark-blue: #161632;
+$nc-white: #fffff5;
+$text-primary: #676783;
 
 // Font
 $font: 'Rubik', -apple-system, sans-serif;
@@ -15,6 +15,7 @@ $font-weight: (
   'thick': 500,
   'heavy': 700
 );
+
 @function weight($w) {
   @return map-get($font-weight, $w);
 }

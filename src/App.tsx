@@ -1,14 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
-import './stylesheet/style.scss';
+import "./stylesheet/style.scss";
 
-import { AppRoutes } from './routes';
-import NotificationsComponent from './components/Notifications/Notifications';
-import { NotificationProvider } from './context/NotificationContext';
+import NotificationsComponent from "./components/Notifications/Notifications";
+import { NotificationProvider } from "./context/NotificationContext";
+import { AppRoutes } from "./routes";
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
+    <div id="App">
       <BrowserRouter>
         <NotificationProvider>
           <AppRoutes />
@@ -17,6 +17,6 @@ const App = () => {
       </BrowserRouter>
     </div>
   );
-};
+}
 
 export default App;

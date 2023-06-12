@@ -1,25 +1,27 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
-import { useEffect, useState } from 'react';
-import Dashboard from './Dashboard';
-import { OktaTokenPayload } from '../types/types';
-import { decodeOktaToken } from '../services/jwtDecodeService';
-import StaffingDashboard from './StaffingDashboard';
-import CustomCalendar from '../components/Calendar/Calendar';
+import { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { decodeOktaToken } from "../services/jwtDecodeService";
+import { OktaTokenPayload } from "../types/types";
+import Dashboard from "./Dashboard";
 
-export const Login = () => {
-  const [loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>();
+export function Login() {
+  const [_loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>();
   const { oktaAuth, authState } = useOktaAuth();
   const isAuthenticated = authState?.isAuthenticated;
   const { pathname } = useLocation();
 
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
 
   if (isAuthenticated === false) {
-    oktaAuth.signInWithRedirect({ originalUri: pathname });
+    oktaAuth
+      .signInWithRedirect({ originalUri: pathname })
+      .then(() => null)
+      .catch(() => null);
   }
+
   useEffect(() => {
-    if (isAuthenticated == true) {
+    if (isAuthenticated === true) {
       const idToken = oktaAuth.getIdToken();
       if (idToken) {
         const decodedToken = decodeOktaToken(idToken);
@@ -37,4 +39,4 @@ export const Login = () => {
       <p>Logging In ...</p>
     </div>
   );
-};
+}

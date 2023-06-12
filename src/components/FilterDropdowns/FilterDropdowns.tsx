@@ -1,13 +1,13 @@
-import { Container, Divider, Header } from 'semantic-ui-react';
+import { Container, Divider, Header } from "semantic-ui-react";
 
-import CustomReset from './CustomReset';
-import FilterDropdown from './FilterDropdown';
-import useGetFirestoreCollection from '../../hooks/useGetCollectionData';
-import { Filters } from '../../types/types';
-import './FilterDropdowns.scss';
+import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import { Filters } from "../../types/types";
+import CustomReset from "./CustomReset";
+import FilterDropdown from "./FilterDropdown";
+import "./FilterDropdowns.scss";
 
 type FilterDropdownsProps = {
-  filters: Filters
+  filters: Filters;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 };
 
@@ -18,27 +18,30 @@ const initialFilters: Filters = {
   certificate: [],
   location: [],
   languages: [],
-  nationality: []
+  nationality: [],
 };
 
-const FilterDropdowns = ({ filters, setFilters }: FilterDropdownsProps) => {
+type FirestoreItem = {
+  name: string;
+};
 
-  const fetchFieldData = (collection: string) => {
-    const { data } = useGetFirestoreCollection({ collection });
-    return data.map((item) => ({
-      key: item.name,
-      text: item.name,
-      value: item.name
-    }));
-  };
+const useFetchFieldData = (collection: string) => {
+  const { data } = useGetFirestoreCollection({ collection });
+  return data.map((item) => ({
+    key: (item as FirestoreItem).name,
+    text: (item as FirestoreItem).name,
+    value: (item as FirestoreItem).name,
+  }));
+};
 
-  const hyperscalerData = fetchFieldData('hyperscaler');
-  const mainTechData = fetchFieldData('main_tech');
-  const skillsData = fetchFieldData('skills');
-  const certificationData = fetchFieldData( 'certification')
-  const locationData = fetchFieldData('location');
-  const languagesData = fetchFieldData( 'languages')
-  const nationalityData = fetchFieldData('countries');
+function FilterDropdowns({ filters, setFilters }: FilterDropdownsProps) {
+  const hyperscalerData = useFetchFieldData("hyperscaler");
+  const mainTechData = useFetchFieldData("main_tech");
+  const skillsData = useFetchFieldData("skills");
+  const certificationData = useFetchFieldData("certification");
+  const locationData = useFetchFieldData("location");
+  const languagesData = useFetchFieldData("languages");
+  const nationalityData = useFetchFieldData("countries");
 
   const handleFormReset = () => {
     setFilters(initialFilters);
@@ -104,6 +107,6 @@ const FilterDropdowns = ({ filters, setFilters }: FilterDropdownsProps) => {
       </Container>
     </form>
   );
-};
+}
 
 export default FilterDropdowns;

@@ -30,67 +30,68 @@ function CreateCV() {
   return (
     <>
       <Container className="dashboard">
-        <Grid stackable columns={2}>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <AvatarCard />
-              <TransitionablePortal
-                closeOnTriggerClick
-                openOnTriggerClick
-                transition={{ animation: "fade left", duration: "500" }}
-                trigger={<Button secondary content="Preview CV" />}
-              >
-                <Segment id="cv-preview-container">
-                  <CVPreview employee={userDetails} />
-                </Segment>
-              </TransitionablePortal>
-            </Grid.Column>
-            <Grid.Column>
-              <BasicInfo userDetails={userDetails} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={5} />
-            <Grid.Column>
-              <Header dividing as="h3">
-                Bio Description
-              </Header>
-              <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={5} />
-            <Grid.Column>
-              <Header dividing as="h3">
-                Links
-              </Header>
-              {userDetails && <Socials userDetails={userDetails} />}
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={5} />
-            <Grid.Column>
-              <Header dividing as="h3">
-                Language Skills
-              </Header>
-              <LanguagesSelect
-                profileLanguages={userDetails?.languages}
-                userId={userDetails?.id}
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={5} />
-            <Grid.Column>
-              <Header dividing as="h3">
-                Educations
-              </Header>
-              <Education
-                education={userDetails?.education}
-                userId={userDetails?.id}
-              />
-            </Grid.Column>
-          </Grid.Row>
+        <Grid columns={2} stackable>
+          <Grid.Column width={5}>
+            <AvatarCard />
+            <TransitionablePortal
+              closeOnTriggerClick
+              transition={{ animation: "fade left", duration: "500" }}
+              openOnTriggerClick
+              trigger={<Button content="Preview CV" secondary />}
+            >
+              <Segment id="cv-preview-container">
+                <CVPreview employee={null} />
+              </Segment>
+            </TransitionablePortal>
+          </Grid.Column>
+          <Grid.Column>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  Basic Info
+                </Header>
+                <BasicInfo userDetails={userDetails} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  Bio Description
+                </Header>
+                <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  Links
+                </Header>
+                {userDetails && <Socials userDetails={userDetails} />}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  Language Skills
+                </Header>
+                <LanguagesSelect
+                  profileLanguages={userDetails?.languages}
+                  userId={userDetails?.id}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  Educations
+                </Header>
+                <Education
+                  education={userDetails?.education}
+                  userId={userDetails?.id}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid.Column>
         </Grid>
       </Container>
     </>

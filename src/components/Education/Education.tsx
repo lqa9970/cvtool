@@ -166,7 +166,7 @@ function EducationComponent(props: EducationProps) {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={16}>
-                  <Label id="form-labels">Personal Description</Label>
+                  <Label id="form-labels">Description</Label>
                   <TextAreaInput
                     name="degreeDescription"
                     placeholder="Enter your description here..."
@@ -191,48 +191,50 @@ function EducationComponent(props: EducationProps) {
           </Form>
         )}
       </Formik>
-      <Grid columns={3} textAlign="left" verticalAlign="top">
-        <Grid.Row>
-          <Grid.Column>
-            <Header as="h4">Institution</Header>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as="h4">Degree</Header>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as="h4">Date</Header>
-          </Grid.Column>
-        </Grid.Row>
-        {props.education?.map((object: Education) => {
-          return (
-            <Grid.Row key={object.id}>
-              <Grid.Column>
-                <p>{object.school}</p>
-              </Grid.Column>
-              <Grid.Column>
-                <p>{object.degree}</p>
-              </Grid.Column>
-              <Grid.Column textAlign="left">
-                <Grid>
-                  <Grid.Row columns={2}>
-                    <Grid.Column width={10}>
-                      <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
-                    </Grid.Column>
-                    <Grid.Column width={6}>
-                      <Icon
-                        circular
-                        color="orange"
-                        name="delete"
-                        onClick={() => handleDelete(object.id)}
-                      />
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </Grid.Column>
-            </Grid.Row>
-          );
-        })}
-      </Grid>
+      {props.education?.toString() !== "" && (
+        <Grid columns={3} textAlign="left" verticalAlign="top">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h4">Institution</Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4">Degree</Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4">Date</Header>
+            </Grid.Column>
+          </Grid.Row>
+          {props.education?.map((obj: Education) => {
+            return (
+              <Grid.Row key={obj.id}>
+                <Grid.Column>
+                  <p>{obj.school}</p>
+                </Grid.Column>
+                <Grid.Column>
+                  <p>{obj.degree}</p>
+                </Grid.Column>
+                <Grid.Column textAlign="left">
+                  <Grid>
+                    <Grid.Row columns={2}>
+                      <Grid.Column width={10}>
+                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                      </Grid.Column>
+                      <Grid.Column width={6}>
+                        <Icon
+                          onClick={() => handleDelete(obj.id)}
+                          style={{ color: "#161632" }}
+                          name="delete"
+                          circular
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
+              </Grid.Row>
+            );
+          })}
+        </Grid>
+      )}
     </Grid.Column>
   );
 }

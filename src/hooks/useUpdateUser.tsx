@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 import { NotificationContext } from "../context/NotificationContext";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 
 const useUpdateUser = () => {
   const { showNotification } = useContext(NotificationContext);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, DocumentData } from "firebase/firestore";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 import { EmployeeUser, Filters } from "../types/types";
 
 const useFilter = (filters: Filters) => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, DocumentData } from "firebase/firestore";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 import { EmployeeUser } from "../types/types";
 
 function useKeywordSearch(keyword: string): EmployeeUser[] {

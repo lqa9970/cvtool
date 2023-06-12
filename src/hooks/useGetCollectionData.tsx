@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 import { getDataFromIDB, storeDataInIDB } from "../services/idbServices";
 
 type UseFirestoreCollectionOptions = {
@@ -46,7 +46,9 @@ const useGetFirestoreCollection = (options: UseFirestoreCollectionOptions) => {
           setLoading(false);
         }
       }
-    })();
+    })()
+      .then(() => null)
+      .catch(() => null);
 
     return () => {
       isMounted = false;

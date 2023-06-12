@@ -8,9 +8,7 @@ import {
   Segment,
   GridRow,
   Icon,
-  Button,
 } from "semantic-ui-react";
-import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
 
 import "./index.scss";
@@ -50,7 +48,7 @@ function Dashboard() {
                   name="plus square outline"
                   onClick={() => navigate("/cv")}
                 />
-                You haven't attach unknown badges.
+                You haven&apos;t attach unknown badges.
               </Header>
             </Segment>
           </GridRow>

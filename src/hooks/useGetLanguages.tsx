@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 import { Languages } from "../types/types";
 
 const useGetLanguages = () => {

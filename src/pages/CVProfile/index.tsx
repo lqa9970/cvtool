@@ -1,23 +1,31 @@
-import { useState } from 'react';
-import { useOktaAuth } from '@okta/okta-react';
-import { Container, Grid, Header , Button, TransitionablePortal, Segment } from 'semantic-ui-react';
+import { useOktaAuth } from "@okta/okta-react";
+import {
+  Container,
+  Grid,
+  Header,
+  Button,
+  TransitionablePortal,
+  Segment,
+} from "semantic-ui-react";
 
-import BasicInfo from '../../components/BasicInfo/Basicinfo';
-import BioForm from '../../components/Bio/Bio';
-import Education from '../../components/Education/Education';
-import AvatarCard from '../../components/FormAvatarCard/AvatarCard';
-import LanguagesSelect from '../../components/LanguagesSelect/LanguagesSelect';
-import Socials from '../../components/Socials/Socials';
-import useGetUser from '../../hooks/useGetUser';
-import CVPreview from '../CVPreview';
+import BasicInfo from "../../components/BasicInfo/Basicinfo";
+import BioForm from "../../components/Bio/Bio";
+import Education from "../../components/Education/Education";
+import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
+import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
+import Socials from "../../components/Socials/Socials";
+import useGetUser from "../../hooks/useGetUser";
+import CVPreview from "../CVPreview";
 
-import './index.scss';
+import "./index.scss";
 
 function CreateCV() {
   const { authState } = useOktaAuth();
-  const [userDetails] = useGetUser(authState?.idToken?.claims.email!);
+  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
 
-  if (!userDetails || !userDetails.id) {return null;}
+  if (!userDetails?.id) {
+    return <p />;
+  }
 
   return (
     <>
@@ -29,11 +37,11 @@ function CreateCV() {
               <TransitionablePortal
                 closeOnTriggerClick
                 openOnTriggerClick
-                transition={{ animation: 'fade left', duration: '500' }}
+                transition={{ animation: "fade left", duration: "500" }}
                 trigger={<Button secondary content="Preview CV" />}
               >
                 <Segment id="cv-preview-container">
-                  <CVPreview employee={userDetails}/>
+                  <CVPreview employee={userDetails} />
                 </Segment>
               </TransitionablePortal>
             </Grid.Column>
@@ -68,7 +76,7 @@ function CreateCV() {
               <LanguagesSelect
                 profileLanguages={userDetails?.languages}
                 userId={userDetails?.id}
-               />
+              />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

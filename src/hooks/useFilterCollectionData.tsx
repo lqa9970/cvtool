@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db as database } from "../services/firestoreService";
+import { database } from "../services/firestoreService";
 import { getDataFromIDB, storeDataInIDB } from "../services/idbServices";
 
 type UseFirestoreCollectionOptions = {
@@ -18,8 +18,8 @@ const useFilterCollectionData = (options: UseFirestoreCollectionOptions) => {
 
     (async () => {
       try {
-        let firestoreQuery;
-        let documents;
+        let firestoreQuery = null;
+        let documents = null;
 
         if (options.filter) {
           // Always fetch from Firestore when a filter is applied
@@ -59,7 +59,9 @@ const useFilterCollectionData = (options: UseFirestoreCollectionOptions) => {
           setLoading(false);
         }
       }
-    })();
+    })()
+      .then(() => null)
+      .catch(() => null);
 
     return () => {
       isMounted = false;

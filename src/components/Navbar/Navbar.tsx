@@ -109,8 +109,9 @@ function Navbar() {
                     />
                   }
                   trigger={
-                    /* You shouldn't use a for buttons! Bad for accesibility */
-                    <button type="button" onClick={handleClick}>
+                    /* TODO: You shouldn't use a for buttons! Bad for accesibility */
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+                    <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
                       {openModal === false ? (
@@ -120,7 +121,7 @@ function Navbar() {
                           <Icon inverted name="chevron up" />
                         </>
                       )}
-                    </button>
+                    </a>
                   }
                 />
               </div>
@@ -154,7 +155,8 @@ function Navbar() {
                     />
                   }
                   trigger={
-                    <button type="button" onClick={handleClick}>
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+                    <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
                       {openModal === false ? (
@@ -164,7 +166,7 @@ function Navbar() {
                           <Icon inverted name="chevron up" />
                         </>
                       )}
-                    </button>
+                    </a>
                   }
                 />
               </div>

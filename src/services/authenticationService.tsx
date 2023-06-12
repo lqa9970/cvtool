@@ -1,4 +1,4 @@
-interface AuthorizationServiceClientProps {}
+type AuthorizationServiceClientProps = {}
 
 const AuthorizationServiceClient = ({
   ...props

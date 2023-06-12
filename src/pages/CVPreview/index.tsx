@@ -1,26 +1,25 @@
-import { Container, Grid, Header, Label, Icon } from 'semantic-ui-react';
-import { Image, Divider, List } from 'semantic-ui-react';
-import { EmployeeUser } from '../../types/types';
+import { Container, Grid, Header, Label, Icon , Image, Divider, List } from 'semantic-ui-react';
 import CloudLogo from '../../assets/cloud-logo.png';
 import Ninja from '../../assets/ninja.png';
+import { EmployeeUser } from '../../types/types';
 
 import './index.scss';
 
-interface IEmployee {
+type IEmployee = {
   employee: EmployeeUser;
 }
 
-const CVPreview = ({ employee }: IEmployee) => {
+function CVPreview({ employee }: IEmployee) {
 
-  if (!employee || !employee.id) return null;
+  if (!employee || !employee.id) {return null;}
 
   return (
     <Container id="cv-preview">
-      <Grid columns={2} stackable>
+      <Grid stackable columns={2}>
         <Grid.Row>
           <Grid.Column width={6} id="preview-left-col">
-            <Image src={CloudLogo} fluid id="preview-logo" />
-            <Image src={Ninja} fluid id="preview-ninja" />
+            <Image fluid src={CloudLogo} id="preview-logo" />
+            <Image fluid src={Ninja} id="preview-ninja" />
             {employee.languages && (
               <>
                 <Divider horizontal>
@@ -210,6 +209,6 @@ const CVPreview = ({ employee }: IEmployee) => {
       </Grid>
     </Container>
   );
-};
+}
 
 export default CVPreview;

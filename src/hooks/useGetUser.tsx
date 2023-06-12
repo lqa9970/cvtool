@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { query, collection, getDocs, where } from 'firebase/firestore';
-import { db } from '../services/firestoreService';
+import { db as database } from '../services/firestoreService';
 import { EmployeeUser } from '../types/types';
 
 const useUserDetails = (
@@ -12,14 +12,14 @@ const useUserDetails = (
   useEffect(() => {
     const getUser = async () => {
       if (email) {
-        const collection_ref = collection(db, 'users');
+        const collection_ref = collection(database, 'users');
         const q = query(collection_ref, where('email', '==', email));
 
-        const docSnap = await getDocs(q);
+        const documentSnap = await getDocs(q);
 
         const users: EmployeeUser[] = [];
 
-        docSnap.forEach((user) => {
+        documentSnap.forEach((user) => {
           users.push({
             id: user.id,
             name: user.data().name,

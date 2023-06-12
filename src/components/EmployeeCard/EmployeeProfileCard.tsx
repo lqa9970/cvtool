@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Card, Image, Feed, Button, TransitionablePortal, Segment } from 'semantic-ui-react';
-import { EmployeeUser, Skills } from '../../types/types';
-import CVPreview from '../../pages/CVPreview';
-
 import ninja from '../../assets/ninja.png';
+import CVPreview from '../../pages/CVPreview';
+import { EmployeeUser, Skills } from '../../types/types';
+
 
 import './EmployeeProfileCard.scss';
 
-interface IEmployee {
+type IEmployee = {
   employee: EmployeeUser;
 }
 
-const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
+function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
   return (
     <Card id="card">
       <Card.Content>
@@ -43,9 +43,9 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
       <Card.Content extra>
       <TransitionablePortal
                 closeOnTriggerClick
-                transition={{ animation: 'fade left', duration: '500' }}
                 openOnTriggerClick
-                trigger={<Button content={'See CV'} secondary />}
+                transition={{ animation: 'fade left', duration: '500' }}
+                trigger={<Button secondary content="See CV" />}
               >
                 <Segment id="cv-preview-container">
                   <CVPreview employee={employee}/>
@@ -54,6 +54,6 @@ const EmployeeProfileCard = ({ employee }: IEmployee): JSX.Element => {
       </Card.Content>
     </Card>
   );
-};
+}
 
 export default EmployeeProfileCard;

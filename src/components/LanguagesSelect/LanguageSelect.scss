@@ -6,10 +6,12 @@
 
 .radio-button-group {
   margin-left: 1em;
+
   .ui.radio.checkbox {
     margin-right: 1.5em;
   }
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -23,6 +25,6 @@
 }
 
 #language-add-button {
-  background-color: $nc_dark_blue;
+  background-color: $nc-dark-blue;
   color: white;
 }

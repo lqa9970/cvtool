@@ -1,13 +1,13 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
 import { useEffect, useState } from 'react';
-import Dashboard from './Dashboard';
-import { OktaTokenPayload } from '../types/types';
-import { decodeOktaToken } from '../services/jwtDecodeService';
-import StaffingDashboard from './StaffingDashboard';
+import { useOktaAuth } from '@okta/okta-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CustomCalendar from '../components/Calendar/Calendar';
+import { decodeOktaToken } from '../services/jwtDecodeService';
+import { OktaTokenPayload } from '../types/types';
+import Dashboard from './Dashboard';
+import StaffingDashboard from './StaffingDashboard';
 
-export const Login = () => {
+export function Login() {
   const [loggedInUser, setLoggedInUser] = useState<OktaTokenPayload>();
   const { oktaAuth, authState } = useOktaAuth();
   const isAuthenticated = authState?.isAuthenticated;
@@ -37,4 +37,4 @@ export const Login = () => {
       <p>Logging In ...</p>
     </div>
   );
-};
+}

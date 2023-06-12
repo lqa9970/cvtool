@@ -6,9 +6,9 @@ type CustomButtonProps = {
   label: ReactNode;
 };
 
-const CustomReset = ({ label, onClick }: CustomButtonProps) => {
+function CustomReset({ label, onClick }: CustomButtonProps) {
   const handelClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (onClick) onClick(event);
+    if (onClick) {onClick(event);}
   };
 
   return (
@@ -16,6 +16,6 @@ const CustomReset = ({ label, onClick }: CustomButtonProps) => {
       <Header as="h4">{label}</Header>
     </div>
   );
-};
+}
 
 export default CustomReset;

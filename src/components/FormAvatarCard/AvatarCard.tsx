@@ -1,10 +1,10 @@
 import { Button, Card, Image } from 'semantic-ui-react';
 import ninja from '../../assets/ninja.png';
 
-const AvatarCard = () => {
+function AvatarCard() {
   return (
     <Card>
-      <Image src={ninja} size="small" wrapped ui={false} />
+      <Image wrapped src={ninja} size="small" ui={false} />
       <Card.Content extra>
         <Button
           disabled
@@ -15,6 +15,6 @@ const AvatarCard = () => {
       </Card.Content>
     </Card>
   );
-};
+}
 
 export default AvatarCard;

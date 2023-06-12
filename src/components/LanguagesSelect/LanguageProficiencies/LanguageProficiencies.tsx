@@ -1,15 +1,15 @@
-import { CheckboxProps, Radio } from 'semantic-ui-react';
 import { FormEvent, useState } from 'react';
+import { CheckboxProps, Radio } from 'semantic-ui-react';
 
-interface IMyProps {
+type IMyProps = {
   proficiency: string;
   handleProficiencyChange: (value: string) => void;
 }
 
-const LanguageProficiencies = ({
+function LanguageProficiencies({
   proficiency,
   handleProficiencyChange
-}: IMyProps) => {
+}: IMyProps) {
   const clickHandler = (
     event: FormEvent<HTMLInputElement>,
     _data: CheckboxProps
@@ -25,28 +25,28 @@ const LanguageProficiencies = ({
       <p>Choose the level:</p>
       <div className="radio-button-group">
         <Radio
-          onChange={clickHandler}
           name="Native"
           label="Native"
           value="Native"
           checked={proficiency === 'Native'}
+          onChange={clickHandler}
         />
         <Radio
-          onChange={clickHandler}
           name="Proficient"
           label="Proficient"
           value="Proficient"
           checked={proficiency === 'Proficient'}
+          onChange={clickHandler}
         />
         <Radio
-          onChange={clickHandler}
           name="Other"
           label="Other"
           value="Other"
           checked={proficiency === 'Other'}
+          onChange={clickHandler}
         />
       </div>
     </div>
   );
-};
+}
 export default LanguageProficiencies;

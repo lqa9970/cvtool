@@ -9,21 +9,21 @@ type TextAreaInputProps = {
   placeholder: string;
   handleChange: {
     (e: React.ChangeEvent<any>): void;
-    <T = string | React.ChangeEvent<any>>(
+    <T = React.ChangeEvent<any> | string>(
       field: T
     ): T extends React.ChangeEvent<any>
       ? void
-      : (e: string | React.ChangeEvent<any>) => void;
+      : (e: React.ChangeEvent<any> | string) => void;
   };
 };
 
-const TextAreaInput = ({
+function TextAreaInput({
   id,
   value,
   name,
   placeholder,
   handleChange
-}: TextAreaInputProps) => {
+}: TextAreaInputProps) {
   return (
     <Grid>
       <Grid.Column>
@@ -32,12 +32,12 @@ const TextAreaInput = ({
           name={name}
           placeholder={placeholder}
           value={value}
-          onChange={handleChange}
           rows={6}
+          onChange={handleChange}
         />
       </Grid.Column>
     </Grid>
   );
-};
+}
 
 export default TextAreaInput;

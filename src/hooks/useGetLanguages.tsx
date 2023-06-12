@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../services/firestoreService';
+import { db as database } from '../services/firestoreService';
 import { Languages } from '../types/types';
 
 const useGetLanguages = () => {
@@ -8,14 +8,14 @@ const useGetLanguages = () => {
 
   useEffect(() => {
     const getLanguages = async () => {
-      const tempLanguages: Languages[] = [];
-      const languagesRef = collection(db, '/languages');
+      const temporaryLanguages: Languages[] = [];
+      const languagesRef = collection(database, '/languages');
 
       try {
         const languagesSnapshot = await getDocs(languagesRef);
         languagesSnapshot.forEach((language) => {
-          setLanguages(tempLanguages);
-          tempLanguages.push({
+          setLanguages(temporaryLanguages);
+          temporaryLanguages.push({
             id: language.id,
             name: language.data().name,
             nativeName: language.data().nativeName,

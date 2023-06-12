@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import useGetUser from '../../hooks/useGetUser';
-import logo from '../../assets/cloud-logo.png';
 import { Icon, Segment, Popup, Button } from 'semantic-ui-react';
+import logo from '../../assets/cloud-logo.png';
 
 import ninja from '../../assets/ninja.png';
+import useGetUser from '../../hooks/useGetUser';
 
 import './Navbar.scss';
 
-const Navbar = () => {
+function Navbar() {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [userRole, setUserRole] = useState<string | undefined>('talent');
@@ -23,7 +23,7 @@ const Navbar = () => {
     setUserRole(role);
   };
 
-  const PopupContent = () => {
+  function PopupContent() {
     return (
       <>
         <div className="PopupContent">
@@ -57,7 +57,7 @@ const Navbar = () => {
         </div>
       </>
     );
-  };
+  }
 
   if (loading == false) {
     switch (userRole) {
@@ -66,7 +66,7 @@ const Navbar = () => {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="https://nordcloud.com/" target="_blank">
+                <a href="https://nordcloud.com/" target="_blank" rel="noreferrer">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
@@ -88,21 +88,21 @@ const Navbar = () => {
                 <Popup
                   on="click"
                   content={<PopupContent />}
+                  position="bottom center"
+                  size="large"
                   trigger={
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(' ')[0]}</p>
                       {openModal == false ? (
-                        <Icon name="chevron down" inverted />
+                        <Icon inverted name="chevron down" />
                       ) : (
                         <>
-                          <Icon name="chevron up" inverted />
+                          <Icon inverted name="chevron up" />
                         </>
                       )}
                     </a>
                   }
-                  position="bottom center"
-                  size="large"
                 />
               </div>
             </Segment>
@@ -114,7 +114,7 @@ const Navbar = () => {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="https://nordcloud.com/" target="_blank">
+                <a href="https://nordcloud.com/" target="_blank" rel="noreferrer">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
@@ -122,21 +122,21 @@ const Navbar = () => {
                 <Popup
                   on="click"
                   content={<PopupContent />}
+                  position="bottom center"
+                  size="large"
                   trigger={
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(' ')[0]}</p>
                       {openModal == false ? (
-                        <Icon name="chevron down" inverted />
+                        <Icon inverted name="chevron down" />
                       ) : (
                         <>
-                          <Icon name="chevron up" inverted />
+                          <Icon inverted name="chevron up" />
                         </>
                       )}
                     </a>
                   }
-                  position="bottom center"
-                  size="large"
                 />
               </div>
             </Segment>
@@ -146,7 +146,7 @@ const Navbar = () => {
       default:
         break;
     }
-  } else return <p>Loading...</p>;
-};
+  } else {return <p>Loading...</p>;}
+}
 
 export default Navbar;

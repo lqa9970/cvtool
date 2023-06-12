@@ -2,13 +2,13 @@ import { ChangeEvent } from 'react';
 import { Grid, GridRow, Input } from 'semantic-ui-react';
 import './SocialLink.scss';
 
-interface ISocialLink {
+type ISocialLink = {
   link: string;
   iconName: string;
   setLink: (value: React.SetStateAction<string>) => void;
 }
 
-const SocialLink = (props: ISocialLink) => {
+function SocialLink(props: ISocialLink) {
   return (
     <GridRow columns={1} id="soc-link-inputs">
       <Grid.Column width={10}>
@@ -25,6 +25,6 @@ const SocialLink = (props: ISocialLink) => {
       </Grid.Column>
     </GridRow>
   );
-};
+}
 
 export default SocialLink;

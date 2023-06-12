@@ -3,7 +3,7 @@
 #form-labels {
   display: block;
   background: none;
-  padding: 10px 0px;
+  padding: 10px 0;
   font-size: 16px;
 }
 
@@ -19,7 +19,7 @@
 }
 
 #edu-add-button {
-  background-color: $nc_dark_blue;
+  background-color: $nc-dark-blue;
   color: white;
   margin-bottom: 2rem;
 }
@@ -28,16 +28,17 @@
   min-height: 150px;
   min-width: 100%;
   padding: 1rem;
-  background-color: $nc_gray;
+  background-color: $nc-gray;
   border: none;
   outline: none;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  border-bottom: solid 0.2em rgb(151, 30, 151);
-  caret-color: rgb(151, 30, 151);
-  opacity: 60%;
+  border-bottom: solid 0.2em rgb(151 30 151);
+  caret-color: rgb(151 30 151);
+  opacity: 0.6;
   resize: none;
-  &:focus::-webkit-input-placeholder {
+
+  &:focus::input-placeholder {
     color: transparent;
   }
 }

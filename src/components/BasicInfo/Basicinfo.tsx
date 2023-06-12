@@ -1,46 +1,46 @@
 import { Header } from 'semantic-ui-react';
 import { EmployeeUser } from '../../types/types';
 
-interface IBasicInfo {
+type IBasicInfo = {
   userDetails: EmployeeUser | null;
 }
 
-const BasicInfo = (props: IBasicInfo) => {
+function BasicInfo(props: IBasicInfo) {
   return (
     <>
       <div className="field">
-        <Header as="h3" dividing>
+        <Header dividing as="h3">
           Basic Info
         </Header>
         <Header size="large">{props.userDetails?.name}</Header>
         <Header size="small">{props.userDetails?.job_title}</Header>
         <Header.Subheader>
-          <i className="envelope icon"></i>
+          <i className="envelope icon" />
           {props.userDetails?.email}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="address card icon"></i>
+          <i className="address card icon" />
           {props.userDetails?.location}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="world square icon"></i>
+          <i className="world square icon" />
           {props.userDetails?.nationality}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="user square icon"></i>
+          <i className="user square icon" />
           Manager: {props.userDetails?.manager_name}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="envelope square icon"></i>
+          <i className="envelope square icon" />
           Manger Email: {props.userDetails?.manager_email}
         </Header.Subheader>
         <Header.Subheader>
-          <i className="phone icon"></i>
+          <i className="phone icon" />
           {props.userDetails?.phone_number}
         </Header.Subheader>
       </div>
     </>
   );
-};
+}
 
 export default BasicInfo;

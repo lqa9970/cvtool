@@ -3,13 +3,15 @@
 #card {
   padding: 0.5em;
   border-radius: 2%;
-  span{
+
+  span {
     text-align: center;
     padding: 0.1em;
     font-size: 12px;
-    font-weight:300;
+    font-weight: 300;
   }
-  button{
+
+  button {
     margin-top: 1rem;
     font-size: small;
     border: none;
@@ -20,32 +22,33 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
     &:hover {
-      background-color: $nc_white;
-      color: $nc_dark_blue;
+      background-color: $nc-white;
+      color: $nc-dark-blue;
     }
   }
 
 }
 
-.ui.card .content img{ 
+.ui.card .content img {
   display: inline-block;
   vertical-align: middle;
-  border: 5px solid $av_senior;
+  border: 5px solid $av-senior;
   border-radius: 50%;
-  margin:0.5em 0.8em 0.8em;
-  padding: 0.2em 0.1em 0.2em;
+  margin: 0.5em 0.8em 0.8em;
+  padding: 0.2em 0.1em;
 }
 
 
-@mixin border-color( $title){
-  @if $title == 'Senior developer'{
-    border: 5px solid $av_senior;
+@mixin border-color($title) {
+  @if $title == 'Senior developer' {
+    border: 5px solid $av-senior;
   }
 }
 
 
-/*#card {
+/* #card {
   border-radius: 2%;
   margin: 1rem;
   padding: 1rem;
@@ -78,7 +81,7 @@
   }
   &_details {
     font-family: $font;
-    color: $text_primary;
+    color: $text-primary;
     margin-top: 1em;
     h1 {
       font-family: inherit;
@@ -102,8 +105,8 @@
     }
   }
   button {
-    background-color: $nc_dark_blue;
-    color: $nc_white;
+    background-color: $nc-dark-blue;
+    color: $nc-white;
     margin-top: 1rem;
     font-size: small;
     border: none;
@@ -116,8 +119,8 @@
     justify-content: center;
     cursor: pointer;
     &:hover {
-      background-color: $nc_white;
-      color: $nc_dark_blue;
+      background-color: $nc-white;
+      color: $nc-dark-blue;
     }
   }
-}*/
+} */

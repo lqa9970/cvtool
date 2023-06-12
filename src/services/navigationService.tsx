@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-interface INavigate {}
+type INavigate = {}
 
 export const Navigate = async (path: string) => {
   const navigate = useNavigate();

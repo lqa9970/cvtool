@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-export interface OktaTokenPayload {
+export type OktaTokenPayload = {
   sub: string;
   email: string;
   name: string;
@@ -8,30 +8,30 @@ export interface OktaTokenPayload {
   auth_time: string;
 }
 
-export interface Role {
+export type Role = {
   id: string;
   name: string;
 }
 
-export interface SocialLinks {
+export type SocialLinks = {
   github: string;
   linkedin: string;
   website: string;
 }
 
-export interface Languages {
+export type Languages = {
   id: string;
   name: string;
   nativeName: string;
   prefix: string;
 }
 
-export interface Skills {
+export type Skills = {
   id: string;
   name: string;
 }
 
-export interface ProjectHistory {
+export type ProjectHistory = {
   accountName: string;
   currentlyInProject: string;
   endMonthYear: string;
@@ -43,12 +43,12 @@ export interface ProjectHistory {
   startMonthYear: string;
 }
 
-export interface Reminders {
+export type Reminders = {
   title: string;
   datetime: string;
 }
 
-export interface Education {
+export type Education = {
   id: string;
   school: string;
   degree: string;
@@ -57,17 +57,17 @@ export interface Education {
   degreeDescription: string;
 }
 
-export interface LanguagesWithProficiency {
+export type LanguagesWithProficiency = {
   name: string;
   proficiency: string;
 }
 
-export interface Certifications {
+export type Certifications = {
   name: string;
   date: string;
 }
 
-export interface EmployeeUser {
+export type EmployeeUser = {
   id?: string;
   name?: string;
   email?: string;
@@ -94,9 +94,9 @@ export interface EmployeeUser {
 
 export type FormikHandleChange = {
   (e: ChangeEvent<any>): void;
-  <T = string | ChangeEvent<any>>(field: T): T extends ChangeEvent<any>
+  <T = ChangeEvent<any> | string>(field: T): T extends ChangeEvent<any>
     ? void
-    : (e: string | ChangeEvent<any>) => void;
+    : (e: ChangeEvent<any> | string) => void;
 };
 
 export type Filters = {

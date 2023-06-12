@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../services/firestoreService';
+import { db as database } from '../services/firestoreService';
 import { getDataFromIDB, storeDataInIDB } from '../services/idbServices';
 
-interface UseFirestoreCollectionOptions {
+type UseFirestoreCollectionOptions = {
   collection: string;
   filter?: { field: string; value: any };
 }
@@ -24,13 +24,13 @@ const useFilterCollectionData = (options: UseFirestoreCollectionOptions) => {
           if (options.filter) {
             // Always fetch from Firestore when a filter is applied
             firestoreQuery = query(
-              collection(db, options.collection),
+              collection(database, options.collection),
               where(options.filter.field, '==', options.filter.value)
             );
             const querySnapshot = await getDocs(firestoreQuery);
-            documents = querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data()
+            documents = querySnapshot.docs.map((document_) => ({
+              id: document_.id,
+              ...document_.data()
             }));
           } else {
             // Use the cache when no filter is applied
@@ -39,11 +39,11 @@ const useFilterCollectionData = (options: UseFirestoreCollectionOptions) => {
             if (cachedData.length > 0) {
               documents = cachedData;
             } else {
-              firestoreQuery = collection(db, options.collection);
+              firestoreQuery = collection(database, options.collection);
               const querySnapshot = await getDocs(firestoreQuery);
-              documents = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data()
+              documents = querySnapshot.docs.map((document_) => ({
+                id: document_.id,
+                ...document_.data()
               }));
               await storeDataInIDB(options.collection, documents);
             }

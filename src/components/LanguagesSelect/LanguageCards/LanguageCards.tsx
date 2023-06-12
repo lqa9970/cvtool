@@ -6,18 +6,18 @@ type LanguageCardsProps = {
   onClickHandler: (index: number) => void;
 };
 
-const LanguageCards = ({ languages, onClickHandler }: LanguageCardsProps) => {
-  if (!languages || languages.length === 0) return null;
+function LanguageCards({ languages, onClickHandler }: LanguageCardsProps) {
+  if (!languages || languages.length === 0) {return null;}
 
   return (
     <div className="display-flex flex-wrap bottom-margin-md">
       {languages.map((item, index) => (
-        <Label className="language" key={index}>
+        <Label key={index} className="language">
           {item.name} - {item.proficiency}
-          <Icon name="delete" link onClick={() => onClickHandler(index)}></Icon>
+          <Icon link name="delete" onClick={() => onClickHandler(index)} />
         </Label>
       ))}
     </div>
   );
-};
+}
 export default LanguageCards;

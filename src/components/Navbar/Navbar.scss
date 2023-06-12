@@ -1,7 +1,7 @@
 @import '../../stylesheet/mixins';
 
 #Nav {
-  background-color: $nc_dark_blue;
+  background-color: $nc-dark-blue;
   border-radius: 0;
 }
 
@@ -17,12 +17,14 @@ a {
   flex-wrap: wrap;
   height: auto;
   width: 100%;
-  background-color: $nc_dark_blue;
+  background-color: $nc-dark-blue;
   padding: 0 10%;
+
   &_logo {
     width: 20%;
     display: flex;
     align-items: center;
+
     a {
       display: inherit;
       justify-content: start;
@@ -30,33 +32,38 @@ a {
       height: 100%;
       width: 80%;
       margin-left: 2em;
+
       img {
         max-width: 80%;
         height: auto;
       }
     }
   }
+
   &_pages {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 40%;
+
     a {
       display: inherit;
       align-items: center;
       text-transform: capitalize;
-      color: $nc_white;
+      color: $nc-white;
       font-size: 16px;
       height: 100%;
       padding: 0 3%;
+
       &:hover {
-        color: $nc_dark_blue;
-        background-color: $nc_white;
+        color: $nc-dark-blue;
+        background-color: $nc-white;
         border-radius: 3px;
         text-decoration: none;
       }
     }
   }
+
   &_user {
     width: 30%;
     display: flex;
@@ -64,22 +71,25 @@ a {
     justify-content: end;
     padding-right: 2em;
     margin: 0 2em 0 0;
+
     p {
-      color: $nc_white;
+      color: $nc-white;
       font-size: 1.2em;
       margin: 0 0.8rem 0 0;
     }
+
     a {
       display: flex;
       justify-content: space-between;
       align-items: center;
       max-width: 10%;
       margin: 0 4em 0 0;
+
       img {
         max-width: 100%;
         height: auto;
         border-radius: 50%;
-        background-color: $nc_white;
+        background-color: $nc-white;
         margin-right: 1em;
       }
     }
@@ -88,12 +98,15 @@ a {
 
 .PopupContent {
   line-height: normal;
+
   h1 {
     font-size: medium;
   }
+
   p {
     font-size: small;
   }
+
   span {
     text-transform: capitalize;
   }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export type NotificationType = {
   message: string;
-  type: 'success' | 'error' | '';
+  type: '' | 'error' | 'success';
 };
 
 type NotificationContextType = {

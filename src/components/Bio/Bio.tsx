@@ -1,7 +1,7 @@
 import { Formik, Form } from 'formik';
 import { Button, Grid, TextArea } from 'semantic-ui-react';
-import TextAreaInput from '../TextAreaInput/TextArea';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import TextAreaInput from '../TextAreaInput/TextArea';
 import './Bio.scss';
 
 type FormValues = {
@@ -13,9 +13,9 @@ type BioProps = {
   userId: string | undefined;
 };
 
-const BioForm = ({ bio, userId }: BioProps) => {
+function BioForm({ bio, userId }: BioProps) {
   const [updateUser] = useUpdateUser();
-  if (bio === undefined) bio = '';
+  if (bio === undefined) {bio = '';}
 
   return (
     <Grid.Column>
@@ -54,6 +54,6 @@ const BioForm = ({ bio, userId }: BioProps) => {
       )}
     </Grid.Column>
   );
-};
+}
 
 export default BioForm;

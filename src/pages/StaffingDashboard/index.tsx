@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Grid} from 'semantic-ui-react';
 import { useOktaAuth } from '@okta/okta-react';
+import { Grid} from 'semantic-ui-react';
 
+import DisplayMatchCard from '../../components/DisplayMatchCard/DisplayMatchCard';
 import EmployeeFilter from '../../components/EmployeeFilter/EmployeeFilter';
 import EmployeeSearch from '../../components/EmployeeSearch/EmployeeSearch';
-import DisplayMatchCard from '../../components/DisplayMatchCard/DisplayMatchCard';
 import { EmployeeUser } from '../../types/types';
 import './index.scss';
 
-const StaffingDashboard = () => {
+function StaffingDashboard() {
   const { authState } = useOktaAuth();
 
   const [filterResults, setFilterResults] = useState<EmployeeUser[]>([]);
@@ -22,7 +22,7 @@ const StaffingDashboard = () => {
   } else if (lastUpdated === 'filter') {
     displayComponent = <DisplayMatchCard results={filterResults} />;
   } else {
-    displayComponent = <p></p>;
+    displayComponent = <p />;
   }
 
   return (
@@ -44,6 +44,6 @@ const StaffingDashboard = () => {
       )}
     </>
   );
-};
+}
 
 export default StaffingDashboard;

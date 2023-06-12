@@ -17,10 +17,10 @@ type Calendar = {
 };
 
 type CalendarProps = {
-  option: 'date' | 'time' | 'date time' | 'date range';
+  option: 'date range' | 'date time' | 'date' | 'time';
 };
 
-const CustomCalendar = ({ option }: CalendarProps) => {
+function CustomCalendar({ option }: CalendarProps) {
   const [calendar, setCalendar] = useState<Calendar>({
     date: '',
     time: '',
@@ -118,6 +118,6 @@ const CustomCalendar = ({ option }: CalendarProps) => {
       })()}
     </div>
   );
-};
+}
 
 export default CustomCalendar;

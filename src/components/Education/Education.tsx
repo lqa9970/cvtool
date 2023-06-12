@@ -1,15 +1,13 @@
-import { Formik, Form } from 'formik';
-import { Education } from '../../types/types';
-import { Button, Grid, TextArea, Input, GridColumn } from 'semantic-ui-react';
-import { Header, Label, Icon } from 'semantic-ui-react';
-import { Datepicker, DayPicker } from '@nordcloud/gnui';
 import { useState } from 'react';
-import { educationSchema, defaultStartDate } from './EducationUtils';
-import { formatDate, initialValues, defaultEndDate } from './EducationUtils';
+import { Formik, Form } from 'formik';
+import { Button, Grid, TextArea, Input, GridColumn , Header, Label, Icon } from 'semantic-ui-react';
+import { Datepicker, DayPicker } from '@nordcloud/gnui';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import { Education } from '../../types/types';
 import { uniqueIdGenerator } from '../../utils/uid';
 import './Education.scss';
 import TextAreaInput from '../TextAreaInput/TextArea';
+import { educationSchema, defaultStartDate , formatDate, initialValues, defaultEndDate } from './EducationUtils';
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -22,7 +20,7 @@ type setFieldValue = (
   shouldValidate?: boolean | undefined
 ) => void;
 
-const EducationComponent = (props: EducationProps) => {
+function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
   const [openStartDatePick, setOpenStartDatePick] = useState(false);
   const [openEndDatePick, setOpenEndDatePick] = useState(false);
@@ -38,7 +36,7 @@ const EducationComponent = (props: EducationProps) => {
   };
 
   const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((obj) => obj.id != id);
+    const deleteDegree = props?.education?.filter((object) => object.id != id);
     updateUser({ education: deleteDegree }, props.userId);
   };
 
@@ -87,11 +85,11 @@ const EducationComponent = (props: EducationProps) => {
                 <Grid.Column>
                   <Label id="form-labels">Institution</Label>
                   <Input
+                    fluid
                     value={values.school}
-                    onChange={handleChange}
                     placeholder="Institution"
                     name="school"
-                    fluid
+                    onChange={handleChange}
                   />
                   {showErrors(errors.school, touched.school)}
                 </Grid.Column>
@@ -100,11 +98,11 @@ const EducationComponent = (props: EducationProps) => {
                 <Grid.Column>
                   <Label id="form-labels">Degree</Label>
                   <Input
+                    fluid
                     value={values.degree}
-                    onChange={handleChange}
                     placeholder="Degree"
                     name="degree"
-                    fluid
+                    onChange={handleChange}
                   />
                   {showErrors(errors.degree, touched.degree)}
                 </Grid.Column>
@@ -116,9 +114,9 @@ const EducationComponent = (props: EducationProps) => {
                   <div className="flex-container">
                     <Input
                       value={values.startMonthYear}
-                      onChange={handleChange}
                       placeholder="Month/Year"
                       name="startMonthYear"
+                      onChange={handleChange}
                       onClick={() => setOpenStartDatePick(true)}
                     />
                     {openStartDatePick ? (
@@ -139,9 +137,9 @@ const EducationComponent = (props: EducationProps) => {
                     <p id="yos-to">TO</p>
                     <Input
                       value={values.endMonthYear}
-                      onChange={handleChange}
                       placeholder="Month/Year"
                       name="endMonthYear"
+                      onChange={handleChange}
                       onClick={() => setOpenEndDatePick(true)}
                     />
                     {openEndDatePick ? (
@@ -202,27 +200,27 @@ const EducationComponent = (props: EducationProps) => {
           </Grid.Column>
         </Grid.Row>
         {props.education &&
-          props.education.map((obj: Education, i: number) => {
+          props.education.map((object: Education, index: number) => {
             return (
               <Grid.Row>
                 <Grid.Column>
-                  <p>{obj.school}</p>
+                  <p>{object.school}</p>
                 </Grid.Column>
                 <Grid.Column>
-                  <p>{obj.degree}</p>
+                  <p>{object.degree}</p>
                 </Grid.Column>
                 <Grid.Column textAlign="left">
                   <Grid>
                     <Grid.Row columns={2}>
                       <Grid.Column width={10}>
-                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                        <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
                         <Icon
-                          onClick={() => handleDelete(obj.id)}
+                          circular
                           color="orange"
                           name="delete"
-                          circular
+                          onClick={() => handleDelete(object.id)}
                         />
                       </Grid.Column>
                     </Grid.Row>
@@ -234,6 +232,6 @@ const EducationComponent = (props: EducationProps) => {
       </Grid>
     </Grid.Column>
   );
-};
+}
 
 export default EducationComponent;

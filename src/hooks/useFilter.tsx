@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { db } from '../services/firestoreService';
 import { collection, getDocs, DocumentData } from 'firebase/firestore';
+import { db as database } from '../services/firestoreService';
 import { EmployeeUser, Filters } from '../types/types';
 
 const useFilter = (filters: Filters) => {
@@ -10,12 +10,12 @@ const useFilter = (filters: Filters) => {
   // Fetch all users
   useEffect(() => {
     (async () => {
-      const usersCollection = collection(db, 'dummy_users');
+      const usersCollection = collection(database, 'dummy_users');
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
-        (doc: DocumentData) => {
-          const data = doc.data() as EmployeeUser;
-          return { ...data, id: doc.id };
+        (document_: DocumentData) => {
+          const data = document_.data() as EmployeeUser;
+          return { ...data, id: document_.id };
         }
       );
       setUsers(fetchedUsers);

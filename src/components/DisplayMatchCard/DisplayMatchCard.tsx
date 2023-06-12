@@ -1,8 +1,8 @@
 import { Grid, GridColumn, Header } from 'semantic-ui-react';
-import EmployeeProfileCard from '../EmployeeCard/EmployeeProfileCard';
 import { EmployeeUser } from '../../types/types';
+import EmployeeProfileCard from '../EmployeeCard/EmployeeProfileCard';
 
-const DisplayMatchCard = ({ results }: { results: EmployeeUser[] }) => {
+function DisplayMatchCard({ results }: { results: EmployeeUser[] }) {
   return (
     <Grid divided="vertically" id="display">
       <Header as="h3">Result: {Object.keys(results).length}</Header>
@@ -15,6 +15,6 @@ const DisplayMatchCard = ({ results }: { results: EmployeeUser[] }) => {
       </Grid.Row>
     </Grid>
   );
-};
+}
 
 export default DisplayMatchCard;

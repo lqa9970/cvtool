@@ -1,9 +1,9 @@
 import { Container, Divider, Header } from 'semantic-ui-react';
 
-import CustomReset from './CustomReset';
-import FilterDropdown from './FilterDropdown';
 import useGetFirestoreCollection from '../../hooks/useGetCollectionData';
 import { Filters } from '../../types/types';
+import CustomReset from './CustomReset';
+import FilterDropdown from './FilterDropdown';
 import './FilterDropdowns.scss';
 
 type FilterDropdownsProps = {
@@ -21,7 +21,7 @@ const initialFilters: Filters = {
   nationality: []
 };
 
-const FilterDropdowns = ({ filters, setFilters }: FilterDropdownsProps) => {
+function FilterDropdowns({ filters, setFilters }: FilterDropdownsProps) {
 
   const fetchFieldData = (collection: string) => {
     const { data } = useGetFirestoreCollection({ collection });
@@ -104,6 +104,6 @@ const FilterDropdowns = ({ filters, setFilters }: FilterDropdownsProps) => {
       </Container>
     </form>
   );
-};
+}
 
 export default FilterDropdowns;

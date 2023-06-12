@@ -1,15 +1,15 @@
 import { FormEvent, useState } from 'react';
 import { Button, Grid } from 'semantic-ui-react';
-import { EmployeeUser } from '../../types/types';
 import useUpdateUser from '../../hooks/useUpdateUser';
+import { EmployeeUser } from '../../types/types';
 import SocialLink from '../SocialLink/SocialLink';
 import './Socials.scss';
 
-interface ISocials {
+type ISocials = {
   userDetails: EmployeeUser | null;
 }
 
-const Socials = (props: ISocials) => {
+function Socials(props: ISocials) {
   const [github, setGitHub] = useState(
     props.userDetails?.social_links?.github || ''
   );
@@ -48,6 +48,6 @@ const Socials = (props: ISocials) => {
       </Grid>
     </Grid.Column>
   );
-};
+}
 
 export default Socials;

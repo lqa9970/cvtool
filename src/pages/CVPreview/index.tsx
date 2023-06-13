@@ -19,7 +19,9 @@ type IEmployee = {
 };
 
 function CVPreview({ employee }: IEmployee) {
-  if (!employee?.id) {return <p>Generating preview failed</p>;}
+  if (!employee?.id) {
+    return <p>Generating preview failed</p>;
+  }
 
   return (
     <Container id="cv-preview">

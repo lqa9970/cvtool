@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
@@ -9,11 +9,19 @@ import useGetUser from "../../hooks/useGetUser";
 import "./Navbar.scss";
 
 function Navbar() {
+  // setLoading is not used anywhere. The componenet is never in a "loading" state.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [userRole, setUserRole] = useState<string | undefined>("talent");
   const { authState } = useOktaAuth();
-  const [user] = useGetUser(authState?.idToken?.claims.email!);
+  /*
+   ! The following line violated 2 rules:
+   ! https://typescript-eslint.io/rules/no-non-null-assertion/
+   ! https://typescript-eslint.io/rules/no-non-null-asserted-optional-chain/
+   ! It is not good practice to write not type safe code like this.
+   */
+  const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {
     setOpenModal(!openModal);
@@ -39,7 +47,7 @@ function Navbar() {
                 marginBottom: "1em",
               }}
             >
-              {userRole == role.name ? (
+              {userRole === role.name ? (
                 <Button
                   style={{ backgroundColor: "#161632" }}
                   color="green"
@@ -59,7 +67,7 @@ function Navbar() {
     );
   }
 
-  if (loading == false) {
+  if (loading === false) {
     switch (userRole) {
       case "staff":
         return (
@@ -91,10 +99,12 @@ function Navbar() {
                   position="bottom center"
                   size="large"
                   trigger={
+                    // ! Bad for accesibility
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal == false ? (
+                      {openModal === false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
                         <>
@@ -114,10 +124,7 @@ function Navbar() {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a
-                  href="/"
-                  rel="noreferrer"
-                >
+                <a href="/" rel="noreferrer">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
@@ -128,10 +135,12 @@ function Navbar() {
                   position="bottom center"
                   size="large"
                   trigger={
+                    // ! Bad for accesibility.
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal == false ? (
+                      {openModal === false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
                         <>

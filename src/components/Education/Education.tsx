@@ -1,15 +1,13 @@
-import { Formik, Form } from 'formik';
-import { Education } from '../../types/types';
-import { Button, Grid, Input } from 'semantic-ui-react';
-import { Header, Label, Icon } from 'semantic-ui-react';
-import { useState } from 'react';
-import { educationSchema } from './EducationUtils';
-import { formatDate, initialValues } from './EducationUtils';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import { uniqueIdGenerator } from '../../utils/uid';
-import './Education.scss';
-import TextAreaInput from '../TextAreaInput/TextArea';
-import CustomCalendar from '../Calendar/Calendar';
+import { useState } from "react";
+import { Formik, Form } from "formik";
+import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { Education } from "../../types/types";
+import { uniqueIdGenerator } from "../../utils/uid";
+import "./Education.scss";
+import CustomCalendar from "../Calendar/Calendar";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import { educationSchema, formatDate, initialValues } from "./EducationUtils";
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -24,15 +22,18 @@ type SetFieldValue = (
 
 function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
-  const [openStartDatePick, setOpenStartDatePick] = useState(false);
-  const [openEndDatePick, setOpenEndDatePick] = useState(false);
+  // ! These states are not used anywhere.
+  const [_openStartDatePick, setOpenStartDatePick] = useState(false);
+  const [_openEndDatePick, setOpenEndDatePick] = useState(false);
 
-  const handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+  // ! This function is not used anywhere.
+  const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
     setOpenStartDatePick(false);
   };
 
-  const handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+  // ! This function is not used anywhere.
+  const _handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("endMonthYear", formatDate(date));
     setOpenEndDatePick(false);
   };
@@ -120,7 +121,7 @@ function EducationComponent(props: EducationProps) {
                       placeholder="Month/Year"
                       setFieldValue={setFieldValue}
                       value={values.startMonthYear}
-                    ></CustomCalendar>
+                    />
 
                     {showErrors(errors.startMonthYear, touched.startMonthYear)}
                     <p id="yos-to">TO</p>
@@ -130,7 +131,7 @@ function EducationComponent(props: EducationProps) {
                       placeholder="Month/Year"
                       setFieldValue={setFieldValue}
                       value={values.endMonthYear}
-                    ></CustomCalendar>
+                    />
                     {showErrors(errors.endMonthYear, touched.endMonthYear)}
                   </div>
                 </Grid.Column>
@@ -175,27 +176,27 @@ function EducationComponent(props: EducationProps) {
               <Header as="h4">Date</Header>
             </Grid.Column>
           </Grid.Row>
-          {props.education?.map((obj: Education) => {
+          {props.education?.map((object: Education) => {
             return (
-              <Grid.Row key={obj.id}>
+              <Grid.Row key={object.id}>
                 <Grid.Column>
-                  <p>{obj.school}</p>
+                  <p>{object.school}</p>
                 </Grid.Column>
                 <Grid.Column>
-                  <p>{obj.degree}</p>
+                  <p>{object.degree}</p>
                 </Grid.Column>
                 <Grid.Column textAlign="left">
                   <Grid>
                     <Grid.Row columns={2}>
                       <Grid.Column width={10}>
-                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                        <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
                         <Icon
-                          onClick={() => handleDelete(obj.id)}
+                          circular
                           style={{ color: "#161632" }}
                           name="delete"
-                          circular
+                          onClick={() => handleDelete(object.id)}
                         />
                       </Grid.Column>
                     </Grid.Row>

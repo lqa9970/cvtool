@@ -43,10 +43,10 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
           profile.phone_number?.includes(lowerCasedKeyword) ||
           profile.main_tech?.toLowerCase().includes(lowerCasedKeyword) ||
           profile.education?.some((edu) =>
-            edu.school.toLowerCase().includes(lowerCasedKeyword)
+            edu.school?.toLowerCase().includes(lowerCasedKeyword)
           ) ||
           profile.languages?.some((lang) =>
-            lang.name.toLowerCase().includes(lowerCasedKeyword)
+            lang.name?.toLowerCase().includes(lowerCasedKeyword)
           )
       );
       setFilteredProfiles(result);

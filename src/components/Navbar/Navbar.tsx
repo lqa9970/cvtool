@@ -7,6 +7,7 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [loading, setLoading] = useState(false);
@@ -66,15 +67,15 @@ function Navbar() {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="/">
+                <Link to="/">
                   <img src={logo} alt="Nordcloud, an IBM company" />
-                </a>
+                </Link>
               </div>
               <div className="NavContent_pages">
-                <a href="/staffing">
+                <Link to="/staffing">
                   <Icon name="clipboard" size="small" />
                   dashboard
-                </a>
+                </Link>
                 <a>
                   <Icon name="bars" size="small" />
                   projects
@@ -114,10 +115,7 @@ function Navbar() {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a
-                  href="/"
-                  rel="noreferrer"
-                >
+                <a href="/" rel="noreferrer">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>

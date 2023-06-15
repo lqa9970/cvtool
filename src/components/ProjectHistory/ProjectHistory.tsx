@@ -63,21 +63,21 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
   );
   const [updateUser] = useUpdateUser();
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     const filteredProjects =
       props?.projectHistory?.filter((object) => object.id !== id) ?? [];
     setProjectHistories(filteredProjects);
-    updateUser({ projects: filteredProjects }, props.userId).catch(() => {});
+    await updateUser({ projects: filteredProjects }, props.userId);
   };
 
-  const handleFormikSubmit = (values: ProjectHistory) => {
+  const handleFormikSubmit = async (values: ProjectHistory) => {
     if (values.currentlyInProject) {
       values.endMonthYear = "present";
     }
     const projects = props.projectHistory || [];
     projects.push({ ...values, id: uniqueIdGenerator() });
     setProjectHistories(projects);
-    updateUser({ projects }, props.userId).catch(() => {});
+    await updateUser({ projects }, props.userId);
   };
 
   const showErrors = (

@@ -20,10 +20,7 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
       setProfiles(fetchedUsers);
     };
     if (keyword.length >= 3) {
-      fetchUsers().then(
-        () => {},
-        () => {}
-      );
+      fetchUsers().catch(() => {});
     }
   }, [keyword]);
 

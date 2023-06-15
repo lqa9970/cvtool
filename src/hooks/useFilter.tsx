@@ -20,9 +20,7 @@ const useFilter = (filters: Filters) => {
         }
       );
       setUsers(fetchedUsers);
-    })()
-      .then(() => null)
-      .catch(() => null);
+    })().catch(() => {});
   }, []);
 
   // Filter users

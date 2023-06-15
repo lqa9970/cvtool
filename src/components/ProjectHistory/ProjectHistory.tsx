@@ -64,15 +64,10 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
   const [updateUser] = useUpdateUser();
 
   const handleDelete = (id: string) => {
-    // ! Using non null assertion is bad practice.
     const filteredProjects =
       props?.projectHistory?.filter((object) => object.id !== id) ?? [];
     setProjectHistories(filteredProjects);
-    // ! Promises should not be left floating.
-    updateUser({ projects: filteredProjects }, props.userId).then(
-      () => {},
-      () => {}
-    );
+    updateUser({ projects: filteredProjects }, props.userId).catch(() => {});
   };
 
   const handleFormikSubmit = (values: ProjectHistory) => {
@@ -82,11 +77,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
     const projects = props.projectHistory || [];
     projects.push({ ...values, id: uniqueIdGenerator() });
     setProjectHistories(projects);
-    // ! Promises should not be left floating.
-    updateUser({ projects }, props.userId).then(
-      () => {},
-      () => {}
-    );
+    updateUser({ projects }, props.userId).catch(() => {});
   };
 
   const showErrors = (

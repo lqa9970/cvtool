@@ -22,17 +22,14 @@ type SetFieldValue = (
 
 function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
-  // ! These states are not used anywhere.
   const [_openStartDatePick, setOpenStartDatePick] = useState(false);
   const [_openEndDatePick, setOpenEndDatePick] = useState(false);
 
-  // ! This function is not used anywhere.
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
     setOpenStartDatePick(false);
   };
 
-  // ! This function is not used anywhere.
   const _handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("endMonthYear", formatDate(date));
     setOpenEndDatePick(false);
@@ -40,17 +37,13 @@ function EducationComponent(props: EducationProps) {
 
   const handleDelete = (id: string) => {
     const deleteDegree = props?.education?.filter((object) => object.id !== id);
-    updateUser({ education: deleteDegree }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+    updateUser({ education: deleteDegree }, props.userId).catch(() => {});
   };
 
   const handleFormikSubmit = (values: Education) => {
     const degrees = props.education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
-    updateUser({ education: degrees }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+    updateUser({ education: degrees }, props.userId).catch(() => {});
   };
   const showErrors = (
     error: string | undefined,

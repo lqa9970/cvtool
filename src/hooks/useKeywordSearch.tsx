@@ -20,10 +20,6 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
       setProfiles(fetchedUsers);
     };
     if (keyword.length >= 3) {
-      /*
-       ! Promises should not be left floating!
-       ! https://typescript-eslint.io/rules/no-floating-promises/
-       */
       fetchUsers().then(
         () => {},
         () => {}
@@ -36,11 +32,6 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
       setFilteredProfiles([]);
     } else {
       const lowerCasedKeyword = keyword.toLowerCase();
-      /*
-       ! The following lines violated the following rule:
-       ! https://typescript-eslint.io/rules/prefer-optional-chain/
-       ! This keeps the code more readable
-       */
       const result = profiles.filter(
         (profile) =>
           profile.name?.toLowerCase().includes(lowerCasedKeyword) ||

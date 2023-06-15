@@ -13,14 +13,9 @@ function Navbar() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
   const [userRole, setUserRole] = useState<string | undefined>("talent");
   const { authState } = useOktaAuth();
-  /*
-   ! The following line violated 2 rules:
-   ! https://typescript-eslint.io/rules/no-non-null-assertion/
-   ! https://typescript-eslint.io/rules/no-non-null-asserted-optional-chain/
-   ! It is not good practice to write not type safe code like this.
-   */
   const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {

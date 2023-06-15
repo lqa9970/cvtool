@@ -27,7 +27,6 @@ function CustomCalendar({
 }: CalendarProps) {
   const handleCalendarChange = (
     event: SyntheticEvent<HTMLElement>,
-    // ! These names were already declared in the upper scope.
     { name: name_, value: value_ }: any
   ) => {
     setFieldValue(name_ as string, value_);

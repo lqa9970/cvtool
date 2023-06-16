@@ -1,30 +1,35 @@
-import { useState, useEffect, SyntheticEvent } from 'react';
-import { Grid, Header, Search, SearchProps } from 'semantic-ui-react';
+import { useEffect, SyntheticEvent } from "react";
+import { Grid, Header, Search, SearchProps } from "semantic-ui-react";
 
-import useKeywordSearch from '../../hooks/useKeywordSearch';
-import { EmployeeUser } from '../../types/types';
+import { useDebouncedState } from "../../hooks/useDebouncedState";
+import useKeywordSearch from "../../hooks/useKeywordSearch";
+import { EmployeeUser } from "../../types/types";
 
 type EmployeeSearchProps = {
   setLastUpdated: React.Dispatch<React.SetStateAction<string>>;
   setSearchResults: React.Dispatch<React.SetStateAction<EmployeeUser[]>>;
 };
 
-function EmployeeSearch({ setLastUpdated, setSearchResults }: EmployeeSearchProps) {
-  const [keyword, setKeyword] = useState('');
+function EmployeeSearch({
+  setLastUpdated,
+  setSearchResults,
+}: EmployeeSearchProps) {
+  const [keyword, setKeyword] = useDebouncedState("", 350); // Debounces the keyword to reduce requests and reads
   const searchResults = useKeywordSearch(keyword);
   setSearchResults(searchResults); // Empty array when search doesn't match
   useEffect(() => {
-    if (keyword !== '') {
-      setLastUpdated('search');
+    if (keyword !== "") {
+      setLastUpdated("search");
     }
   }, [keyword]);
 
-  const handleSearchChange = (event:SyntheticEvent, data: SearchProps) => {
+  const handleSearchChange = (event: SyntheticEvent, data: SearchProps) => {
     const { value } = data;
-    if (value !== undefined) { // Handle the case when data.value is an empty string
+    if (value !== undefined) {
+      // Handle the case when data.value is an empty string
       setKeyword(value);
     }
-};
+  };
 
   return (
     <Grid divided="vertically" id="display">

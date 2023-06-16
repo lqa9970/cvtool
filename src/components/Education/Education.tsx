@@ -1,15 +1,15 @@
-import { Formik, Form } from 'formik';
-import { Education } from '../../types/types';
-import { Button, Grid, Input } from 'semantic-ui-react';
-import { Header, Label, Icon } from 'semantic-ui-react';
-import { useState } from 'react';
-import { educationSchema } from './EducationUtils';
-import { formatDate, initialValues } from './EducationUtils';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import { uniqueIdGenerator } from '../../utils/uid';
-import './Education.scss';
-import TextAreaInput from '../TextAreaInput/TextArea';
-import CustomCalendar from '../Calendar/Calendar';
+import { Formik, Form } from "formik";
+import { Education } from "../../types/types";
+import { Button, Grid, Input } from "semantic-ui-react";
+import { Header, Label, Icon } from "semantic-ui-react";
+import { useState } from "react";
+import { educationSchema } from "./EducationUtils";
+import { formatDate, initialValues } from "./EducationUtils";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { uniqueIdGenerator } from "../../utils/uid";
+import "./Education.scss";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import CustomCalendar from "../Calendar/Calendar";
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -193,7 +193,7 @@ function EducationComponent(props: EducationProps) {
                       <Grid.Column width={6}>
                         <Icon
                           onClick={() => handleDelete(obj.id)}
-                          style={{ color: "#161632" }}
+                          style={{ color: "#161632", cursor: "pointer" }}
                           name="delete"
                           circular
                         />

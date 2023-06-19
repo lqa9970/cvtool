@@ -46,7 +46,7 @@ function StaffingDashboard() {
           </Grid>
         </div>
       ) : (
-        <p>null</p>
+        <p>Authorizing...</p>
       )}
     </>
   );

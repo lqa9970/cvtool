@@ -12,9 +12,9 @@ function useKeywordSearch(keyword: string): EmployeeUser[] {
       const usersCollection = collection(database, "test_users");
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
-        (document_) => {
-          const data = document_.data() as EmployeeUser;
-          return { ...data, id: document_.id };
+        (document) => {
+          const data = document.data() as EmployeeUser;
+          return { ...data, id: document.id };
         }
       );
       setProfiles(fetchedUsers);

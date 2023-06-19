@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
@@ -12,10 +12,7 @@ function Navbar() {
   const [openModal, setOpenModal] = useState(false);
   const { authState } = useOktaAuth();
   const [user] = useGetUser(authState?.idToken?.claims.email!);
-  const [userRole, setUserRole] = useState<string | undefined>(
-    // user?.roles[0].name
-    "talent"
-  );
+  const [userRole, setUserRole] = useState<string | undefined>();
 
   const handleClick = () => {
     setOpenModal(!openModal);
@@ -24,6 +21,12 @@ function Navbar() {
   const handleChangeRole = (role: string) => {
     setUserRole(role);
   };
+
+  useEffect(() => {
+    if (!userRole) {
+      setUserRole(user?.roles[0].name);
+    }
+  }, [userRole, user]);
 
   function PopupContent() {
     return (

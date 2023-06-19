@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
@@ -7,13 +7,17 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
+import { Link } from "react-router-dom";
 
 function Navbar() {
+  // setLoading is not used anywhere. The componenet is never in a "loading" state.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
   const [userRole, setUserRole] = useState<string | undefined>("talent");
   const { authState } = useOktaAuth();
-  const [user] = useGetUser(authState?.idToken?.claims.email!);
+  const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {
     setOpenModal(!openModal);
@@ -39,7 +43,7 @@ function Navbar() {
                 marginBottom: "1em",
               }}
             >
-              {userRole == role.name ? (
+              {userRole === role.name ? (
                 <Button
                   style={{ backgroundColor: "#161632" }}
                   color="green"
@@ -59,22 +63,22 @@ function Navbar() {
     );
   }
 
-  if (loading == false) {
+  if (loading === false) {
     switch (userRole) {
       case "staff":
         return (
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a href="/">
+                <Link to="/">
                   <img src={logo} alt="Nordcloud, an IBM company" />
-                </a>
+                </Link>
               </div>
               <div className="NavContent_pages">
-                <a href="/staffing">
+                <Link to="/staffing">
                   <Icon name="clipboard" size="small" />
                   dashboard
-                </a>
+                </Link>
                 <a>
                   <Icon name="bars" size="small" />
                   projects
@@ -91,10 +95,12 @@ function Navbar() {
                   position="bottom center"
                   size="large"
                   trigger={
+                    // ! Bad for accesibility
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal == false ? (
+                      {openModal === false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
                         <>
@@ -114,10 +120,7 @@ function Navbar() {
           <>
             <Segment id="Nav" className="NavContent">
               <div className="NavContent_logo">
-                <a
-                  href="/"
-                  rel="noreferrer"
-                >
+                <a href="/" rel="noreferrer">
                   <img src={logo} alt="Nordcloud, an IBM company" />
                 </a>
               </div>
@@ -128,10 +131,12 @@ function Navbar() {
                   position="bottom center"
                   size="large"
                   trigger={
+                    // ! Bad for accesibility.
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <a onClick={handleClick}>
                       <img src={ninja} alt="Ninja avatar" />
                       <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal == false ? (
+                      {openModal === false ? (
                         <Icon inverted name="chevron down" />
                       ) : (
                         <>

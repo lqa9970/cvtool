@@ -12,10 +12,7 @@ function Navbar() {
   const [openModal, setOpenModal] = useState(false);
   const { authState } = useOktaAuth();
   const [user] = useGetUser(authState?.idToken?.claims.email!);
-  const [userRole, setUserRole] = useState<string | undefined>(
-    // user?.roles[0].name
-    "talent"
-  );
+  const [userRole, setUserRole] = useState<string | undefined>("talent");
 
   const handleClick = () => {
     setOpenModal(!openModal);

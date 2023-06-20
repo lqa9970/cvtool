@@ -1,13 +1,13 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent } from "react";
 import {
   DateInput,
   TimeInput,
   DateTimeInput,
-  DatesRangeInput
-} from 'semantic-ui-calendar-react-yz';
+  DatesRangeInput,
+} from "semantic-ui-calendar-react-yz";
 
 type CalendarProps = {
-  option: 'date' | 'time' | 'date time' | 'date range';
+  option: "date range" | "date time" | "date" | "time";
   value: string;
   name: string;
   placeholder?: string;
@@ -18,18 +18,18 @@ type CalendarProps = {
   ) => void;
 };
 
-const CustomCalendar = ({
+function CustomCalendar({
   option,
   value,
   name,
-  placeholder = 'Date',
-  setFieldValue
-}: CalendarProps) => {
+  placeholder = "Date",
+  setFieldValue,
+}: CalendarProps) {
   const handleCalendarChange = (
-    event: SyntheticEvent<HTMLElement, Event>,
-    { name, value }: any
+    event: SyntheticEvent<HTMLElement>,
+    { name: name_, value: value_ }: any
   ) => {
-    setFieldValue(name, value);
+    setFieldValue(name_ as string, value_);
   };
 
   return (

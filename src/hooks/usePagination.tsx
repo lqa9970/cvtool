@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-
-const PAGINATION_SIZE = 12; // Results on one page
+import { PAGINATION_SIZE } from "../constants";
 
 type UsePaginationReturn<T> = {
   currentPage: number;

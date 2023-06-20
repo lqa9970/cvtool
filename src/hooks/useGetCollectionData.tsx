@@ -46,9 +46,7 @@ const useGetFirestoreCollection = (options: UseFirestoreCollectionOptions) => {
           setLoading(false);
         }
       }
-    })()
-      .then(() => null)
-      .catch(() => null);
+    })().catch(() => {});
 
     return () => {
       isMounted = false;

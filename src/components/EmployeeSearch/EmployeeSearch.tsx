@@ -1,7 +1,7 @@
-import { useEffect, SyntheticEvent } from "react";
+import { useEffect, SyntheticEvent, useState } from "react";
 import { Grid, Header, Search, SearchProps } from "semantic-ui-react";
 
-import { useDebouncedState } from "../../hooks/useDebouncedState";
+import { useDebouncedValue } from "../../hooks/useDebouncedValue";
 import useKeywordSearch from "../../hooks/useKeywordSearch";
 import { EmployeeUser } from "../../types/types";
 
@@ -14,8 +14,10 @@ function EmployeeSearch({
   setLastUpdated,
   setSearchResults,
 }: EmployeeSearchProps) {
-  const [keyword, setKeyword] = useDebouncedState("", 350); // Debounces the keyword to reduce requests and reads
-  const searchResults = useKeywordSearch(keyword);
+  const [keyword, setKeyword] = useState("");
+  const [debouncedKeyword] = useDebouncedValue(keyword, 350); // Debounces the keyword to reduce requests and reads
+
+  const searchResults = useKeywordSearch(debouncedKeyword);
   setSearchResults(searchResults); // Empty array when search doesn't match
   useEffect(() => {
     if (keyword !== "") {

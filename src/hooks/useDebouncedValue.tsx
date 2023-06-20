@@ -29,30 +29,37 @@ import { useEffect, useRef, useState } from "react";
   SOFTWARE.
 */
 
-export function useDebouncedState<T = string>(
-  defaultValue: T,
+export function useDebouncedValue<T = string>(
+  valueToDebounce: T,
   wait: number,
   options = { leading: false }
 ) {
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(valueToDebounce);
+  const mountedRef = useRef(false);
   const timeoutRef = useRef<number>(-1);
-  const leadingRef = useRef(true);
+  const cooldownRef = useRef(false);
 
-  const clearTimeout = () => window.clearTimeout(timeoutRef.current);
-  useEffect(() => clearTimeout, []);
+  const cancel = () => window.clearTimeout(timeoutRef.current);
 
-  const debouncedSetValue = (newValue: T) => {
-    clearTimeout();
-    if (leadingRef.current && options.leading) {
-      setValue(newValue);
-    } else {
-      timeoutRef.current = window.setTimeout(() => {
-        leadingRef.current = true;
-        setValue(newValue);
-      }, wait);
+  useEffect(() => {
+    if (mountedRef.current) {
+      if (!cooldownRef.current && options.leading) {
+        cooldownRef.current = true;
+        setValue(valueToDebounce);
+      } else {
+        cancel();
+        timeoutRef.current = window.setTimeout(() => {
+          cooldownRef.current = false;
+          setValue(valueToDebounce);
+        }, wait);
+      }
     }
-    leadingRef.current = false;
-  };
+  }, [valueToDebounce, options.leading, wait]);
 
-  return [value, debouncedSetValue] as const;
+  useEffect(() => {
+    mountedRef.current = true;
+    return cancel;
+  }, []);
+
+  return [value, cancel] as const;
 }

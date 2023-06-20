@@ -1,21 +1,23 @@
-import { Formik, Form } from 'formik';
-import { FormikHandleChange, ProjectHistory } from '../../types/types';
+import { useEffect, useState } from "react";
+import { Formik, Form } from "formik";
 import {
   Button,
   Grid,
   TextArea,
   Input,
   Checkbox,
-  CheckboxProps
-} from 'semantic-ui-react';
-import { Header, Label, Icon } from 'semantic-ui-react';
+  Header,
+  Label,
+  Icon,
+} from "semantic-ui-react";
 
-import { useEffect, useState, MouseEvent } from 'react';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import { uniqueIdGenerator } from '../../utils/uid';
-import { initialValues, projectHistorySchema } from './ProjectHistoryUtils';
-import './ProjectHistory.scss';
-import CustomCalendar from '../Calendar/Calendar';
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { ProjectHistory } from "../../types/types";
+import { uniqueIdGenerator } from "../../utils/uid";
+import CustomCalendar from "../Calendar/Calendar";
+import { initialValues, projectHistorySchema } from "./ProjectHistoryUtils";
+import "./ProjectHistory.scss";
+
 type SetFieldValue = (
   field: string,
   value: any,
@@ -35,7 +37,7 @@ type EndDateComponentProps = {
   setFieldValue: SetFieldValue;
 };
 
-const EndDateComponent = (props: EndDateComponentProps) => {
+function EndDateComponent(props: EndDateComponentProps) {
   if (props.present) {
     return (
       <div className="center-child">
@@ -50,33 +52,32 @@ const EndDateComponent = (props: EndDateComponentProps) => {
         value={props.value}
         placeholder={props.placeholder}
         setFieldValue={props.setFieldValue}
-      ></CustomCalendar>
+      />
     );
   }
-};
+}
 
-const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
+function ProjectHistoryComponent(props: ProjectHistoryProps) {
   const [projectHistories, setProjectHistories] = useState<ProjectHistory[]>(
     []
   );
   const [updateUser] = useUpdateUser();
 
-  const handleDelete = (id: string) => {
-    const filteredProjects = props?.projectHistory?.filter(
-      (obj) => obj.id !== id
-    );
-    setProjectHistories(filteredProjects!);
-    updateUser({ projects: filteredProjects }, props.userId);
+  const handleDelete = async (id: string) => {
+    const filteredProjects =
+      props?.projectHistory?.filter((object) => object.id !== id) ?? [];
+    setProjectHistories(filteredProjects);
+    await updateUser({ projects: filteredProjects }, props.userId);
   };
 
-  const handleFormikSubmit = (values: ProjectHistory) => {
+  const handleFormikSubmit = async (values: ProjectHistory) => {
     if (values.currentlyInProject) {
-      values.endMonthYear = 'present';
+      values.endMonthYear = "present";
     }
     const projects = props.projectHistory || [];
     projects.push({ ...values, id: uniqueIdGenerator() });
     setProjectHistories(projects);
-    updateUser({ projects: projects }, props.userId);
+    await updateUser({ projects }, props.userId);
   };
 
   const showErrors = (
@@ -99,28 +100,27 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
   return (
     <Grid.Column>
       <Grid>
-        {projectHistories &&
-          projectHistories.map((obj: ProjectHistory) => {
-            return (
-              <Grid.Row key={obj.id}>
-                <Grid.Column id="project-card" width={14}>
-                  <Header as="h3">{obj.role}</Header>
-                  <span className="project-info-row">
-                    <p>{obj.projectTitle}</p>
-                    <i>{'Ac: ' + obj.accountName}</i>
-                  </span>
-                  <p id="industry">{obj.industry}</p>
-                  <p id="duration">{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
-                  <p className="max-width-hidden">{obj.projectDescription}</p>
-                </Grid.Column>
-                <Grid.Column width={2} textAlign="right" verticalAlign="middle">
-                  <Button icon circular id="delete-project">
-                    <Icon onClick={() => handleDelete(obj.id)} name="delete" />
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
-            );
-          })}
+        {projectHistories?.map((object: ProjectHistory) => {
+          return (
+            <Grid.Row key={object.id}>
+              <Grid.Column id="project-card" width={14}>
+                <Header as="h3">{object.role}</Header>
+                <span className="project-info-row">
+                  <p>{object.projectTitle}</p>
+                  <i>{"Ac: " + object.accountName}</i>
+                </span>
+                <p id="industry">{object.industry}</p>
+                <p id="duration">{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
+                <p className="max-width-hidden">{object.projectDescription}</p>
+              </Grid.Column>
+              <Grid.Column width={2} textAlign="right" verticalAlign="middle">
+                <Button icon circular id="delete-project">
+                  <Icon name="delete" onClick={() => handleDelete(object.id)} />
+                </Button>
+              </Grid.Column>
+            </Grid.Row>
+          );
+        })}
       </Grid>
       <Header id="no-bottom-margin" as="h3">
         Add a new project
@@ -128,7 +128,7 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
       <Formik
         initialValues={initialValues}
         validationSchema={projectHistorySchema}
-        onSubmit={(values, { resetForm }) => handleFormikSubmit(values)}
+        onSubmit={(values) => handleFormikSubmit(values)}
       >
         {({
           values,
@@ -136,7 +136,7 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
           handleSubmit,
           errors,
           touched,
-          setFieldValue
+          setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid centered>
@@ -146,18 +146,18 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
                   {showErrors(errors.id, touched.id)}
                   <Label id="form-labels">Role</Label>
                   <Input
-                    value={values.role}
-                    onChange={handleChange}
-                    name="role"
                     fluid
+                    value={values.role}
+                    name="role"
+                    onChange={handleChange}
                   />
                   {showErrors(errors.role, touched.role)}
                   <Label id="form-labels">Project Title</Label>
                   <Input
-                    value={values.projectTitle}
-                    onChange={handleChange}
-                    name="projectTitle"
                     fluid
+                    value={values.projectTitle}
+                    name="projectTitle"
+                    onChange={handleChange}
                   />
                   {showErrors(errors.projectTitle, touched.projectTitle)}
                 </Grid.Column>
@@ -165,15 +165,15 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
                   <Label id="form-labels">Account Name</Label>
                   <Input
                     value={values.accountName}
-                    onChange={handleChange}
                     name="accountName"
-                  ></Input>
+                    onChange={handleChange}
+                  />
                   <Label id="form-labels">Industry</Label>
                   <Input
                     value={values.industry}
-                    onChange={handleChange}
                     name="industry"
-                  ></Input>
+                    onChange={handleChange}
+                  />
                 </Grid.Column>
               </Grid.Row>
 
@@ -184,36 +184,34 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
                     id="currentlyInProject"
                     name="currentlyInProject"
                     checked={values.currentlyInProject}
-                    onChange={handleChange}
                     label="Currently in project"
-                  ></Checkbox>
+                    onChange={handleChange}
+                  />
                 </Grid.Column>
               </Grid.Row>
 
-
               <Grid.Row>
                 <Grid.Column>
-
                   <Label id="form-labels">From</Label>
-                <div className='flex-container'>
-                  <CustomCalendar
-                    option="date"
-                    name="startMonthYear"
-                    value={values.startMonthYear}
-                    setFieldValue={setFieldValue}
-                    ></CustomCalendar>
+                  <div className="flex-container">
+                    <CustomCalendar
+                      option="date"
+                      name="startMonthYear"
+                      value={values.startMonthYear}
+                      setFieldValue={setFieldValue}
+                    />
 
-                  {showErrors(errors.startMonthYear, touched.startMonthYear)}
-                  <p id="yos-to">TO</p>
-                  <EndDateComponent
-                    value={values.endMonthYear}
-                    placeholder="Month/Year"
-                    name="endMonthYear"
-                    setFieldValue={setFieldValue}
-                    present={values.currentlyInProject}
-                    ></EndDateComponent>
-                  {showErrors(errors.endMonthYear, touched.endMonthYear)}
-                </div>
+                    {showErrors(errors.startMonthYear, touched.startMonthYear)}
+                    <p id="yos-to">TO</p>
+                    <EndDateComponent
+                      value={values.endMonthYear}
+                      placeholder="Month/Year"
+                      name="endMonthYear"
+                      setFieldValue={setFieldValue}
+                      present={values.currentlyInProject}
+                    />
+                    {showErrors(errors.endMonthYear, touched.endMonthYear)}
+                  </div>
                 </Grid.Column>
               </Grid.Row>
 
@@ -223,8 +221,8 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
                     name="projectDescription"
                     placeholder="Enter your description here..."
                     value={values.projectDescription}
-                    onChange={handleChange}
                     id="edu-text-area"
+                    onChange={handleChange}
                   />
                   {showErrors(
                     errors.projectDescription,
@@ -241,6 +239,6 @@ const ProjectHistoryComponent = (props: ProjectHistoryProps) => {
       </Formik>
     </Grid.Column>
   );
-};
+}
 
 export default ProjectHistoryComponent;

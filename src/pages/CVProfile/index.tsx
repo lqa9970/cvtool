@@ -13,12 +13,12 @@ import BioForm from "../../components/Bio/Bio";
 import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
+import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
 
 import "./index.scss";
-import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 
 function CreateCV() {
   const { authState } = useOktaAuth();
@@ -31,14 +31,14 @@ function CreateCV() {
   return (
     <>
       <Container className="dashboard">
-        <Grid columns={2} stackable>
+        <Grid stackable columns={2}>
           <Grid.Column width={5}>
             <AvatarCard />
             <TransitionablePortal
               closeOnTriggerClick
-              transition={{ animation: "fade left", duration: "500" }}
               openOnTriggerClick
-              trigger={<Button content="Preview CV" secondary />}
+              transition={{ animation: "fade left", duration: "500" }}
+              trigger={<Button secondary content="Preview CV" />}
             >
               <Segment id="cv-preview-container">
                 <CVPreview employee={userDetails} />
@@ -48,7 +48,7 @@ function CreateCV() {
           <Grid.Column>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   Basic Info
                 </Header>
                 <BasicInfo userDetails={userDetails} />
@@ -56,7 +56,7 @@ function CreateCV() {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   Bio Description
                 </Header>
                 <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
@@ -64,7 +64,7 @@ function CreateCV() {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   Links
                 </Header>
                 {userDetails && <Socials userDetails={userDetails} />}
@@ -72,18 +72,18 @@ function CreateCV() {
             </Grid.Row>
             <Grid.Row>
             <Grid.Column>
-              <Header as="h3" dividing>
+              <Header dividing as="h3">
                 Project History
               </Header>
               <ProjectHistoryComponent
                 projectHistory={userDetails?.projects}
                 userId={userDetails.id}
-              ></ProjectHistoryComponent>
+               />
             </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   Language Skills
                 </Header>
                 <LanguagesSelect
@@ -94,7 +94,7 @@ function CreateCV() {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   Educations
                 </Header>
                 <Education

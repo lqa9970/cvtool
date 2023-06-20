@@ -31,6 +31,5 @@ export const initialValues: ProjectHistory = {
 
 export const formatDate = (date: Date) => {
   const d = new Date(date);
-  const formattedDate = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-  return formattedDate;
+  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
 };

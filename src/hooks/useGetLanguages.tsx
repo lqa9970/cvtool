@@ -27,9 +27,7 @@ const useGetLanguages = () => {
       }
     };
 
-    getLanguages()
-      .then(() => null)
-      .catch(() => null);
+    getLanguages().catch(() => {});
   }, []);
 
   return languages;

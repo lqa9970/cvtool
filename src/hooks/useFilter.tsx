@@ -13,16 +13,13 @@ const useFilter = (filters: Filters) => {
       const usersCollection = collection(database, "test_users");
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
-        (document_: DocumentData) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          const data = document_.data() as EmployeeUser;
-          return { ...data, id: document_.id as string };
+        (document) => {
+          const data = document.data() as EmployeeUser;
+          return { ...data, id: document.id };
         }
       );
       setUsers(fetchedUsers);
-    })()
-      .then(() => null)
-      .catch(() => null);
+    })().catch(() => {});
   }, []);
 
   // Filter users

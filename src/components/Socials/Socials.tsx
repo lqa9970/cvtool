@@ -24,7 +24,6 @@ function Socials(props: ISocials) {
 
   const handleSocialLinks = async (event: FormEvent) => {
     event.preventDefault();
-    // add some error handling incase userDetails can't be fetched
     props.userDetails &&
       (await updateUser(
         { social_links: { github, linkedin, website } },

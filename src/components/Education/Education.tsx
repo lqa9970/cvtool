@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
@@ -24,6 +24,7 @@ function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
   const [_openStartDatePick, setOpenStartDatePick] = useState(false);
   const [_openEndDatePick, setOpenEndDatePick] = useState(false);
+  const [education, setEducation] = useState<Education[]>([]);
 
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
@@ -35,14 +36,16 @@ function EducationComponent(props: EducationProps) {
     setOpenEndDatePick(false);
   };
 
-  const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((object) => object.id !== id);
-    updateUser({ education: deleteDegree }, props.userId).catch(() => {});
+  const handleDelete = async (id: string) => {
+    const filteredDegrees = props?.education?.filter((object) => object.id !== id) ?? [];
+    setEducation(filteredDegrees)
+    await updateUser({ education: filteredDegrees }, props.userId).catch(() => {});
   };
 
   const handleFormikSubmit = (values: Education) => {
     const degrees = props.education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
+    setEducation(degrees);
     updateUser({ education: degrees }, props.userId).catch(() => {});
   };
   const showErrors = (
@@ -57,6 +60,11 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
+
+  useEffect(() => {
+    setEducation(props.education ?? [])
+  }, []);
+
   return (
     <Grid.Column>
       <Formik
@@ -156,7 +164,7 @@ function EducationComponent(props: EducationProps) {
           </Form>
         )}
       </Formik>
-      {props.education?.toString() !== "" && (
+      {education.length > 0 && (
         <Grid columns={3} textAlign="left" verticalAlign="top">
           <Grid.Row>
             <Grid.Column>
@@ -169,7 +177,7 @@ function EducationComponent(props: EducationProps) {
               <Header as="h4">Date</Header>
             </Grid.Column>
           </Grid.Row>
-          {props.education?.map((object: Education) => {
+          {education.map((object: Education) => {
             return (
               <Grid.Row key={object.id}>
                 <Grid.Column>

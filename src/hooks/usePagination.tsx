@@ -3,7 +3,7 @@ import { PAGINATION_SIZE } from "../constants";
 
 type UsePaginationReturn<T> = {
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: (page: number) => void;
   showingFrom: number;
   showingTo: number;
   pageCount: number;
@@ -38,9 +38,22 @@ export default function usePagination<T>(entries: T[]): UsePaginationReturn<T> {
     setCurrentPage(1);
   }, [entries]);
 
+  const safeSetCurrentPage = (page: number) => {
+    if (page < 0) {
+      setCurrentPage(0);
+      return;
+    }
+    if (page > pageCount) {
+      setCurrentPage(pageCount);
+      return;
+    }
+
+    setCurrentPage(page);
+  };
+
   return {
     currentPage,
-    setCurrentPage,
+    setCurrentPage: safeSetCurrentPage,
     showingFrom,
     showingTo,
     pageCount,

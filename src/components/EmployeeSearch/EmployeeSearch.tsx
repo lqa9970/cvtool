@@ -28,10 +28,7 @@ function EmployeeSearch({
 
   const handleSearchChange = (event: SyntheticEvent, data: SearchProps) => {
     const { value } = data;
-    if (value !== undefined) {
-      // Handle the case when data.value is an empty string
-      setKeyword(value);
-    }
+    setKeyword(value || "");
   };
 
   return (

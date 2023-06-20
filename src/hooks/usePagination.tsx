@@ -2,7 +2,16 @@ import { useEffect, useMemo, useState } from "react";
 
 const PAGINATION_SIZE = 12; // Results on one page
 
-export default function usePagination<T>(entries: T[]) {
+type UsePaginationReturn<T> = {
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  showingFrom: number;
+  showingTo: number;
+  pageCount: number;
+  items: T[];
+};
+
+export default function usePagination<T>(entries: T[]): UsePaginationReturn<T> {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageCount = useMemo(

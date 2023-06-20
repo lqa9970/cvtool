@@ -19,15 +19,18 @@ export default function usePagination<T>(entries: T[]): UsePaginationReturn<T> {
   );
 
   const showingFrom = useMemo(
-    () => (currentPage - 1) * PAGINATION_SIZE + 1,
+    () => (currentPage - 1) * PAGINATION_SIZE,
     [currentPage]
   );
+
+  const items = useMemo(
+    () => entries.slice(showingFrom, currentPage * PAGINATION_SIZE),
+    [entries, currentPage, showingFrom]
+  );
+
   const showingTo = useMemo(
-    () =>
-      currentPage === pageCount
-        ? entries.length
-        : currentPage * PAGINATION_SIZE,
-    [currentPage, entries, pageCount]
+    () => showingFrom + items.length,
+    [showingFrom, items]
   );
 
   // Making sure that page is set to 1 every time entries change
@@ -41,9 +44,6 @@ export default function usePagination<T>(entries: T[]): UsePaginationReturn<T> {
     showingFrom,
     showingTo,
     pageCount,
-    items: entries.slice(
-      (currentPage - 1) * PAGINATION_SIZE, // Doing - 1 because index starts from 1 and not 0
-      currentPage * PAGINATION_SIZE
-    ),
+    items,
   };
 }

@@ -16,7 +16,8 @@ function DisplayMatchCard({ results }: { results: EmployeeUser[] }) {
   return (
     <Grid divided="vertically" id="display">
       <Header as="h3">
-        Showing {showingFrom} to {showingTo} of {results.length} talents
+        {/* It's an index so + 1 */}
+        Showing {showingFrom + 1} to {showingTo} of {results.length} talents
       </Header>
       <Grid.Row columns={3}>
         {items.map((employee) => (

@@ -3,12 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 const PAGINATION_SIZE = 12; // Results on one page
 
 export default function usePagination<T>(entries: T[]) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const pageCount = useMemo(
     () => Math.ceil(entries.length / PAGINATION_SIZE),
     [entries]
   );
 
-  const [currentPage, setCurrentPage] = useState(1);
   const showingFrom = useMemo(
     () => (currentPage - 1) * PAGINATION_SIZE + 1,
     [currentPage]

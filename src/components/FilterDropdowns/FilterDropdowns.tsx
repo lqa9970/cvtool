@@ -34,6 +34,7 @@ const useFetchFieldData = (collection: string) => {
   }));
 };
 
+
 function FilterDropdowns({ filters, setFilters }: FilterDropdownsProps) {
   const hyperscalerData = useFetchFieldData("hyperscaler");
   const mainTechData = useFetchFieldData("main_tech");
@@ -42,6 +43,16 @@ function FilterDropdowns({ filters, setFilters }: FilterDropdownsProps) {
   const locationData = useFetchFieldData("location");
   const languagesData = useFetchFieldData("languages");
   const nationalityData = useFetchFieldData("countries");
+
+  const filterData = [
+    { label: "Hyperscaler", options: hyperscalerData, filterKey: "hyperscaler", multiSelected: true },
+    { label: "Main tech", options: mainTechData, filterKey: "mainTech", multiSelected: false },
+    { label: "Skills", options: skillsData, filterKey: "skills",multiSelected: true },
+    { label: "Certificates", options: certificationData, filterKey: "certificate", multiSelected: true  },
+    { label: "Location", options: locationData, filterKey: "location", multiSelected: false  },
+    { label: "Languages", options: languagesData, filterKey: "languages", multiSelected: true  },
+    { label: "Nationality", options: nationalityData, filterKey: "nationality", multiSelected: false  },
+]
 
   const handleFormReset = () => {
     setFilters(initialFilters);
@@ -55,55 +66,19 @@ function FilterDropdowns({ filters, setFilters }: FilterDropdownsProps) {
           <CustomReset label="Clear Selection" onClick={handleFormReset} />
         </div>
         <Divider />
-        <FilterDropdown
-          label="Hyperscaler"
-          options={hyperscalerData}
-          filterKey="hyperscaler"
+        {
+        filterData.map((filter,index)=>(
+          <FilterDropdown 
+          key={index}
+          multiSelected= {filter.multiSelected}
+          label={filter.label}
+          options={filter.options}
+          filterKey={filter.filterKey as keyof Filters}
           filters={filters}
           setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Main tech"
-          options={mainTechData}
-          filterKey="mainTech"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Skills"
-          options={skillsData}
-          filterKey="skills"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Certificates"
-          options={certificationData}
-          filterKey="certificate"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Location"
-          options={locationData}
-          filterKey="location"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Languages"
-          options={languagesData}
-          filterKey="languages"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          label="Nationality"
-          options={nationalityData}
-          filterKey="nationality"
-          filters={filters}
-          setFilters={setFilters}
-        />
+          />
+        ))
+      }
       </Container>
     </form>
   );

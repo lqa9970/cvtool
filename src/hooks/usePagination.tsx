@@ -39,7 +39,7 @@ export default function usePagination<T>(entries: T[]): UsePaginationReturn<T> {
   }, [entries]);
 
   const safeSetCurrentPage = (page: number) => {
-    if (page < 0) {
+    if (page <= 0) {
       setCurrentPage(0);
       return;
     }

@@ -66,9 +66,7 @@ function LanguagesSelect(props: LanguageSelectProps) {
           ],
         },
         props.userId
-      )
-        .then(() => null)
-        .catch(() => null);
+      ).catch(() => {});
     },
   });
 
@@ -76,17 +74,11 @@ function LanguagesSelect(props: LanguageSelectProps) {
     event: React.SyntheticEvent<HTMLElement>,
     { value }: DropdownProps
   ) => {
-    formik
-      .setFieldValue("language", value)
-      .then(() => null)
-      .catch(() => null);
+    formik.setFieldValue("language", value).catch(() => {});
   };
 
   const handleProficiencyChange = (value: string) => {
-    formik
-      .setFieldValue("proficiency", value)
-      .then(() => null)
-      .catch(() => null);
+    formik.setFieldValue("proficiency", value).catch(() => {});
   };
 
   const handleCardDelete = (index: number) => {
@@ -95,9 +87,7 @@ function LanguagesSelect(props: LanguageSelectProps) {
     );
     setLanguagesWithProficiencies(newState);
 
-    updateUser({ languages: newState }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+    updateUser({ languages: newState }, props.userId).catch(() => {});
   };
 
   return (

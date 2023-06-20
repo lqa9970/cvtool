@@ -14,10 +14,7 @@ export function Login() {
   const _navigate = useNavigate();
 
   if (isAuthenticated === false) {
-    oktaAuth
-      .signInWithRedirect({ originalUri: pathname })
-      .then(() => null)
-      .catch(() => null);
+    oktaAuth.signInWithRedirect({ originalUri: pathname }).catch(() => {});
   }
 
   useEffect(() => {

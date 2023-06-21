@@ -7,12 +7,12 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(false);
   const { authState } = useOktaAuth();
-  const [user] = useGetUser(authState?.idToken?.claims.email!);
-  const [userRole, setUserRole] = useState<string | undefined>("talent");
+  const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {
     setOpenModal(!openModal);
@@ -38,7 +38,7 @@ function Navbar() {
                 marginBottom: "1em",
               }}
             >
-              {userRole == role.name ? (
+              {userRole === role.name ? (
                 <Button
                   style={{ backgroundColor: "#161632" }}
                   color="green"
@@ -57,7 +57,7 @@ function Navbar() {
       </>
     );
   }
-
+  
   switch (userRole) {
     case "staff":
       return (
@@ -140,7 +140,7 @@ function Navbar() {
           </Segment>
         </>
       );
-
+      
     default:
       null;
   }

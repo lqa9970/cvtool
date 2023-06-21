@@ -26,9 +26,7 @@ function BioForm({ bio, userId }: BioProps) {
         <Formik<FormValues>
           initialValues={{ bioDescription: bio }}
           onSubmit={(values) => {
-            updateUser({ bio: values.bioDescription }, userId)
-              .then(() => null)
-              .catch(() => null);
+            updateUser({ bio: values.bioDescription }, userId).catch(() => {});
           }}
         >
           {({ values, handleChange, handleSubmit }) => (

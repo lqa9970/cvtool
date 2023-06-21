@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, DocumentData } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { database } from "../services/firestoreService";
 import { EmployeeUser, Filters } from "../types/types";
 
@@ -13,16 +13,13 @@ const useFilter = (filters: Filters) => {
       const usersCollection = collection(database, "test_users");
       const usersSnapshot = await getDocs(usersCollection);
       const fetchedUsers: EmployeeUser[] = usersSnapshot.docs.map(
-        (document_: DocumentData) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          const data = document_.data() as EmployeeUser;
-          return { ...data, id: document_.id as string };
+        (document) => {
+          const data = document.data() as EmployeeUser;
+          return { ...data, id: document.id };
         }
       );
       setUsers(fetchedUsers);
-    })()
-      .then(() => null)
-      .catch(() => null);
+    })().catch(() => {});
   }, []);
 
   // Filter users
@@ -32,23 +29,24 @@ const useFilter = (filters: Filters) => {
     result = result.filter(
       (user) =>
         (filters.hyperscaler.length === 0 ||
-          filters.hyperscaler.includes(user.main_tech!)) &&
+          filters.hyperscaler.includes(user.main_tech ?? "")) &&
         (filters.mainTech.length === 0 ||
-          filters.mainTech.includes(user.main_tech!)) &&
-        (filters.skills.length === 0 ||
-          user.skills?.some((skill) => filters.skills.includes(skill.name))) &&
-        (filters.certificate.length === 0 ||
-          user.certifications?.some((certificate) =>
-            filters.certificate.includes(certificate.name)
-          )) &&
-        (filters.languages.length === 0 ||
-          user.languages?.some((language) =>
-            filters.languages.includes(language.name)
-          )) &&
+          filters.mainTech.includes(user.main_tech ?? "")) &&
+        filters.skills.every((filter) =>
+          user.skills?.some((skill) => skill.name === filter)
+        ) &&
+        filters.certificate.every((filter) =>
+          user.certifications?.some(
+            (certificate) => certificate.name === filter
+          )
+        ) &&
+        filters.languages.every((filter) =>
+          user.languages?.some((lang) => lang.name === filter)
+        ) &&
         (filters.nationality.length === 0 ||
-          filters.nationality.includes(user.nationality!)) &&
+          filters.nationality.includes(user.nationality ?? "")) &&
         (filters.location.length === 0 ||
-          filters.location.includes(user.location!))
+          filters.location.includes(user.location ?? ""))
     );
 
     setFilteredUsers(result);

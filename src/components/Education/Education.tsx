@@ -1,15 +1,13 @@
+import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { Education } from "../../types/types";
-import { Button, Grid, Input } from "semantic-ui-react";
-import { Header, Label, Icon } from "semantic-ui-react";
-import { useState } from "react";
-import { educationSchema } from "./EducationUtils";
-import { formatDate, initialValues } from "./EducationUtils";
+import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
+import { Education } from "../../types/types";
 import { uniqueIdGenerator } from "../../utils/uid";
 import "./Education.scss";
-import TextAreaInput from "../TextAreaInput/TextArea";
 import CustomCalendar from "../Calendar/Calendar";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import { educationSchema, formatDate, initialValues } from "./EducationUtils";
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -24,32 +22,34 @@ type SetFieldValue = (
 
 function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
-  const [openStartDatePick, setOpenStartDatePick] = useState(false);
-  const [openEndDatePick, setOpenEndDatePick] = useState(false);
+  const [_openStartDatePick, setOpenStartDatePick] = useState(false);
+  const [_openEndDatePick, setOpenEndDatePick] = useState(false);
+  const [education, setEducation] = useState<Education[]>(
+    props.education ?? []
+  );
 
-  const handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+  const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
     setOpenStartDatePick(false);
   };
 
-  const handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
+  const _handleEndDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("endMonthYear", formatDate(date));
     setOpenEndDatePick(false);
   };
 
-  const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((object) => object.id !== id);
-    updateUser({ education: deleteDegree }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+  const handleDelete = async (id: string) => {
+    const filteredDegrees =
+      education.filter((object) => object.id !== id) ?? [];
+    setEducation(filteredDegrees);
+    await updateUser({ education: filteredDegrees }, props.userId);
   };
 
-  const handleFormikSubmit = (values: Education) => {
-    const degrees = props.education || [];
+  const handleFormikSubmit = async (values: Education) => {
+    const degrees = education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
-    updateUser({ education: degrees }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+    setEducation(degrees);
+    await updateUser({ education: degrees }, props.userId);
   };
   const showErrors = (
     error: string | undefined,
@@ -63,6 +63,7 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
+
   return (
     <Grid.Column>
       <Formik
@@ -120,7 +121,7 @@ function EducationComponent(props: EducationProps) {
                       placeholder="Month/Year"
                       setFieldValue={setFieldValue}
                       value={values.startMonthYear}
-                    ></CustomCalendar>
+                    />
 
                     {showErrors(errors.startMonthYear, touched.startMonthYear)}
                     <p id="yos-to">TO</p>
@@ -130,7 +131,7 @@ function EducationComponent(props: EducationProps) {
                       placeholder="Month/Year"
                       setFieldValue={setFieldValue}
                       value={values.endMonthYear}
-                    ></CustomCalendar>
+                    />
                     {showErrors(errors.endMonthYear, touched.endMonthYear)}
                   </div>
                 </Grid.Column>
@@ -162,7 +163,7 @@ function EducationComponent(props: EducationProps) {
           </Form>
         )}
       </Formik>
-      {props.education?.toString() !== "" && (
+      {education.length > 0 && (
         <Grid columns={3} textAlign="left" verticalAlign="top">
           <Grid.Row>
             <Grid.Column>
@@ -175,28 +176,30 @@ function EducationComponent(props: EducationProps) {
               <Header as="h4">Date</Header>
             </Grid.Column>
           </Grid.Row>
-          {props.education?.map((obj: Education) => {
+          {education.map((object: Education) => {
             return (
-              <Grid.Row key={obj.id}>
+              <Grid.Row key={object.id}>
                 <Grid.Column>
-                  <p>{obj.school}</p>
+                  <p>{object.school}</p>
                 </Grid.Column>
                 <Grid.Column>
-                  <p>{obj.degree}</p>
+                  <p>{object.degree}</p>
                 </Grid.Column>
                 <Grid.Column textAlign="left">
                   <Grid>
                     <Grid.Row columns={2}>
                       <Grid.Column width={10}>
-                        <p>{`${obj.startMonthYear} - ${obj.endMonthYear}`}</p>
+                        <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
-                        <Icon
-                          onClick={() => handleDelete(obj.id)}
-                          style={{ color: "#161632", cursor: "pointer" }}
-                          name="delete"
+                        <Button
+                          icon
                           circular
-                        />
+                          id="edu-delete-button"
+                          onClick={() => handleDelete(object.id)}
+                        >
+                          <Icon name="delete" />
+                        </Button>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

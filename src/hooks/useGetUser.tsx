@@ -55,9 +55,7 @@ const useUserDetails = (
       }
     };
 
-    getUser()
-      .then(() => null)
-      .catch(() => null);
+    getUser().catch(() => {});
   }, [email]);
 
   return [userDetails, roles];

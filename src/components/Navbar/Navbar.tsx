@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
@@ -7,11 +7,11 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(false);
   const { authState } = useOktaAuth();
+  const [userRole, setUserRole] = useState<string | undefined>();
   const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {
@@ -21,6 +21,12 @@ function Navbar() {
   const handleChangeRole = (role: string) => {
     setUserRole(role);
   };
+
+  useEffect(() => {
+    if (!userRole) {
+      setUserRole(user?.roles[0].name);
+    }
+  }, [userRole, user]);
 
   function PopupContent() {
     return (
@@ -57,7 +63,7 @@ function Navbar() {
       </>
     );
   }
-  
+
   switch (userRole) {
     case "staff":
       return (
@@ -140,7 +146,7 @@ function Navbar() {
           </Segment>
         </>
       );
-      
+
     default:
       null;
   }

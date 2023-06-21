@@ -17,6 +17,7 @@ type IEmployee = {
 };
 
 function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
+  const seniorityClass = employee.experience_level?.toLowerCase()
   return (
     <Card id="card">
       <Card.Content>
@@ -25,6 +26,7 @@ function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
           floated="left"
           src={ninja}
           title={employee.job_title}
+          className={seniorityClass}
         />
         <Card.Header>{employee?.job_title}</Card.Header>
         <Card.Meta>{employee.name}</Card.Meta>

@@ -71,15 +71,15 @@ function CreateCV() {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-            <Grid.Column>
-              <Header dividing as="h3">
-                Project History
-              </Header>
-              <ProjectHistoryComponent
-                projectHistory={userDetails?.projects}
-                userId={userDetails.id}
-               />
-            </Grid.Column>
+              <Grid.Column>
+                <Header dividing as="h3">
+                  Project History
+                </Header>
+                <ProjectHistoryComponent
+                  projectHistory={userDetails?.projects}
+                  userId={userDetails.id}
+                />
+              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>

@@ -10,6 +10,8 @@ import {
   Icon,
 } from "semantic-ui-react";
 import UserCard from "../../components/UserCard/UserCard";
+import useGetUser from "../../hooks/useGetUser";
+import { formatDate } from "../../utils/date";
 
 import "./index.scss";
 
@@ -17,6 +19,12 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const { authState } = useOktaAuth();
+  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
+
+  if (!userDetails) { return null; }
+
+  const lastUpdateOn = userDetails?.last_cv_update?.toDate() || null;
+  const formattedDate = lastUpdateOn ? formatDate(lastUpdateOn) : null;
 
   return (
     <Container className="dashboard">
@@ -28,30 +36,53 @@ function Dashboard() {
           />
         </Grid.Column>
         <GridColumn width={8}>
-          <GridRow>
-            <Header as="h3">My CV</Header>
-            <Segment placeholder textAlign="center">
-              <Header icon as="h4">
-                <Icon
-                  id="cvArea"
-                  name="plus square outline"
-                  onClick={() => navigate("/cv")}
-                />
-                Create a new CV.
-              </Header>
-            </Segment>
-            <Header as="h3">Badges</Header>
-            <Segment placeholder textAlign="center">
-              <Header icon as="h4">
-                <Icon
-                  id="cvArea"
-                  name="plus square outline"
-                  onClick={() => navigate("/cv")}
-                />
-                You haven&apos;t attach unknown badges.
-              </Header>
-            </Segment>
-          </GridRow>
+          <Grid>
+            <GridRow>
+              <Grid.Column width={6}>
+                <Header as="h3">My CV</Header>
+                <Segment placeholder textAlign="center">
+                  {lastUpdateOn ? (
+                    <>
+                      <Header icon as="h4">
+                        <Icon name="edit" onClick={() => navigate("/cv")} />
+                        Edit CV
+                      </Header>
+                      <p>Last Update</p>
+                      <p>{formattedDate}</p>
+                    </>
+                  ) : (
+                    <Header icon as="h4">
+                      <Icon
+                        id="cvArea"
+                        name="plus square outline"
+                        onClick={() => navigate("/cv")}
+                      />
+                      Create a new CV.
+                    </Header>
+                  )}
+                </Segment>
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <Header as="h3">Availability</Header>
+                <Segment placeholder textAlign="center">
+                  <Header icon as="h4">
+                    Availability
+                  </Header>
+                </Segment>
+              </Grid.Column>
+            </GridRow>
+          </Grid>
+          <Header as="h3">Badges</Header>
+          <Segment placeholder textAlign="center">
+            <Header icon as="h4">
+              <Icon
+                id="cvArea"
+                name="plus square outline"
+                onClick={() => navigate("/cv")}
+              />
+              You haven&apos;t attach unknown badges.
+            </Header>
+          </Segment>
         </GridColumn>
         <GridColumn width={4}>
           <Header as="h4">Last Activites</Header>

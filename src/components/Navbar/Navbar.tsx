@@ -7,7 +7,6 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(false);
@@ -64,55 +63,6 @@ function Navbar() {
       </>
     );
   }
-  
-  switch (userRole) {
-    case "staff":
-      return (
-        <>
-          <Segment id="Nav" className="NavContent">
-            <div className="NavContent_logo">
-              <a href="/">
-                <img src={logo} alt="Nordcloud, an IBM company" />
-              </a>
-            </div>
-            <div className="NavContent_pages">
-              <a href="/staff">
-                <Icon name="clipboard" size="small" />
-                dashboard
-              </a>
-              <a>
-                <Icon name="bars" size="small" />
-                projects
-              </a>
-              <a>
-                <Icon name="briefcase" size="small" />
-                talents
-              </a>
-            </div>
-            <div className="NavContent_user">
-              <Popup
-                on="click"
-                content={<PopupContent />}
-                position="bottom center"
-                size="large"
-                trigger={
-                  <a onClick={handleClick}>
-                    <img src={ninja} alt="Ninja avatar" />
-                    <p>{user?.name?.split(" ")[0]}</p>
-                    {openModal == false ? (
-                      <Icon inverted name="chevron down" />
-                    ) : (
-                      <>
-                        <Icon inverted name="chevron up" />
-                      </>
-                    )}
-                  </a>
-                }
-              />
-            </div>
-          </Segment>
-        </>
-      );
 
   switch (userRole) {
     case "staff":

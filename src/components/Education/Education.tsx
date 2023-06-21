@@ -37,13 +37,14 @@ function EducationComponent(props: EducationProps) {
   };
 
   const handleDelete = async (id: string) => {
-    const filteredDegrees = props?.education?.filter((object) => object.id !== id) ?? [];
-    setEducation(filteredDegrees)
-    await updateUser({ education: filteredDegrees }, props.userId).catch(() => {});
+    const filteredDegrees =
+      education.filter((object) => object.id !== id) ?? [];
+    setEducation(filteredDegrees);
+    await updateUser({ education: filteredDegrees }, props.userId);
   };
 
   const handleFormikSubmit = (values: Education) => {
-    const degrees = props.education || [];
+    const degrees = education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
     setEducation(degrees);
     updateUser({ education: degrees }, props.userId).catch(() => {});
@@ -62,7 +63,7 @@ function EducationComponent(props: EducationProps) {
   };
 
   useEffect(() => {
-    setEducation(props.education ?? [])
+    setEducation(props.education ?? []);
   }, []);
 
   return (
@@ -193,12 +194,14 @@ function EducationComponent(props: EducationProps) {
                         <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
-                        <Icon
+                        <Button
+                          icon
                           circular
-                          style={{ color: "#161632" }}
-                          name="delete"
+                          id="edu-delete-button"
                           onClick={() => handleDelete(object.id)}
-                        />
+                        >
+                          <Icon name="delete" />
+                        </Button>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

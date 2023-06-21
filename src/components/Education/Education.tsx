@@ -43,11 +43,11 @@ function EducationComponent(props: EducationProps) {
     await updateUser({ education: filteredDegrees }, props.userId);
   };
 
-  const handleFormikSubmit = (values: Education) => {
+  const handleFormikSubmit = async (values: Education) => {
     const degrees = education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
     setEducation(degrees);
-    updateUser({ education: degrees }, props.userId).catch(() => {});
+    await updateUser({ education: degrees }, props.userId);
   };
   const showErrors = (
     error: string | undefined,

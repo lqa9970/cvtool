@@ -24,7 +24,9 @@ function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
   const [_openStartDatePick, setOpenStartDatePick] = useState(false);
   const [_openEndDatePick, setOpenEndDatePick] = useState(false);
-  const [education, setEducation] = useState<Education[]>([]);
+  const [education, setEducation] = useState<Education[]>(
+    props.education ?? []
+  );
 
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
@@ -61,10 +63,6 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
-
-  useEffect(() => {
-    setEducation(props.education ?? []);
-  }, []);
 
   return (
     <Grid.Column>

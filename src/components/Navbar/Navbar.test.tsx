@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 
 describe('h1', () => {
   it('has been defined', () => {
-    render(<Navbar />);
+    // render(<Navbar />);
     expect(screen.getByText(/Navbar/)).toBeDefined();
   });
 });

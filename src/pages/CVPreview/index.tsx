@@ -111,7 +111,7 @@ function CVPreview({ employee }: IEmployee) {
                 </Divider>
                 <Label.Group size="medium">
                   {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.name}</Label>
+                    <Label key={skill.id}>{skill.tech}</Label>
                   ))}
                 </Label.Group>
               </>
@@ -121,12 +121,12 @@ function CVPreview({ employee }: IEmployee) {
               <>
                 <Divider horizontal>
                   <Header as="h3" id="preview-left-col-header">
-                    COMPETENCIES
+                    COMPETENCES
                   </Header>
                 </Divider>
                 <Label.Group size="medium">
                   {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.name}</Label>
+                    <Label key={skill.id}>{skill.tech}</Label>
                   ))}
                 </Label.Group>
               </>

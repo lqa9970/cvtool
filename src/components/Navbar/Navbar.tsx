@@ -9,9 +9,7 @@ import useGetUser from "../../hooks/useGetUser";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 
-function Navbar() {
-  // setLoading is not used anywhere. The componenet is never in a "loading" state.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function Navbar(){
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -148,11 +146,12 @@ function Navbar() {
                 />
               </div>
             </Segment>
+            
           </>
         );
 
       default:
-        break;
+        return <p>Please log in.</p>;
     }
   } else {
     return <p>Loading...</p>;

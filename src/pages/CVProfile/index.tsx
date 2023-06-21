@@ -6,6 +6,7 @@ import {
   Button,
   TransitionablePortal,
   Segment,
+  Divider,
 } from "semantic-ui-react";
 
 import BasicInfo from "../../components/BasicInfo/Basicinfo";
@@ -13,12 +14,14 @@ import BioForm from "../../components/Bio/Bio";
 import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
-import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
+import SkillComponent from "../../components/Skills/Skills"
 
 import "./index.scss";
+import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
+import CertificationComponent from "../../components/Certifications/Certificates";
 
 function CreateCV() {
   const { authState } = useOktaAuth();
@@ -27,6 +30,9 @@ function CreateCV() {
   if (!userDetails?.id) {
     return <p />;
   }
+
+  const skills = userDetails.skills || [];
+
 
   return (
     <>
@@ -101,6 +107,26 @@ function CreateCV() {
                   education={userDetails?.education}
                   userId={userDetails?.id}
                 />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                <Divider hidden />
+                  Competence
+                </Header>
+                <SkillComponent
+                  userId={userDetails?.id} skills={skills}                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                <Divider hidden />
+                  Certifications
+                </Header>
+                <CertificationComponent
+                  userId={userDetails?.id} certifications={userDetails.certifications}                />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>

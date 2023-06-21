@@ -31,6 +31,14 @@ export type Skills = {
   name: string;
 };
 
+// No need to refactor now. keep the both types
+export type Skill = {
+  id: string;
+  tech: string;
+  experience: number;
+};
+
+
 export type ProjectHistory = {
   accountName: string;
   currentlyInProject: boolean;
@@ -63,8 +71,11 @@ export type LanguagesWithProficiency = {
 };
 
 export type Certifications = {
+  validFrom?: any ;
+  validTo?: any;
+  id?:string;
   name: string;
-  date: string;
+  date?: string;
 };
 
 export type EmployeeUser = {
@@ -82,7 +93,7 @@ export type EmployeeUser = {
   social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
-  skills?: Skills[];
+  skills?: Skill[];
   workabroad?: boolean;
   experience_level?: string;
   projects?: ProjectHistory[];
@@ -108,3 +119,5 @@ export type Filters = {
   languages: string[];
   nationality: string[];
 };
+
+

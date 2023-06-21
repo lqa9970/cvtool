@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
@@ -64,7 +64,7 @@ function Navbar() {
       </>
     );
   }
-  
+
   switch (userRole) {
     case "staff":
       return (

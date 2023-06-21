@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
@@ -25,6 +24,9 @@ function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
   const [_openStartDatePick, setOpenStartDatePick] = useState(false);
   const [_openEndDatePick, setOpenEndDatePick] = useState(false);
+  const [education, setEducation] = useState<Education[]>(
+    props.education ?? []
+  );
 
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
@@ -36,15 +38,18 @@ function EducationComponent(props: EducationProps) {
     setOpenEndDatePick(false);
   };
 
-  const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((object) => object.id !== id);
-    updateUser({ education: deleteDegree }, props.userId).catch(() => {});
+  const handleDelete = async (id: string) => {
+    const filteredDegrees =
+      education.filter((object) => object.id !== id) ?? [];
+    setEducation(filteredDegrees);
+    await updateUser({ education: filteredDegrees }, props.userId);
   };
 
-  const handleFormikSubmit = (values: Education) => {
-    const degrees = props.education || [];
+  const handleFormikSubmit = async (values: Education) => {
+    const degrees = education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
-    updateUser({ education: degrees }, props.userId).catch(() => {});
+    setEducation(degrees);
+    await updateUser({ education: degrees }, props.userId);
   };
   const showErrors = (
     error: string | undefined,
@@ -58,6 +63,7 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
+
   return (
     <Grid.Column>
       <Formik
@@ -157,7 +163,7 @@ function EducationComponent(props: EducationProps) {
           </Form>
         )}
       </Formik>
-      {props.education?.toString() !== "" && (
+      {education.length > 0 && (
         <Grid columns={3} textAlign="left" verticalAlign="top">
           <Grid.Row>
             <Grid.Column>
@@ -170,7 +176,7 @@ function EducationComponent(props: EducationProps) {
               <Header as="h4">Date</Header>
             </Grid.Column>
           </Grid.Row>
-          {props.education?.map((object: Education) => {
+          {education.map((object: Education) => {
             return (
               <Grid.Row key={object.id}>
                 <Grid.Column>
@@ -186,12 +192,14 @@ function EducationComponent(props: EducationProps) {
                         <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
-                        <Icon
-                          style={{ color: "#161632", cursor: "pointer" }}
+                        <Button
+                          icon
                           circular
-                          name="delete"
+                          id="edu-delete-button"
                           onClick={() => handleDelete(object.id)}
-                        />
+                        >
+                          <Icon name="delete" />
+                        </Button>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

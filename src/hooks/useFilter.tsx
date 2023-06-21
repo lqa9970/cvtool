@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, DocumentData } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { database } from "../services/firestoreService";
 import { EmployeeUser, Filters } from "../types/types";
 

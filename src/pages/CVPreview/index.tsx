@@ -54,7 +54,7 @@ function CVPreview({ employee }: IEmployee) {
 
             {employee.certifications && (
               <ValueList
-                title="LANGUAGES"
+                title="CERTIFICATIONS"
                 values={employee.certifications.map((certificate) => ({
                   name: certificate.name,
                   value: certificate.date,

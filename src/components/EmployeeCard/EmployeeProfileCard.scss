@@ -34,16 +34,26 @@
 .ui.card .content img {
   display: inline-block;
   vertical-align: middle;
-  border: 5px solid $av-senior;
+  border-width: 5px;
+  border-style: solid;
   border-radius: 50%;
   margin: 0.5em 0.8em 0.8em;
   padding: 0.2em 0.1em;
-}
 
-
-@mixin border-color($title) {
-  @if $title == 'Senior developer' {
-    border: 5px solid $av-senior;
+  &.junior{
+    border-color: $av-junior;
+  }
+  &.mid{
+    border-color: $av-mid;
+  }
+  &.senior{
+    border-color: $av-senior;
+  }
+  &.architect{
+    border-color: $av-architect;
+  }
+  &.pro{
+    border-color: $av-pro;
   }
 }
 

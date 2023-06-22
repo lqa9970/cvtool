@@ -91,7 +91,7 @@ export type EmployeeUser = {
   last_activity?: string[];
   education?: Education[];
   certifications?: Certifications[];
-  last_cv_update: Timestamp;
+  last_cv_update?: Timestamp;
 };
 
 export type FormikHandleChange = {

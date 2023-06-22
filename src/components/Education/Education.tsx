@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";

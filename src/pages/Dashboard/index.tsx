@@ -1,22 +1,20 @@
 import { useOktaAuth } from "@okta/okta-react";
-import { useNavigate } from "react-router-dom";
-import {
-  Grid,
-  GridColumn,
-  Header,
-  Container,
-  Segment,
-  GridRow,
-  Icon,
-} from "semantic-ui-react";
+import { Grid, GridColumn, Container, GridRow } from "semantic-ui-react";
+import Availability from "../../components/Availability/Availability";
+import Badges from "../../components/Badges/Badges";
+import CreateEditCv from "../../components/CreateEditCv/CreateEditCv";
+import LastActivities from "../../components/LastActivities/LastActivities";
 import UserCard from "../../components/UserCard/UserCard";
+import useGetUser from "../../hooks/useGetUser";
 
 import "./index.scss";
 
 function Dashboard() {
-  const navigate = useNavigate();
 
   const { authState } = useOktaAuth();
+  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
+
+  if (!userDetails) { return null }
 
   return (
     <Container className="dashboard">
@@ -28,38 +26,20 @@ function Dashboard() {
           />
         </Grid.Column>
         <GridColumn width={8}>
-          <GridRow>
-            <Header as="h3">My CV</Header>
-            <Segment placeholder textAlign="center">
-              <Header icon as="h4">
-                <Icon
-                  id="cvArea"
-                  name="plus square outline"
-                  onClick={() => navigate("/cv")}
-                />
-                Create a new CV.
-              </Header>
-            </Segment>
-            <Header as="h3">Badges</Header>
-            <Segment placeholder textAlign="center">
-              <Header icon as="h4">
-                <Icon
-                  id="cvArea"
-                  name="plus square outline"
-                  onClick={() => navigate("/cv")}
-                />
-                You haven&apos;t attach unknown badges.
-              </Header>
-            </Segment>
-          </GridRow>
+          <Grid>
+            <GridRow>
+              <Grid.Column width={6}>
+                <CreateEditCv last_cv_update={userDetails?.last_cv_update} />
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <Availability />
+              </Grid.Column>
+            </GridRow>
+          </Grid>
+          <Badges />
         </GridColumn>
         <GridColumn width={4}>
-          <Header as="h4">Last Activites</Header>
-          <Segment id="actLogs">
-            <p>
-              Login to Okta <span>03.04.2023 </span>
-            </p>
-          </Segment>
+          <LastActivities />
         </GridColumn>
       </Grid>
     </Container>

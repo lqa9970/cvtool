@@ -2,14 +2,16 @@ import {
   Container,
   Grid,
   Header,
-  Label,
   Icon,
   Image,
   Divider,
   List,
 } from "semantic-ui-react";
+
 import CloudLogo from "../../assets/cloud-logo.png";
 import Ninja from "../../assets/ninja.png";
+import LabelGroup from "../../components/LabelGroup/LabelGroup";
+import ValueList from "../../components/ValueList/ValueList";
 import { EmployeeUser } from "../../types/types";
 
 import "./index.scss";
@@ -31,105 +33,51 @@ function CVPreview({ employee }: IEmployee) {
             <Image fluid src={CloudLogo} id="preview-logo" />
             <Image fluid src={Ninja} id="preview-ninja" />
             {employee.languages && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    LANGUAGES
-                  </Header>
-                </Divider>
-                <Container>
-                  <List bulleted id="preview-list">
-                    {employee.languages.map((lang) => (
-                      <List.Item key={lang.name} id="preview-list-item">
-                        {lang.name} - {lang.proficiency}
-                      </List.Item>
-                    ))}
-                  </List>
-                </Container>
-              </>
+              <ValueList
+                title="LANGUAGES"
+                values={employee.languages.map((language) => ({
+                  name: language.name,
+                  value: language.proficiency,
+                }))}
+              />
             )}
 
             {employee.education && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    EDUCATIONS
-                  </Header>
-                </Divider>
-                <List bulleted id="preview-list">
-                  {employee.education?.map((edu) => (
-                    <List.Item key={edu.id} id="preview-list-item">
-                      <List.Header id="preview-list-header">
-                        {edu.degree}
-                      </List.Header>
-                      {edu.school}
-                    </List.Item>
-                  ))}
-                </List>
-              </>
+              <ValueList
+                title="EDUCATION"
+                values={employee.education.map((education) => ({
+                  name: education.degree,
+                  value: education.school,
+                }))}
+              />
             )}
 
             {employee.certifications && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    CERTIFICATIONS
-                  </Header>
-                </Divider>
-                <List bulleted id="preview-list">
-                  {employee.certifications?.map((certificate) => (
-                    <List.Item key={certificate.name} id="preview-list-item">
-                      <List.Header id="preview-list-header">
-                        {certificate.name}
-                      </List.Header>
-                      {certificate.date}
-                    </List.Item>
-                  ))}
-                </List>
-              </>
+              <ValueList
+                title="CERTIFICATIONS"
+                values={employee.certifications.map((certificate) => ({
+                  name: certificate.name,
+                  value: certificate.date,
+                }))}
+              />
             )}
 
             {employee.main_tech && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    MAIN TECH
-                  </Header>
-                </Divider>
-                <Label.Group size="medium">
-                  <Label>AWS</Label>
-                </Label.Group>
-              </>
+              <LabelGroup title="MAIN TECH" labels={["React"]} />
             )}
 
             {employee.skills && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    SKILLS
-                  </Header>
-                </Divider>
-                <Label.Group size="medium">
-                  {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.name}</Label>
-                  ))}
-                </Label.Group>
-              </>
+              <LabelGroup
+                title="SKILLS"
+                labels={employee.skills.map((skill) => skill.name)}
+              />
             )}
 
             {employee.skills && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    COMPETENCIES
-                  </Header>
-                </Divider>
-                <Label.Group size="medium">
-                  {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.name}</Label>
-                  ))}
-                </Label.Group>
-              </>
+              <LabelGroup
+                title="COMPETENCIES"
+                labels={employee.skills.map((skill) => skill.name)}
+              />
             )}
 
             <Divider hidden />

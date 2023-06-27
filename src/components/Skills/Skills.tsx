@@ -1,112 +1,112 @@
-import { Formik, Form, Field } from 'formik';
-import { Skill } from '../../types/types';
-import { Button, Grid, Dropdown } from 'semantic-ui-react';
-import { Header, Label, Icon } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
-import useUpdateUser from '../../hooks/useUpdateUser';
-import { uniqueIdGenerator } from '../../utils/uid';
-import * as Yup from 'yup';
-import useGetSkills from '../../hooks/useGetSkills';
-
+import React, { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import { Button, Grid, Dropdown, Label, Icon } from "semantic-ui-react";
+import * as Yup from "yup";
+import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import useUpdateUser from "../../hooks/useUpdateUser";
+import { UserTechSkill, Skill } from "../../types/types";
 
 type SkillProps = {
-  skills: any;
+  tech_skills: UserTechSkill[];
   userId: string;
 };
 
-
 export const skillSchema = Yup.object().shape({
-
   experience: Yup.number()
-    .required('Experience is required')
-    .integer('Experience must be an integer')
-    .min(0, 'Experience cannot be less than 0')
-    .max(20, 'Experience cannot be more than 20'),
+    .required("Experience is required")
+    .integer("Experience must be an integer")
+    .min(0, "Experience cannot be less than 0")
+    .max(20, "Experience cannot be more than 20"),
 });
 
-const experienceOptions = Array.from({length: 21}, (_, i) => ({ key: i, value: i, text: `${i} Year(s)` }));
-
-
+const experienceOptions = Array.from({ length: 21 }, (_, index) => ({
+  key: index,
+  value: index,
+  text: `${index} Year(s)`,
+}));
 
 function SkillComponent(props: SkillProps) {
-  const skillsData = useGetSkills();
+  // change the collection here to tech_skills once collection has been populated
+  const { data } = useGetFirestoreCollection({ collection: "skills" });
+  const skillsData = data as Skill[];
 
   // Transform the data into the format the Dropdown expects
-  const techOptions = skillsData?.map(skill => ({
-    key: skill.id,
-    value: skill.name,
-    text: skill.name,
-  })) || [];
+  const techOptions =
+    skillsData?.map((skill) => ({
+      key: skill.id,
+      value: skill.name,
+      text: skill.name,
+    })) || [];
   const [updateUser] = useUpdateUser();
 
-  const [localSkills, setLocalSkills] = useState<Skill[]>(props.skills || []);
+  const [localSkills, setLocalSkills] = useState<UserTechSkill[]>(
+    props.tech_skills || []
+  );
 
-  useEffect(() => {
-    setLocalSkills(props.skills);
-  }, [props.skills]);
-
-  const handleDelete = (id: string) => {
-    // Update the localSkills state right away.
-    const updatedSkills = localSkills.filter((skill: Skill) => skill.id !== id);
+  const handleDelete = async (id: string) => {
+    const updatedSkills = localSkills.filter(
+      (skill: UserTechSkill) => skill.id !== id
+    );
     setLocalSkills(updatedSkills);
-    // Also update the user's skills in your database.
-    updateUser({ skills: updatedSkills }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+    await updateUser({ tech_skills: updatedSkills }, props.userId);
   };
 
-
-
-  const handleFormikSubmit = (values: { tech: string; experience: string }) => {
-    const skills = props.skills || [];
-    const selectedSkillId = techOptions.find(option => option.value === values.tech)?.key;
-    skills.push({ ...values, id: selectedSkillId, experience: Number(values.experience) }); 
-    updateUser({ skills: skills }, props.userId)
-      .then(() => null)
-      .catch(() => null);
+  const handleFormikSubmit = async (values: {
+    name: string;
+    experience: string;
+  }) => {
+    const selectedSkillId = techOptions.find(
+      (option) => option.value === values.name
+    )?.key;
+    const newSkill = {
+      ...values,
+      id: selectedSkillId,
+      experience: Number(values.experience),
+    } as UserTechSkill;
+    const updatedSkills = localSkills.concat(newSkill);
+    setLocalSkills(updatedSkills);
+    await updateUser({ tech_skills: updatedSkills }, props.userId);
   };
-  
-  
 
   return (
     <Grid.Column>
       <Formik
-        initialValues={{ tech: '', experience: '' }}
+        initialValues={{ name: "", experience: "" }}
         validationSchema={skillSchema}
         onSubmit={(values) => handleFormikSubmit(values)}
       >
-        {({
-          values,
-          setFieldValue,
-          handleSubmit,
-          errors,
-          touched
-        }) => (
+        {({ values, setFieldValue, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
               <Grid.Row>
-                <Grid.Column  style={{ paddingRight: "20px", width: "290px" }}>
+                <Grid.Column style={{ paddingRight: "20px", width: "290px" }}>
                   <Label id="form-labels">Tech</Label>
                   <Field
-                    as={Dropdown}
                     fluid
                     selection
+                    as={Dropdown}
                     options={techOptions}
                     name="tech"
-                    onChange={(_ : any, { value }: { value: string }) => setFieldValue("tech", value)}
-                    value={values.tech}
+                    value={values.name}
+                    onChange={(
+                      event: React.SyntheticEvent<HTMLElement>,
+                      { value }: { value: string }
+                    ) => setFieldValue("name", value)}
                   />
                 </Grid.Column>
                 <Grid.Column style={{ paddingLeft: "20px", width: "285px" }}>
                   <Label id="form-labels">Experience</Label>
                   <Field
-                    as={Dropdown}
                     fluid
                     selection
+                    as={Dropdown}
                     options={experienceOptions}
                     name="experience"
-                    onChange={(_ : any, { value }: { value: string }) => setFieldValue("experience", value)}
                     value={values.experience}
+                    onChange={(
+                      event: React.SyntheticEvent<HTMLElement>,
+                      { value }: { value: string }
+                    ) => setFieldValue("experience", value)}
                   />
                 </Grid.Column>
               </Grid.Row>
@@ -122,13 +122,17 @@ function SkillComponent(props: SkillProps) {
         )}
       </Formik>
       {localSkills && localSkills?.length > 0 && (
-        <Grid className='column' textAlign="left" verticalAlign="top" >
+        <Grid className="column" textAlign="left" verticalAlign="top">
           <Grid.Row>
             <Grid.Column>
-              {localSkills?.map((skill: Skill) => (
+              {localSkills?.map((skill: UserTechSkill) => (
                 <Label key={skill.id} className="language">
-                  {skill.tech} - {skill.experience} years
-                  <Icon link name="delete" onClick={() => handleDelete(skill.id)} />
+                  {skill.name} - {skill.experience} years
+                  <Icon
+                    link
+                    name="delete"
+                    onClick={() => handleDelete(skill.id)}
+                  />
                 </Label>
               ))}
             </Grid.Column>
@@ -140,4 +144,3 @@ function SkillComponent(props: SkillProps) {
 }
 
 export default SkillComponent;
-

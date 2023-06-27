@@ -26,18 +26,16 @@ export type Languages = {
   prefix: string;
 };
 
-export type Skills = {
+export type Skill = {
   id: string;
   name: string;
 };
 
-// No need to refactor now. keep the both types
-export type Skill = {
+export type UserTechSkill = {
   id: string;
-  tech: string;
+  name: string;
   experience: number;
 };
-
 
 export type ProjectHistory = {
   accountName: string;
@@ -93,7 +91,10 @@ export type EmployeeUser = {
   social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
-  skills?: Skill[];
+  tech_skills?: UserTechSkill[];
+  soft_skills?: Skill[];
+  // this skills field is deprecated but keeping for now because it will break search otherwise, need new test_users collection with updated user model
+  skills? : UserTechSkill[];
   workabroad?: boolean;
   experience_level?: string;
   projects?: ProjectHistory[];

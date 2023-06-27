@@ -8,9 +8,8 @@ import {
   LanguagesWithProficiency,
   ProjectHistory,
   Role,
-  Skill,
-  Skills,
   SocialLinks,
+  UserTechSkill,
 } from "../types/types";
 
 const useUserDetails = (
@@ -49,7 +48,7 @@ const useUserDetails = (
             languages: user.data().languages as LanguagesWithProficiency[],
             certifications: user.data().certifications as Certifications[],
             projects: user.data().projects as ProjectHistory[],
-            skills: user.data().skills as Skill[],
+            tech_skills: user.data().tech_skills as UserTechSkill[],
           });
         });
         setUserDetails(users[0]);

@@ -11,17 +11,17 @@ import {
 
 import BasicInfo from "../../components/BasicInfo/Basicinfo";
 import BioForm from "../../components/Bio/Bio";
+import CertificationComponent from "../../components/Certifications/Certificates";
 import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
+import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
+import SkillComponent from "../../components/Skills/Skills"
 import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
-import SkillComponent from "../../components/Skills/Skills"
 
 import "./index.scss";
-import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
-import CertificationComponent from "../../components/Certifications/Certificates";
 
 function CreateCV() {
   const { authState } = useOktaAuth();
@@ -31,7 +31,7 @@ function CreateCV() {
     return <p />;
   }
 
-  const skills = userDetails.skills || [];
+  const techSkills = userDetails.tech_skills || [];
 
 
   return (
@@ -116,7 +116,7 @@ function CreateCV() {
                   Competence
                 </Header>
                 <SkillComponent
-                  userId={userDetails?.id} skills={skills}                />
+                  userId={userDetails?.id} tech_skills={techSkills}                />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>

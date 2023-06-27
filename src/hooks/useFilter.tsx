@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, DocumentData } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { database } from "../services/firestoreService";
 import { EmployeeUser, Filters } from "../types/types";
 
@@ -33,7 +33,7 @@ const useFilter = (filters: Filters) => {
         (filters.mainTech.length === 0 ||
           filters.mainTech.includes(user.main_tech!)) &&
         (filters.skills.length === 0 ||
-          user.skills?.some((skill) => filters.skills.includes(skill.tech))) &&
+          user.skills?.some((skill) => filters.skills.includes(skill.name))) &&
         (filters.certificate.length === 0 ||
           user.certifications?.some((certificate) =>
             filters.certificate.includes(certificate.name)

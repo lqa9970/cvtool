@@ -102,7 +102,7 @@ function CVPreview({ employee }: IEmployee) {
               </>
             )}
 
-            {employee.skills && (
+            {employee.tech_skills && (
               <>
                 <Divider horizontal>
                   <Header as="h3" id="preview-left-col-header">
@@ -110,14 +110,14 @@ function CVPreview({ employee }: IEmployee) {
                   </Header>
                 </Divider>
                 <Label.Group size="medium">
-                  {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.tech}</Label>
+                  {employee.tech_skills.map((skill) => (
+                    <Label key={skill.id}>{skill.name}</Label>
                   ))}
                 </Label.Group>
               </>
             )}
 
-            {employee.skills && (
+            {employee.soft_skills && (
               <>
                 <Divider horizontal>
                   <Header as="h3" id="preview-left-col-header">
@@ -125,8 +125,8 @@ function CVPreview({ employee }: IEmployee) {
                   </Header>
                 </Divider>
                 <Label.Group size="medium">
-                  {employee.skills.map((skill) => (
-                    <Label key={skill.id}>{skill.tech}</Label>
+                  {employee.soft_skills.map((skill) => (
+                    <Label key={skill.id}>{skill.name}</Label>
                   ))}
                 </Label.Group>
               </>

@@ -10,14 +10,15 @@ import useGetUser from "../../hooks/useGetUser";
 import "./index.scss";
 
 function Dashboard() {
-
   const { authState } = useOktaAuth();
   const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
 
-  if (!userDetails) { return null }
+  if (!userDetails) {
+    return null;
+  }
 
   return (
-    <Container className="dashboard">
+    <Container id="dashboard">
       <Grid>
         <Grid.Column width={4}>
           <UserCard

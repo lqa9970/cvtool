@@ -43,7 +43,7 @@ function BioForm({ bio, userId }: BioProps) {
                       placeholder="Enter your bio here"
                       handleChange={handleChange}
                       onExceedLimit={setIsCharLimitExceeded}
-                      characterLimit={900}
+                      characterLimit={1250}
 
                     />
                   </Grid.Column>

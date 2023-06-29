@@ -232,7 +232,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                     errors.projectDescription,
                     touched.projectDescription
                   )}
-                  <Button id="edu-add-button" type="submit">
+                  <Button id="edu-add-button" type="submit" disabled={isCharLimitExceeded}>
                     Add
                   </Button>
                 </Grid.Column>

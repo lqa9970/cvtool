@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
@@ -44,13 +44,16 @@ function BioForm({ bio, userId }: BioProps) {
                       handleChange={handleChange}
                       onExceedLimit={setIsCharLimitExceeded}
                       characterLimit={1250}
-
                     />
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row id="button-row-position">
                   <Grid.Column>
-                  <Button id="bio-add-button" type="submit" disabled={isCharLimitExceeded}>
+                    <Button
+                      id="bio-add-button"
+                      type="submit"
+                      disabled={isCharLimitExceeded}
+                    >
                       Save
                     </Button>
                   </Grid.Column>

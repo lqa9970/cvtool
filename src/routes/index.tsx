@@ -6,7 +6,9 @@ import useAuthorizationOkta from "../hooks/useOktaAuth";
 import CVPreview from "../pages/CVPreview";
 import CreateCV from "../pages/CVProfile";
 import { Login } from "../pages/login";
-import StaffingDashboard from "../pages/StaffingDashboard";
+import SearchDashboard from "../pages/SearchDashboard";
+import StaffDashboard from "../pages/StaffDashboard";
+import AdminDashboard from "../pages/AdminDashboard";
 
 export function AppRoutes() {
   const navigate = useNavigate();
@@ -24,8 +26,10 @@ export function AppRoutes() {
         <Route path="/login/callback" Component={LoginCallback} />
         <Route path="/" element={<Login />} />
         <Route path="/cv" element={<CreateCV />} />
-        <Route path="/staffing" element={<StaffingDashboard />} />
+        <Route path="/search" element={<SearchDashboard />} />
         <Route path="/preview" element={<CVPreview employee={null} />} />
+        <Route path="/staff" element={<StaffDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Security>
   );

@@ -17,7 +17,6 @@ type BioProps = {
 function BioForm({ bio, userId }: BioProps) {
   const [updateUser] = useUpdateUser();
   const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
-console.log(isCharLimitExceeded)
   if (bio === undefined) {
     // eslint-disable-next-line no-param-reassign
     bio = "";

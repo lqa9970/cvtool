@@ -1,20 +1,19 @@
-import UserCard from "../../components/UserCard/UserCard";
 import { useOktaAuth } from "@okta/okta-react";
-import {
-  Container,
-  Grid,
-  Segment,
-  Header,
-  Accordion,
-  Icon,
-  Button,
-} from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { Container, Grid, Accordion, Button } from "semantic-ui-react";
+import UserCard from "../../components/UserCard/UserCard";
+import useRemoveUser from "../../hooks/useRemoveUser";
 
 import "./admin.scss";
 
-const StaffDashboard = () => {
+function StaffDashboard() {
   const { authState } = useOktaAuth();
+
+  const test = useRemoveUser("natalie75@example.org");
+
+  console.log('test',test);
+
+  
 
   const panels = [
     {
@@ -42,7 +41,7 @@ const StaffDashboard = () => {
         content: (
           <>
             <Link to="/search">
-              <Button id="staff-button">Search Employee</Button>
+              <Button  id="staff-button">Search Employee</Button>
             </Link>
             <Link to="/search">
               <Button id="staff-button">Search Employee</Button>
@@ -87,6 +86,6 @@ const StaffDashboard = () => {
       </Container>
     </>
   );
-};
+}
 
 export default StaffDashboard;

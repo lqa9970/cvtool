@@ -17,6 +17,7 @@ import { uniqueIdGenerator } from "../../utils/uid";
 import CustomCalendar from "../Calendar/Calendar";
 import { initialValues, projectHistorySchema } from "./ProjectHistoryUtils";
 import "./ProjectHistory.scss";
+import TextAreaInput from "../TextAreaInput/TextArea";
 
 type SetFieldValue = (
   field: string,
@@ -58,6 +59,7 @@ function EndDateComponent(props: EndDateComponentProps) {
 }
 
 function ProjectHistoryComponent(props: ProjectHistoryProps) {
+  const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
   const [projectHistories, setProjectHistories] = useState<ProjectHistory[]>(
     []
   );
@@ -217,18 +219,20 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
 
               <Grid.Row>
                 <Grid.Column>
-                  <TextArea
+                  <TextAreaInput
+                    id="edu-text-area"
+                    value={values.projectDescription}
                     name="projectDescription"
                     placeholder="Enter your description here..."
-                    value={values.projectDescription}
-                    id="edu-text-area"
-                    onChange={handleChange}
+                    handleChange={handleChange}
+                    onExceedLimit={setIsCharLimitExceeded}
+                    characterLimit={2500}
                   />
                   {showErrors(
                     errors.projectDescription,
                     touched.projectDescription
                   )}
-                  <Button id="edu-add-button" type="submit">
+                  <Button id="edu-add-button" type="submit" disabled={isCharLimitExceeded}>
                     Add
                   </Button>
                 </Grid.Column>

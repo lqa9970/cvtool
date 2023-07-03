@@ -1,1 +1,10 @@
-// Empty
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+
+}
+
+.character-limit-exceeded {
+  color: red;
+}

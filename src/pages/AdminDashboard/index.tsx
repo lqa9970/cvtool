@@ -1,7 +1,6 @@
 import { useState } from "react";
-import UserCard from "../../components/UserCard/UserCard";
 import { useOktaAuth } from "@okta/okta-react";
-import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import { Link } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -9,17 +8,16 @@ import {
   Button,
   Dropdown,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 
 import "./admin.scss";
-import SearchableSelect from "../../components/Dropdown/SearchableSelect";
-import { EmployeeUser } from "../../types/types";
+import UserCard from "../../components/UserCard/UserCard";
+import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
 
 type TestUser = {
   name: string;
 };
 
-const getDataToOptions = (collection: string) => {
+const GetDataToOptions = (collection: string) => {
   const { data } = useGetFirestoreCollection({ collection });
   return data.map((user) => ({
     key: (user as TestUser).name,
@@ -28,14 +26,14 @@ const getDataToOptions = (collection: string) => {
   }));
 };
 
-const StaffDashboard = () => {
+function AdminDashboard() {
   const [deleteCV, setDeleteCV] = useState(false);
   const [chosenCV, setChosenCV] = useState(false);
 
   const { authState } = useOktaAuth();
   const collection = "test_users";
 
-  const data = getDataToOptions(collection);
+  const data = GetDataToOptions(collection);
   console.log("chosenCV", chosenCV);
 
   const panels = [
@@ -99,17 +97,15 @@ const StaffDashboard = () => {
       title: "CV",
       content: {
         content: (
-          <>
-            <div id="staff-cv">
-              <Grid.Row>
-                <Grid.Column width={8} floated="right">
-                  <Link to="">
-                    <Button id="staff-button">Delete CV</Button>
-                  </Link>
-                </Grid.Column>
-              </Grid.Row>
-            </div>
-          </>
+          <div id="staff-cv">
+            <Grid.Row>
+              <Grid.Column width={8} floated="right">
+                <Link to="">
+                  <Button id="staff-button">Delete CV</Button>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
+          </div>
         ),
       },
     },
@@ -126,7 +122,7 @@ const StaffDashboard = () => {
             />
           </Grid.Column>
           <Grid.Column width={11}>
-            {deleteCV == false ? (
+            {deleteCV === false ? (
               <Accordion
                 defaultActiveIndex={[0, 1, 2]}
                 panels={panels}
@@ -144,15 +140,14 @@ const StaffDashboard = () => {
                 <Grid columns={2}>
                   <Grid.Column width={9}>
                     <Dropdown
+                      selection
                       options={data}
                       placeholder="Choose CV to delete"
                       multiSelected={false}
-                      // onChange={(e, value) => setChosenCV(value.name)}
+                      style={{ width: "100%", marginTop: "1em" }}
                       onChange={() => {
                         setChosenCV(true);
                       }}
-                      selection
-                      style={{ width: "100%", marginTop: "1em" }}
                     />
                   </Grid.Column>
                   <Grid.Column width={6}>
@@ -185,6 +180,6 @@ const StaffDashboard = () => {
       </Container>
     </>
   );
-};
+}
 
-export default StaffDashboard;
+export default AdminDashboard;

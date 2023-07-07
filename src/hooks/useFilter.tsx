@@ -34,10 +34,6 @@ const useFilter = (filters: Filters) => {
           filters.mainTech.includes(user.main_tech!)) &&
         (filters.skills.length === 0 ||
           user.skills?.some((skill) => filters.skills.includes(skill.name))) &&
-        (filters.certificate.length === 0 ||
-          user.certifications?.some((certificate) =>
-            filters.certificate.includes(certificate.name)
-          )) &&
         (filters.languages.length === 0 ||
           user.languages?.some((language) =>
             filters.languages.includes(language.name)

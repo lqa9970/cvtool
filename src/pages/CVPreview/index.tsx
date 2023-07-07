@@ -68,27 +68,6 @@ function CVPreview({ employee }: IEmployee) {
                 </List>
               </>
             )}
-
-            {employee.certifications && (
-              <>
-                <Divider horizontal>
-                  <Header as="h3" id="preview-left-col-header">
-                    CERTIFICATIONS
-                  </Header>
-                </Divider>
-                <List bulleted id="preview-list">
-                  {employee.certifications?.map((certificate) => (
-                    <List.Item key={certificate.name} id="preview-list-item">
-                      <List.Header id="preview-list-header">
-                        {certificate.name}
-                      </List.Header>
-                      {certificate.date}
-                    </List.Item>
-                  ))}
-                </List>
-              </>
-            )}
-
             {employee.main_tech && (
               <>
                 <Divider horizontal>

@@ -11,12 +11,11 @@ import {
 
 import BasicInfo from "../../components/BasicInfo/Basicinfo";
 import BioForm from "../../components/Bio/Bio";
-import CertificationComponent from "../../components/Certifications/Certificates";
 import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
 import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
-import SkillComponent from "../../components/Skills/Skills"
+import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
@@ -32,7 +31,6 @@ function CreateCV() {
   }
 
   const techSkills = userDetails.tech_skills || [];
-
 
   return (
     <>
@@ -77,15 +75,15 @@ function CreateCV() {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-            <Grid.Column>
-              <Header dividing as="h3">
-                Project History
-              </Header>
-              <ProjectHistoryComponent
-                projectHistory={userDetails?.projects}
-                userId={userDetails.id}
-               />
-            </Grid.Column>
+              <Grid.Column>
+                <Header dividing as="h3">
+                  Project History
+                </Header>
+                <ProjectHistoryComponent
+                  projectHistory={userDetails?.projects}
+                  userId={userDetails.id}
+                />
+              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
@@ -112,21 +110,13 @@ function CreateCV() {
             <Grid.Row>
               <Grid.Column>
                 <Header as="h3" dividing>
-                <Divider hidden />
+                  <Divider hidden />
                   Competence
                 </Header>
                 <SkillComponent
-                  userId={userDetails?.id} tech_skills={techSkills}                />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h3" dividing>
-                <Divider hidden />
-                  Certifications
-                </Header>
-                <CertificationComponent
-                  userId={userDetails?.id} certifications={userDetails.certifications}                />
+                  userId={userDetails?.id}
+                  tech_skills={techSkills}
+                />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>

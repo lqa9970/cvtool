@@ -69,9 +69,9 @@ export type LanguagesWithProficiency = {
 };
 
 export type Certifications = {
-  validFrom?: any ;
+  validFrom?: any;
   validTo?: any;
-  id?:string;
+  id?: string;
   name: string;
   date?: string;
 };
@@ -94,7 +94,7 @@ export type EmployeeUser = {
   tech_skills?: UserTechSkill[];
   soft_skills?: Skill[];
   // this skills field is deprecated but keeping for now because it will break search otherwise, need new test_users collection with updated user model
-  skills? : UserTechSkill[];
+  skills?: UserTechSkill[];
   workabroad?: boolean;
   experience_level?: string;
   projects?: ProjectHistory[];
@@ -120,5 +120,3 @@ export type Filters = {
   languages: string[];
   nationality: string[];
 };
-
-

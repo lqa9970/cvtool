@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
+import { Link } from "react-router-dom";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
 
@@ -7,9 +8,9 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
 
-function Navbar(){
+
+function Navbar() {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -146,7 +147,6 @@ function Navbar(){
                 />
               </div>
             </Segment>
-            
           </>
         );
 

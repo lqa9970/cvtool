@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, Timestamp } from "firebase/firestore";
 import { database } from "../services/firestoreService";
 import {
   Certifications,
@@ -49,6 +49,7 @@ const useUserDetails = (
             certifications: user.data().certifications as Certifications[],
             projects: user.data().projects as ProjectHistory[],
             tech_skills: user.data().tech_skills as UserTechSkill[],
+            last_cv_update: user.data().last_cv_update as Timestamp,
           });
         });
         setUserDetails(users[0]);

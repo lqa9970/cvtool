@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { Link } from "react-router-dom";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
@@ -9,13 +9,10 @@ import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
 
-
 function Navbar() {
-  const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
-  const [userRole, setUserRole] = useState<string | undefined>("talent");
   const { authState } = useOktaAuth();
+  const [userRole, setUserRole] = useState<string | undefined>();
   const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
 
   const handleClick = () => {
@@ -25,6 +22,12 @@ function Navbar() {
   const handleChangeRole = (role: string) => {
     setUserRole(role);
   };
+
+  useEffect(() => {
+    if (!userRole) {
+      setUserRole(user?.roles[0].name);
+    }
+  }, [userRole, user]);
 
   function PopupContent() {
     return (
@@ -62,93 +65,88 @@ function Navbar() {
     );
   }
 
-  if (loading === false) {
-    switch (userRole) {
-      case "staff":
-        return (
-          <>
-            <Segment id="Nav" className="NavContent">
-              <div className="NavContent_logo">
-                <Link to="/">
-                  <img src={logo} alt="Nordcloud, an IBM company" />
-                </Link>
-              </div>
-              <div className="NavContent_pages">
-                <Link to="/staffing">
-                  <Icon name="clipboard" size="small" />
-                  dashboard
-                </Link>
-                <a>
-                  <Icon name="bars" size="small" />
-                  projects
-                </a>
-                <a>
-                  <Icon name="briefcase" size="small" />
-                  talents
-                </a>
-              </div>
-              <div className="NavContent_user">
-                <Popup
-                  on="click"
-                  content={<PopupContent />}
-                  position="bottom center"
-                  size="large"
-                  trigger={
-                    // ! Bad for accesibility
-                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                    <a onClick={handleClick}>
-                      <img src={ninja} alt="Ninja avatar" />
-                      <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal === false ? (
-                        <Icon inverted name="chevron down" />
-                      ) : (
-                        <>
-                          <Icon inverted name="chevron up" />
-                        </>
-                      )}
-                    </a>
-                  }
-                />
-              </div>
-            </Segment>
-          </>
-        );
+  switch (userRole) {
+    case "staff":
+      return (
+        <>
+          <Segment id="Nav" className="NavContent">
+            <div className="NavContent_logo">
+              <a href="/">
+                <img src={logo} alt="Nordcloud, an IBM company" />
+              </a>
+            </div>
+            <div className="NavContent_pages">
+              <a href="/staff">
+                <Icon name="clipboard" size="small" />
+                dashboard
+              </a>
+              <a>
+                <Icon name="bars" size="small" />
+                projects
+              </a>
+              <a>
+                <Icon name="briefcase" size="small" />
+                talents
+              </a>
+            </div>
+            <div className="NavContent_user">
+              <Popup
+                on="click"
+                content={<PopupContent />}
+                position="bottom center"
+                size="large"
+                trigger={
+                  <a onClick={handleClick}>
+                    <img src={ninja} alt="Ninja avatar" />
+                    <p>{user?.name?.split(" ")[0]}</p>
+                    {openModal == false ? (
+                      <Icon inverted name="chevron down" />
+                    ) : (
+                      <>
+                        <Icon inverted name="chevron up" />
+                      </>
+                    )}
+                  </a>
+                }
+              />
+            </div>
+          </Segment>
+        </>
+      );
 
-      case "talent":
-        return (
-          <>
-            <Segment id="Nav" className="NavContent">
-              <div className="NavContent_logo">
-                <a href="/" rel="noreferrer">
-                  <img src={logo} alt="Nordcloud, an IBM company" />
-                </a>
-              </div>
-              <div className="NavContent_user">
-                <Popup
-                  on="click"
-                  content={<PopupContent />}
-                  position="bottom center"
-                  size="large"
-                  trigger={
-                    // ! Bad for accesibility.
-                    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                    <a onClick={handleClick}>
-                      <img src={ninja} alt="Ninja avatar" />
-                      <p>{user?.name?.split(" ")[0]}</p>
-                      {openModal === false ? (
-                        <Icon inverted name="chevron down" />
-                      ) : (
-                        <>
-                          <Icon inverted name="chevron up" />
-                        </>
-                      )}
-                    </a>
-                  }
-                />
-              </div>
-            </Segment>
-          </>
-        );
+    case "talent":
+      return (
+        <>
+          <Segment id="Nav" className="NavContent">
+            <div className="NavContent_logo">
+              <a href="/" rel="noreferrer">
+                <img src={logo} alt="Nordcloud, an IBM company" />
+              </a>
+            </div>
+            <div className="NavContent_user">
+              <Popup
+                on="click"
+                content={<PopupContent />}
+                position="bottom center"
+                size="large"
+                trigger={
+                  <a onClick={handleClick}>
+                    <img src={ninja} alt="Ninja avatar" />
+                    <p>{user?.name?.split(" ")[0]}</p>
+                    {openModal == false ? (
+                      <Icon inverted name="chevron down" />
+                    ) : (
+                      <>
+                        <Icon inverted name="chevron up" />
+                      </>
+                    )}
+                  </a>
+                }
+              />
+            </div>
+          </Segment>
+        </>
+      );
 
       default:
         return <p>Please log in.</p>;

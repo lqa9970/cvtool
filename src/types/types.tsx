@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { Timestamp } from "firebase/firestore"
 
 export type OktaTokenPayload = {
   sub: string;
@@ -102,6 +103,7 @@ export type EmployeeUser = {
   last_activity?: string[];
   education?: Education[];
   certifications?: Certifications[];
+  last_cv_update?: Timestamp;
 };
 
 export type FormikHandleChange = {

@@ -70,7 +70,7 @@ export type Certifications = {
 
 export type EmployeeUser = {
   id?: string;
-  name?: string;
+  name: string;
   email?: string;
   location?: string;
   job_title?: string;

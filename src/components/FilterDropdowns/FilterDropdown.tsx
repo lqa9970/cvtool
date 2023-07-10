@@ -28,7 +28,7 @@ function FilterDropdown({
         allOptions={options}
         value={filters[filterKey]}
         placeholder=""
-        onSelect={(value) => setFilters({ ...filters, [filterKey]: value })}
+        onSelect={(data) => setFilters({ ...filters, [filterKey]: data.value })}
       />
     </Header>
   );

@@ -6,7 +6,7 @@ type SearchableSelectProps = {
   placeholder: string;
   multiSelected?: boolean;
   value?: string[];
-  onSelect: (value: string[] | string) => void;
+  onSelect: (value: DropdownProps) => void;
 };
 
 type Option = {
@@ -24,7 +24,7 @@ function SearchableSelect({
 }: SearchableSelectProps) {
   const handleChange = (event: SyntheticEvent, data: DropdownProps) => {
     event.preventDefault();
-    onSelect(data.value as string[] | string); 
+    onSelect(data); 
   };
 
   return (

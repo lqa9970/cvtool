@@ -71,14 +71,14 @@ function CVPreview({ employee }: IEmployee) {
             {employee.skills && (
               <LabelGroup
                 title="SKILLS"
-                labels={employee.skills.map((skill) => skill.tech)}
+                labels={employee.skills.map((skill) => skill.name)}
               />
             )}
 
             {employee.skills && (
               <LabelGroup
                 title="COMPETENCIES"
-                labels={employee.skills.map((skill) => skill.tech)}
+                labels={employee.skills.map((skill) => skill.name)}
               />
             )}
 

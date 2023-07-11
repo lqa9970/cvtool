@@ -30,8 +30,6 @@ export type Languages = {
 export type Skills = {
   id: string;
   name: string;
-  experience: number;
-  tech: string;
 };
 
 export type ProjectHistory = {

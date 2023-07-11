@@ -1,48 +1,52 @@
-@import '../../stylesheet/mixins';
+@import "../../stylesheet/mixins";
 
 #cv-preview {
-    font-size: 16px;
-    margin-top: 30px;
-    border: 1px solid black;
+  font-size: 16px;
+  margin-top: 30px;
+  border: 1px solid black;
 }
 
 #preview-left-col {
-    background-color: $nc-dark-blue;
-    color: $nc-white;
-    font-size: 15px;
+  background-color: $nc-dark-blue;
+  color: $nc-white;
+  font-size: 15px;
 
-    &-header {
-        color: $nc-white;
-        padding: 20px;
-    }
+  &-header {
+    color: $nc-white;
+    padding: 20px;
+  }
 }
 
 #preview-right-col {
-    padding: 30px;
+  padding: 30px;
 
-    &-container {
-        margin-bottom: 10px;
-    }
+  &-container {
+    margin-bottom: 10px;
+  }
 }
 
 #preview-logo {
-    padding: 25px;
+  padding: 25px;
 }
 
 #preview-ninja {
-    background-color: $nc-gray;
+  background-color: $nc-gray;
 }
 
 #preview-list {
+  margin-top: 10px;
+
+  &-header {
+    color: $nc-white;
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+
+  &-item {
     margin-top: 10px;
+  }
+}
 
-    &-header {
-        color: $nc-white;
-        font-size: 16px;
-        padding-bottom: 10px;
-    }
-
-    &-item {
-        margin-top: 10px;
-    }
+#print-button {
+  color: $nc-dark-blue;
 }

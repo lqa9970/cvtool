@@ -6,6 +6,8 @@ import {
   Image,
   Divider,
   List,
+  Button,
+  Popup,
 } from "semantic-ui-react";
 
 import CloudLogo from "../../assets/cloud-logo.png";
@@ -91,8 +93,17 @@ function CVPreview({ employee }: IEmployee) {
           <Grid.Column width={10} id="preview-right-col">
             <Grid id="preview-right-col-container">
               <Grid.Row>
-                <Grid.Column>
+                <Grid.Column width={10}>
                   <Header as="h1">{employee.name}</Header>
+                </Grid.Column>
+                <Grid.Column width={6}>
+                  <Popup
+                    content="Print"
+                    position="bottom center"
+                    trigger={
+                      <Button id="print-button" icon="print" floated="right" />
+                    }
+                  />
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>

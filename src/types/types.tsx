@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Timestamp } from "firebase/firestore"
+import { Timestamp } from "firebase/firestore";
 
 export type OktaTokenPayload = {
   sub: string;

@@ -1,19 +1,11 @@
-import UserCard from "../../components/UserCard/UserCard";
 import { useOktaAuth } from "@okta/okta-react";
-import {
-  Container,
-  Grid,
-  Segment,
-  Header,
-  Accordion,
-  Icon,
-  Button,
-} from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { Container, Grid, Accordion, Button } from "semantic-ui-react";
+import UserCard from "../../components/UserCard/UserCard";
 
 import "./staff.scss";
 
-const StaffDashboard = () => {
+function StaffDashboard() {
   const { authState } = useOktaAuth();
 
   const panels = [
@@ -69,6 +61,6 @@ const StaffDashboard = () => {
       </Container>
     </>
   );
-};
+}
 
 export default StaffDashboard;

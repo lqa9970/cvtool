@@ -148,11 +148,8 @@ function Navbar() {
         </>
       );
 
-      default:
-        return <p>Please log in.</p>;
-    }
-  } else {
-    return <p>Loading...</p>;
+    default:
+      return <p>Please log in.</p>;
   }
 }
 

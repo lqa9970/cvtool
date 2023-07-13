@@ -1,0 +1,14 @@
+.p-1 {
+    padding: 1em;
+}
+
+.skill-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.skills-row {
+    display: flex;
+    align-items: baseline;
+}

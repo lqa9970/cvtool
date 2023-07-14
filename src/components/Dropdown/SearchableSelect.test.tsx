@@ -18,8 +18,7 @@ describe("Multi option selected from drop down", () => {
         multiSelected
         allOptions={options}
         placeholder="Search..."
-        filter={handleChange}
-        value={[]}
+        onSelect={handleChange}
       />
     );
     expect(screen.getByText("Finnish")).exist;

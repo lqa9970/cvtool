@@ -15,6 +15,12 @@ export const projectHistorySchema = Yup.object().shape({
   projectDescription: Yup.string().required(),
   accountName: Yup.string(),
   industry: Yup.string(),
+  skills: Yup.array(
+    Yup.object({
+      id: Yup.string(),
+      name: Yup.string(),
+    })
+  ),
 });
 
 export const initialValues: ProjectHistory = {
@@ -27,9 +33,5 @@ export const initialValues: ProjectHistory = {
   projectDescription: "",
   accountName: "",
   industry: "",
-};
-
-export const formatDate = (date: Date) => {
-  const d = new Date(date);
-  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+  skills: [],
 };

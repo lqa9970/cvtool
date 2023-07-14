@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { TextArea, Grid, Container, Comment } from 'semantic-ui-react';
+import React, { useState, useEffect } from "react";
+import { TextArea, Grid, Container, Comment } from "semantic-ui-react";
 
-import './TextArea.scss';
+import "./TextArea.scss";
 
 type TextAreaInputProps = {
   id: string;
@@ -52,14 +52,19 @@ function TextAreaInput({
             value={value}
             rows={6}
             onChange={handleInputChange}
-            characterLimit={characterLimit}
           />
 
-          <Comment.Content className={isExceeded ? 'character-limit-exceeded' : ''}>
+          <Comment.Content
+            className={isExceeded ? "character-limit-exceeded" : ""}
+          >
             {charCount}/{characterLimit}
           </Comment.Content>
         </Container>
-        {isExceeded && <Comment.Content className="character-limit-exceeded">Character limit exceeded</Comment.Content>}
+        {isExceeded && (
+          <Comment.Content className="character-limit-exceeded">
+            Character limit exceeded
+          </Comment.Content>
+        )}
       </Grid.Column>
     </Grid>
   );

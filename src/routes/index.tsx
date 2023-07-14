@@ -3,12 +3,12 @@ import { Security, LoginCallback } from "@okta/okta-react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import useAuthorizationOkta from "../hooks/useOktaAuth";
+import AdminDashboard from "../pages/AdminDashboard";
 import CVPreview from "../pages/CVPreview";
 import CreateCV from "../pages/CVProfile";
 import { Login } from "../pages/login";
 import SearchDashboard from "../pages/SearchDashboard";
 import StaffDashboard from "../pages/StaffDashboard";
-import AdminDashboard from "../pages/AdminDashboard";
 
 export function AppRoutes() {
   const navigate = useNavigate();

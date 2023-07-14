@@ -27,8 +27,8 @@ function FilterDropdown({
         multiSelected = {multiSelected}
         allOptions={options}
         value={filters[filterKey]}
-        filter={(value) => setFilters({ ...filters, [filterKey]: value })}
         placeholder=""
+        onSelect={(data) => setFilters({ ...filters, [filterKey]: data.value })}
       />
     </Header>
   );

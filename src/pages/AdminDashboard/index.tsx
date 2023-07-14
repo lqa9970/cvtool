@@ -6,35 +6,41 @@ import {
   Grid,
   Accordion,
   Button,
-  Dropdown,
+  DropdownProps
 } from "semantic-ui-react";
 
 import "./admin.scss";
+import SearchableSelect from '../../components/Dropdown/SearchableSelect';
 import UserCard from "../../components/UserCard/UserCard";
 import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import removeUser from "../../hooks/useRemoveUser";
+import { EmployeeUser } from "../../types/types";
 
-type TestUser = {
-  name: string;
-};
 
 const GetDataToOptions = (collection: string) => {
   const { data } = useGetFirestoreCollection({ collection });
-  return data.map((user) => ({
-    key: (user as TestUser).name,
-    text: (user as TestUser).name,
-    value: (user as TestUser).name,
+  const typedData = data as EmployeeUser[];
+  return typedData.map((user) => ({
+    key: user.email,
+    text: user.name,
+    value: user.name,
   }));
 };
 
 function AdminDashboard() {
-  const [deleteCV, setDeleteCV] = useState(false);
-  const [chosenCV, setChosenCV] = useState(false);
-
+const [isDeleteActive, setDeleteActive] = useState(false);
+  const [chosenCV, setChosenCV] = useState("");
   const { authState } = useOktaAuth();
-  const collection = "test_users";
 
-  const data = GetDataToOptions(collection);
-  console.log("chosenCV", chosenCV);
+  const users = GetDataToOptions("test_users1");
+
+  const handleOnSelect = (data: DropdownProps) =>{
+    const selectedUser = data.options?.find(user => user.value === data.value);
+    setChosenCV(selectedUser?.key as string)
+  }
+  const handleDeleteCV = async() => {
+   return await removeUser(chosenCV);
+  }
 
   const panels = [
     {
@@ -47,7 +53,7 @@ function AdminDashboard() {
               <Link
                 to=""
                 onClick={() => {
-                  setDeleteCV(true);
+                  setDeleteActive(true);
                 }}
               >
                 <Button id="staff-button">Delete CV</Button>
@@ -67,7 +73,7 @@ function AdminDashboard() {
         content: (
           <>
             <Link to="/search">
-              <Button id="staff-button">Search Employee</Button>
+              <Button  id="staff-button">Search Employee</Button>
             </Link>
             <Link to="/search">
               <Button id="staff-button">Search Employee</Button>
@@ -122,7 +128,7 @@ function AdminDashboard() {
             />
           </Grid.Column>
           <Grid.Column width={11}>
-            {deleteCV === false ? (
+            {!isDeleteActive ? (
               <Accordion
                 defaultActiveIndex={[0, 1, 2]}
                 panels={panels}
@@ -139,19 +145,14 @@ function AdminDashboard() {
                 </Grid.Row>
                 <Grid columns={2}>
                   <Grid.Column width={9}>
-                    <Dropdown
-                      selection
-                      options={data}
+                    <SearchableSelect
+                      allOptions={users}
                       placeholder="Choose CV to delete"
-                      multiSelected={false}
-                      style={{ width: "100%", marginTop: "1em" }}
-                      onChange={() => {
-                        setChosenCV(true);
-                      }}
+                      onSelect={(data) => handleOnSelect(data)}
                     />
                   </Grid.Column>
                   <Grid.Column width={6}>
-                    {chosenCV && (
+                    {chosenCV.length > 0 && (
                       <Button
                         content="Delete"
                         icon="trash"
@@ -159,6 +160,7 @@ function AdminDashboard() {
                         labelPosition="left"
                         floated="right"
                         style={{ width: "70%", marginTop: "1em" }}
+                        onClick={(handleDeleteCV)}
                       />
                     )}
                   </Grid.Column>
@@ -170,7 +172,7 @@ function AdminDashboard() {
                     labelPosition="left"
                     floated="left"
                     style={{ marginTop: "1em" }}
-                    onClick={() => setDeleteCV(false)}
+                    onClick={() => setDeleteActive(false)}
                   />
                 </Grid.Row>
               </>

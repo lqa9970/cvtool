@@ -31,7 +31,6 @@ export type Skills = {
   id: string;
   name: string;
 };
-
 export type ProjectHistory = {
   accountName: string;
   currentlyInProject: boolean;
@@ -42,6 +41,12 @@ export type ProjectHistory = {
   projectTitle: string;
   role: string;
   startMonthYear: string;
+  skills: Skills[];
+};
+
+export type Industry = {
+  id: string;
+  name: string;
 };
 
 export type Reminders = {
@@ -68,6 +73,11 @@ export type Certifications = {
   date: string;
 };
 
+export type IActivity = {
+  message: string;
+  date: Timestamp;
+};
+
 export type EmployeeUser = {
   id?: string;
   name: string;
@@ -92,6 +102,7 @@ export type EmployeeUser = {
   education?: Education[];
   certifications?: Certifications[];
   last_cv_update?: Timestamp;
+  activity?: IActivity[];
 };
 
 export type FormikHandleChange = {

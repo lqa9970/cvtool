@@ -1,16 +1,16 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    css: true
+    environment: "jsdom",
+    css: true,
     // Place holder for coverage testing
 
     // coverage: {
@@ -18,6 +18,6 @@ export default defineConfig({
     // }
   },
   server: {
-    port: 8080
-  }
+    port: 8080,
+  },
 });

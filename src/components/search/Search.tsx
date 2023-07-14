@@ -1,5 +1,5 @@
-import React from 'react';
-import { Search, SearchProps } from 'semantic-ui-react';
+import React from "react";
+import { Search, SearchProps } from "semantic-ui-react";
 
 type SearchComponentProps = {
   placeholder: string;
@@ -11,7 +11,7 @@ type SearchComponentProps = {
 
 function SearchComponent({
   placeholder,
-  handleSearchChange
+  handleSearchChange,
 }: SearchComponentProps) {
   return (
     <Search placeholder={placeholder} onSearchChange={handleSearchChange} />

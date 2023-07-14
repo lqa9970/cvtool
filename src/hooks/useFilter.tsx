@@ -31,18 +31,13 @@ const useFilter = (filters: Filters) => {
         (filters.hyperscaler.length === 0 ||
           filters.hyperscaler.includes(user.main_tech ?? "")) &&
         (filters.mainTech.length === 0 ||
-          filters.mainTech.includes(user.main_tech ?? "")) &&
-        filters.skills.every((filter) =>
-          user.skills?.some((skill) => skill.name === filter)
-        ) &&
-        filters.certificate.every((filter) =>
-          user.certifications?.some(
-            (certificate) => certificate.name === filter
-          )
-        ) &&
-        filters.languages.every((filter) =>
-          user.languages?.some((lang) => lang.name === filter)
-        ) &&
+          filters.mainTech.includes(user.main_tech!)) &&
+        (filters.skills.length === 0 ||
+          user.skills?.some((skill) => filters.skills.includes(skill.name))) &&
+        (filters.languages.length === 0 ||
+          user.languages?.some((language) =>
+            filters.languages.includes(language.name)
+          )) &&
         (filters.nationality.length === 0 ||
           filters.nationality.includes(user.nationality ?? "")) &&
         (filters.location.length === 0 ||

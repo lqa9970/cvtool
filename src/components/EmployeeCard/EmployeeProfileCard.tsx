@@ -8,7 +8,7 @@ import {
 } from "semantic-ui-react";
 import ninja from "../../assets/ninja.png";
 import CVPreview from "../../pages/CVPreview";
-import { EmployeeUser, Skills } from "../../types/types";
+import { EmployeeUser, UserTechSkill } from "../../types/types";
 
 import "./EmployeeProfileCard.scss";
 
@@ -39,7 +39,7 @@ function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
         <Feed>
           <Feed.Content>
             <Card.Header as="h4">Tech Stack</Card.Header>
-            {employee.skills?.map((skill: Skills, index) => (
+            {employee.tech_skills?.map((skill: UserTechSkill, index) => (
               <div key={index}>
                 <span>{skill.name}</span>
               </div>

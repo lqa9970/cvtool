@@ -6,6 +6,7 @@ import {
   Button,
   TransitionablePortal,
   Segment,
+  Divider,
 } from "semantic-ui-react";
 
 import BasicInfo from "../../components/BasicInfo/Basicinfo";
@@ -14,6 +15,7 @@ import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
 import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
+import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useGetUser";
 import CVPreview from "../CVPreview";
@@ -27,6 +29,8 @@ function CreateCV() {
   if (!userDetails?.id) {
     return <p />;
   }
+
+  const techSkills = userDetails.tech_skills || [];
 
   return (
     <>
@@ -100,6 +104,18 @@ function CreateCV() {
                 <Education
                   education={userDetails?.education}
                   userId={userDetails?.id}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Header as="h3" dividing>
+                  <Divider hidden />
+                  Competence
+                </Header>
+                <SkillComponent
+                  userId={userDetails?.id}
+                  tech_skills={techSkills}
                 />
               </Grid.Column>
             </Grid.Row>

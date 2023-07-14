@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
+import { Link } from "react-router-dom";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
 
@@ -148,7 +149,7 @@ function Navbar() {
       );
 
     default:
-      null;
+      return <p>Please log in.</p>;
   }
 }
 

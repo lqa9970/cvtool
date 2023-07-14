@@ -53,33 +53,39 @@ function CVPreview({ employee }: IEmployee) {
                 }))}
               />
             )}
-
-            {employee.certifications && (
-              <ValueList
-                title="CERTIFICATIONS"
-                values={employee.certifications.map((certificate) => ({
-                  name: certificate.name,
-                  value: certificate.date,
-                }))}
-              />
-            )}
-
+            
             {employee.main_tech && (
               <LabelGroup title="MAIN TECH" labels={["React"]} />
             )}
 
-            {employee.skills && (
-              <LabelGroup
-                title="SKILLS"
-                labels={employee.skills.map((skill) => skill.name)}
-              />
+            {employee.tech_skills && (
+              <>
+                <Divider horizontal>
+                  <Header as="h3" id="preview-left-col-header">
+                    SKILLS
+                  </Header>
+                </Divider>
+                <Label.Group size="medium">
+                  {employee.tech_skills.map((skill) => (
+                    <Label key={skill.id}>{skill.name}</Label>
+                  ))}
+                </Label.Group>
+              </>
             )}
 
-            {employee.skills && (
-              <LabelGroup
-                title="COMPETENCIES"
-                labels={employee.skills.map((skill) => skill.name)}
-              />
+            {employee.soft_skills && (
+              <>
+                <Divider horizontal>
+                  <Header as="h3" id="preview-left-col-header">
+                    COMPETENCES
+                  </Header>
+                </Divider>
+                <Label.Group size="medium">
+                  {employee.soft_skills.map((skill) => (
+                    <Label key={skill.id}>{skill.name}</Label>
+                  ))}
+                </Label.Group>
+              </>
             )}
 
             <Divider hidden />

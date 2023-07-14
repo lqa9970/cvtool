@@ -27,10 +27,17 @@ export type Languages = {
   prefix: string;
 };
 
-export type Skills = {
+export type Skill = {
   id: string;
   name: string;
 };
+
+export type UserTechSkill = {
+  id: string;
+  name: string;
+  experience: number;
+};
+
 export type ProjectHistory = {
   accountName: string;
   currentlyInProject: boolean;
@@ -69,8 +76,11 @@ export type LanguagesWithProficiency = {
 };
 
 export type Certifications = {
+  validFrom?: any;
+  validTo?: any;
+  id?: string;
   name: string;
-  date: string;
+  date?: string;
 };
 
 export type IActivity = {
@@ -93,7 +103,10 @@ export type EmployeeUser = {
   social_links?: SocialLinks;
   bio?: string;
   languages?: LanguagesWithProficiency[];
-  skills?: Skills[];
+  tech_skills?: UserTechSkill[];
+  soft_skills?: Skill[];
+  // this skills field is deprecated but keeping for now because it will break search otherwise, need new test_users collection with updated user model
+  skills?: UserTechSkill[];
   workabroad?: boolean;
   experience_level?: string;
   projects?: ProjectHistory[];

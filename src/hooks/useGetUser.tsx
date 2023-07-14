@@ -16,8 +16,8 @@ import {
   LanguagesWithProficiency,
   ProjectHistory,
   Role,
-  Skills,
   SocialLinks,
+  UserTechSkill,
 } from "../types/types";
 
 const useUserDetails = (
@@ -57,7 +57,7 @@ const useUserDetails = (
             languages: user.data().languages as LanguagesWithProficiency[],
             certifications: user.data().certifications as Certifications[],
             projects: user.data().projects as ProjectHistory[],
-            skills: user.data().skills as Skills[],
+            tech_skills: user.data().tech_skills as UserTechSkill[],
             last_cv_update: user.data().last_cv_update as Timestamp,
             activity: user.data().activity as IActivity[],
           });

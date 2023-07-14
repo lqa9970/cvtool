@@ -73,6 +73,11 @@ export type Certifications = {
   date: string;
 };
 
+export type IActivity = {
+  message: string;
+  date: Timestamp;
+};
+
 export type EmployeeUser = {
   id?: string;
   name?: string;
@@ -97,6 +102,7 @@ export type EmployeeUser = {
   education?: Education[];
   certifications?: Certifications[];
   last_cv_update?: Timestamp;
+  activity?: IActivity[];
 };
 
 export type FormikHandleChange = {

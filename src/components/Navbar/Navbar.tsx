@@ -5,7 +5,7 @@ import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
 
 import ninja from "../../assets/ninja.png";
-import useGetUser from "../../hooks/useGetUser";
+import useGetUser from "../../hooks/useUserByEmail";
 
 import "./Navbar.scss";
 

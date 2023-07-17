@@ -17,7 +17,7 @@ import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
 import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
-import useGetUser from "../../hooks/useGetUser";
+import useGetUser from "../../hooks/useUserByEmail";
 import CVPreview from "../CVPreview";
 
 import "./index.scss";

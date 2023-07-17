@@ -20,7 +20,7 @@ import {
   UserTechSkill,
 } from "../types/types";
 
-const useUserDetails = (
+const useUserByEmail = (
   email: string
 ): [EmployeeUser | null, string | null] => {
   const [userDetails, setUserDetails] = useState<EmployeeUser | null>(null);
@@ -75,4 +75,4 @@ const useUserDetails = (
   return [userDetails, roles];
 };
 
-export default useUserDetails;
+export default useUserByEmail;

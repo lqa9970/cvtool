@@ -31,7 +31,7 @@ const useGetUsersWithFilters = (filters: Filters) => {
         (filters.hyperscaler.length === 0 ||
           filters.hyperscaler.includes(user.main_tech ?? "")) &&
         (filters.mainTech.length === 0 ||
-          filters.mainTech.includes(user.main_tech!)) &&
+          filters.mainTech.includes(user.main_tech ?? "")) &&
         (filters.skills.length === 0 ||
           user.skills?.some((skill) => filters.skills.includes(skill.name))) &&
         (filters.languages.length === 0 ||

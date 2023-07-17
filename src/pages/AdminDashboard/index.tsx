@@ -6,41 +6,42 @@ import {
   Grid,
   Accordion,
   Button,
-  DropdownProps
+  DropdownProps,
 } from "semantic-ui-react";
 
 import "./admin.scss";
-import SearchableSelect from '../../components/Dropdown/SearchableSelect';
+import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
-import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
 
-
-const GetDataToOptions = (collection: string) => {
-  const { data } = useGetFirestoreCollection({ collection });
+const getUsersOptions = (customHook: typeof useGetCollectionWithFields, collectionName: string, fields: string[]) => {
+  const { data } = customHook(collectionName, fields);
   const typedData = data as EmployeeUser[];
   return typedData.map((user) => ({
-    key: user.email,
+    key: user.id,
     text: user.name,
     value: user.name,
   }));
 };
 
 function AdminDashboard() {
-const [isDeleteActive, setDeleteActive] = useState(false);
+  const [isDeleteActive, setDeleteActive] = useState(false);
   const [chosenCV, setChosenCV] = useState("");
   const { authState } = useOktaAuth();
 
-  const users = GetDataToOptions("test_users1");
-
-  const handleOnSelect = (data: DropdownProps) =>{
-    const selectedUser = data.options?.find(user => user.value === data.value);
-    setChosenCV(selectedUser?.key as string)
-  }
-  const handleDeleteCV = async() => {
-   return await removeUser(chosenCV);
-  }
+  const users = getUsersOptions(useGetCollectionWithFields,"test_users1", ["id", "name"]);
+  
+  const handleOnSelect = (data: DropdownProps) => {
+    const selectedUser = data.options?.find(
+      (user) => user.value === data.value
+    );
+    setChosenCV(selectedUser?.key as string);
+  };
+  const handleDeleteCV = async () => {
+    return await removeUser(chosenCV);
+  };
 
   const panels = [
     {
@@ -73,7 +74,7 @@ const [isDeleteActive, setDeleteActive] = useState(false);
         content: (
           <>
             <Link to="/search">
-              <Button  id="staff-button">Search Employee</Button>
+              <Button id="staff-button">Search Employee</Button>
             </Link>
             <Link to="/search">
               <Button id="staff-button">Search Employee</Button>
@@ -160,7 +161,7 @@ const [isDeleteActive, setDeleteActive] = useState(false);
                         labelPosition="left"
                         floated="right"
                         style={{ width: "70%", marginTop: "1em" }}
-                        onClick={(handleDeleteCV)}
+                        onClick={handleDeleteCV}
                       />
                     )}
                   </Grid.Column>

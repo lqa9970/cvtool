@@ -6,16 +6,15 @@ import {
   Grid,
   Accordion,
   Button,
-  DropdownProps
+  DropdownProps,
 } from "semantic-ui-react";
 
 import "./admin.scss";
-import SearchableSelect from '../../components/Dropdown/SearchableSelect';
+import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
 import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
-
 
 const GetDataToOptions = (collection: string) => {
   const { data } = useGetFirestoreCollection({ collection });
@@ -28,19 +27,21 @@ const GetDataToOptions = (collection: string) => {
 };
 
 function AdminDashboard() {
-const [isDeleteActive, setDeleteActive] = useState(false);
+  const [isDeleteActive, setDeleteActive] = useState(false);
   const [chosenCV, setChosenCV] = useState("");
   const { authState } = useOktaAuth();
 
   const users = GetDataToOptions("test_users1");
 
-  const handleOnSelect = (data: DropdownProps) =>{
-    const selectedUser = data.options?.find(user => user.value === data.value);
-    setChosenCV(selectedUser?.key as string)
-  }
-  const handleDeleteCV = async() => {
-   return await removeUser(chosenCV);
-  }
+  const handleOnSelect = (data: DropdownProps) => {
+    const selectedUser = data.options?.find(
+      (user) => user.value === data.value
+    );
+    setChosenCV(selectedUser?.key as string);
+  };
+  const handleDeleteCV = async () => {
+    return await removeUser(chosenCV);
+  };
 
   const panels = [
     {
@@ -73,7 +74,7 @@ const [isDeleteActive, setDeleteActive] = useState(false);
         content: (
           <>
             <Link to="/search">
-              <Button  id="staff-button">Search Employee</Button>
+              <Button id="staff-button">Search Employee</Button>
             </Link>
             <Link to="/search">
               <Button id="staff-button">Search Employee</Button>
@@ -145,33 +146,35 @@ const [isDeleteActive, setDeleteActive] = useState(false);
                 </Grid.Row>
                 <Grid columns={2}>
                   <Grid.Column width={9}>
-                    <SearchableSelect
-                      allOptions={users}
-                      placeholder="Choose CV to delete"
-                      onSelect={(data) => handleOnSelect(data)}
-                    />
+                    <div id="dropdown">
+                      <SearchableSelect
+                        allOptions={users}
+                        placeholder="Choose CV to delete"
+                        onSelect={(data: DropdownProps) => handleOnSelect(data)}
+                      />
+                    </div>
                   </Grid.Column>
                   <Grid.Column width={6}>
                     {chosenCV.length > 0 && (
                       <Button
+                        id="delete-button"
                         content="Delete"
                         icon="trash"
                         color="google plus"
                         labelPosition="left"
                         floated="right"
-                        style={{ width: "70%", marginTop: "1em" }}
-                        onClick={(handleDeleteCV)}
+                        onClick={handleDeleteCV}
                       />
                     )}
                   </Grid.Column>
                 </Grid>
                 <Grid.Row>
                   <Button
+                    id="back-button"
                     content="Home"
                     icon="arrow left"
                     labelPosition="left"
                     floated="left"
-                    style={{ marginTop: "1em" }}
                     onClick={() => setDeleteActive(false)}
                   />
                 </Grid.Row>

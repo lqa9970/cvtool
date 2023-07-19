@@ -146,21 +146,23 @@ function AdminDashboard() {
                 </Grid.Row>
                 <Grid columns={2}>
                   <Grid.Column width={9}>
-                    <SearchableSelect
-                      allOptions={users}
-                      placeholder="Choose CV to delete"
-                      onSelect={(data) => handleOnSelect(data)}
-                    />
+                    <div id="dropdown">
+                      <SearchableSelect
+                        allOptions={users}
+                        placeholder="Choose CV to delete"
+                        onSelect={(data: DropdownProps) => handleOnSelect(data)}
+                      />
+                    </div>
                   </Grid.Column>
                   <Grid.Column width={6}>
                     {chosenCV.length > 0 && (
                       <Button
+                        id="delete-button"
                         content="Delete"
                         icon="trash"
                         color="google plus"
                         labelPosition="left"
                         floated="right"
-                        style={{ width: "70%", marginTop: "1em" }}
                         onClick={handleDeleteCV}
                       />
                     )}
@@ -168,11 +170,11 @@ function AdminDashboard() {
                 </Grid>
                 <Grid.Row>
                   <Button
+                    id="back-button"
                     content="Home"
                     icon="arrow left"
                     labelPosition="left"
                     floated="left"
-                    style={{ marginTop: "1em" }}
                     onClick={() => setDeleteActive(false)}
                   />
                 </Grid.Row>

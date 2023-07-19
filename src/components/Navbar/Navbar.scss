@@ -1,4 +1,4 @@
-@import '../../stylesheet/mixins';
+@import "../../stylesheet/mixins";
 
 #Nav {
   background-color: $nc_dark_blue;
@@ -54,12 +54,15 @@ a {
       margin: 0 0.8rem 0 0;
     }
 
-    a {
+    button {
       display: flex;
       justify-content: space-between;
       align-items: center;
       max-width: 10%;
       margin: 0 4em 0 0;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
 
       img {
         max-width: 100%;

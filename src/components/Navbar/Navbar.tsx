@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
-import { Link } from "react-router-dom";
 import { Icon, Segment, Popup, Button } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
 
@@ -8,6 +7,49 @@ import ninja from "../../assets/ninja.png";
 import useGetUser from "../../hooks/useGetUser";
 
 import "./Navbar.scss";
+import { EmployeeUser } from "../../types/types";
+
+type PopupProps = {
+  handleChangeRole: (role: string) => void;
+  user: EmployeeUser | null;
+  userRole?: string;
+};
+
+function PopupContent({ handleChangeRole, user, userRole }: PopupProps) {
+  return (
+    <>
+      <div className="PopupContent">
+        <h1>{user?.name}</h1>
+        <p>{user?.email}</p>
+        <p>Roles:</p>
+        {user?.roles?.map((role) => (
+          <div
+            key={role.name}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginBottom: "1em",
+            }}
+          >
+            {userRole === role.name ? (
+              <Button
+                style={{ backgroundColor: "#161632" }}
+                color="green"
+                onClick={() => handleChangeRole(role.name)}
+              >
+                <span>{role.name}</span>
+              </Button>
+            ) : (
+              <Button onClick={() => handleChangeRole(role.name)}>
+                <span>{role.name}</span>
+              </Button>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(false);
@@ -29,42 +71,6 @@ function Navbar() {
     }
   }, [userRole, user]);
 
-  function PopupContent() {
-    return (
-      <>
-        <div className="PopupContent">
-          <h1>{user?.name}</h1>
-          <p>{user?.email}</p>
-          <p>Roles:</p>
-          {user?.roles?.map((role, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: "1em",
-              }}
-            >
-              {userRole === role.name ? (
-                <Button
-                  style={{ backgroundColor: "#161632" }}
-                  color="green"
-                  onClick={() => handleChangeRole(role.name)}
-                >
-                  <span>{role.name}</span>
-                </Button>
-              ) : (
-                <Button onClick={() => handleChangeRole(role.name)}>
-                  <span>{role.name}</span>
-                </Button>
-              )}
-            </div>
-          ))}
-        </div>
-      </>
-    );
-  }
-
   switch (userRole) {
     case "staff":
       return (
@@ -80,11 +86,11 @@ function Navbar() {
                 <Icon name="clipboard" size="small" />
                 dashboard
               </a>
-              <a>
+              <a href="/#">
                 <Icon name="bars" size="small" />
                 projects
               </a>
-              <a>
+              <a href="/#">
                 <Icon name="briefcase" size="small" />
                 talents
               </a>
@@ -92,21 +98,25 @@ function Navbar() {
             <div className="NavContent_user">
               <Popup
                 on="click"
-                content={<PopupContent />}
                 position="bottom center"
                 size="large"
                 trigger={
-                  <a onClick={handleClick}>
+                  <button type="button" onClick={handleClick}>
                     <img src={ninja} alt="Ninja avatar" />
                     <p>{user?.name?.split(" ")[0]}</p>
-                    {openModal == false ? (
+                    {openModal === false ? (
                       <Icon inverted name="chevron down" />
                     ) : (
-                      <>
-                        <Icon inverted name="chevron up" />
-                      </>
+                      <Icon inverted name="chevron up" />
                     )}
-                  </a>
+                  </button>
+                }
+                content={
+                  <PopupContent
+                    handleChangeRole={handleChangeRole}
+                    user={user}
+                    userRole={userRole}
+                  />
                 }
               />
             </div>
@@ -126,21 +136,27 @@ function Navbar() {
             <div className="NavContent_user">
               <Popup
                 on="click"
-                content={<PopupContent />}
                 position="bottom center"
                 size="large"
                 trigger={
-                  <a onClick={handleClick}>
+                  <button type="button" onClick={handleClick}>
                     <img src={ninja} alt="Ninja avatar" />
                     <p>{user?.name?.split(" ")[0]}</p>
-                    {openModal == false ? (
+                    {openModal === false ? (
                       <Icon inverted name="chevron down" />
                     ) : (
                       <>
                         <Icon inverted name="chevron up" />
                       </>
                     )}
-                  </a>
+                  </button>
+                }
+                content={
+                  <PopupContent
+                    handleChangeRole={handleChangeRole}
+                    user={user}
+                    userRole={userRole}
+                  />
                 }
               />
             </div>

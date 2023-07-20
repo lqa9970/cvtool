@@ -5,7 +5,7 @@ import Badges from "../../components/Badges/Badges";
 import CreateEditCv from "../../components/CreateEditCv/CreateEditCv";
 import LastActivities from "../../components/LastActivities/LastActivities";
 import UserCard from "../../components/UserCard/UserCard";
-import useGetUser from "../../hooks/useGetUser";
+import useGetUser from "../../hooks/useUserByEmail";
 
 import "./index.scss";
 

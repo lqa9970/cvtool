@@ -12,15 +12,15 @@ import {
 import "./admin.scss";
 import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
-import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
+import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
 
-const GetDataToOptions = (collection: string) => {
-  const { data } = useGetFirestoreCollection({ collection });
+const getUsersOptions = (customHook: typeof useGetCollectionWithFields, collectionName: string, fields: string[]) => {
+  const { data } = customHook(collectionName, fields);
   const typedData = data as EmployeeUser[];
   return typedData.map((user) => ({
-    key: user.email,
+    key: user.id,
     text: user.name,
     value: user.name,
   }));
@@ -31,8 +31,8 @@ function AdminDashboard() {
   const [chosenCV, setChosenCV] = useState("");
   const { authState } = useOktaAuth();
 
-  const users = GetDataToOptions("test_users1");
-
+  const users = getUsersOptions(useGetCollectionWithFields,"test_users1", ["id", "name"]);
+  
   const handleOnSelect = (data: DropdownProps) => {
     const selectedUser = data.options?.find(
       (user) => user.value === data.value

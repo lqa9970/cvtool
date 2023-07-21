@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { Timestamp } from "firebase/firestore";
 
 export type OktaTokenPayload = {
   sub: string;
@@ -47,6 +48,12 @@ export type ProjectHistory = {
   projectTitle: string;
   role: string;
   startMonthYear: string;
+  skills: Skills[];
+};
+
+export type Industry = {
+  id: string;
+  name: string;
 };
 
 export type Reminders = {
@@ -75,9 +82,14 @@ export type Certification = {
   name: string;
 };
 
+export type IActivity = {
+  message: string;
+  date: Timestamp;
+};
+
 export type EmployeeUser = {
   id?: string;
-  name?: string;
+  name: string;
   email?: string;
   location?: string;
   job_title?: string;
@@ -93,7 +105,7 @@ export type EmployeeUser = {
   tech_skills?: UserTechSkill[];
   soft_skills?: Skill[];
   // this skills field is deprecated but keeping for now because it will break search otherwise, need new test_users collection with updated user model
-  skills? : UserTechSkill[];
+  skills?: UserTechSkill[];
   workabroad?: boolean;
   experience_level?: string;
   projects?: ProjectHistory[];
@@ -101,6 +113,8 @@ export type EmployeeUser = {
   last_activity?: string[];
   education?: Education[];
   certifications?: Certification[];
+  last_cv_update?: Timestamp;
+  activity?: IActivity[];
 };
 
 export type FormikHandleChange = {
@@ -119,5 +133,3 @@ export type Filters = {
   languages: string[];
   nationality: string[];
 };
-
-

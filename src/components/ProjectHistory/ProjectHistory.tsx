@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react";
-import { Formik, Form } from "formik";
+/* eslint-disable import/max-dependencies */
+import { useState } from "react";
+import { useFormik } from "formik";
 import {
   Button,
   Grid,
-  TextArea,
   Input,
   Checkbox,
   Header,
   Label,
-  Icon,
 } from "semantic-ui-react";
 
+import "./ProjectHistory.scss";
+import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
 import useUpdateUser from "../../hooks/useUpdateUser";
-import { ProjectHistory } from "../../types/types";
+import { Industry, ProjectHistory } from "../../types/types";
 import { uniqueIdGenerator } from "../../utils/uid";
 import CustomCalendar from "../Calendar/Calendar";
+import BasicDropdown from "../Dropdown/BasicDropdown";
+import TextAreaInput from "../TextAreaInput/TextArea";
+import ProjectCards from "./ProjectCards/ProjectCards";
 import { initialValues, projectHistorySchema } from "./ProjectHistoryUtils";
-import "./ProjectHistory.scss";
+import ProjectSkills from "./ProjectSkills/ProjectSkills";
 
 type SetFieldValue = (
   field: string,
-  value: any,
+  value: number[] | string[] | number | string,
   shouldValidate?: boolean | undefined
 ) => void;
 
@@ -58,26 +62,47 @@ function EndDateComponent(props: EndDateComponentProps) {
 }
 
 function ProjectHistoryComponent(props: ProjectHistoryProps) {
+  const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
   const [projectHistories, setProjectHistories] = useState<ProjectHistory[]>(
-    []
+    props.projectHistory || []
   );
+  const [triggerReset, setTriggerReset] = useState<boolean>(false);
   const [updateUser] = useUpdateUser();
+
+  const industries = useGetFirestoreCollection({
+    collection: "industries",
+  }).data as Industry[];
+
+  const industriesOptions = industries.map((industry) => ({
+    key: industry.id,
+    value: industry.name,
+    text: industry.name,
+  }));
+
+  const formik = useFormik<ProjectHistory>({
+    initialValues,
+    validationSchema: projectHistorySchema,
+    onSubmit: async (values) => {
+      formik.resetForm();
+      setTriggerReset((prev) => !prev);
+      if (values.currentlyInProject) {
+        values.endMonthYear = "present";
+      }
+      const projects = projectHistories || [];
+      projects.push({ ...values, id: uniqueIdGenerator() });
+      projects.sort((a, b) =>
+        b.endMonthYear.slice(-4).localeCompare(a.endMonthYear.slice(-4))
+      );
+      setProjectHistories(projects);
+      await updateUser({ projects }, props.userId);
+    },
+  });
 
   const handleDelete = async (id: string) => {
     const filteredProjects =
-      props?.projectHistory?.filter((object) => object.id !== id) ?? [];
+      projectHistories.filter((object) => object.id !== id) ?? [];
     setProjectHistories(filteredProjects);
     await updateUser({ projects: filteredProjects }, props.userId);
-  };
-
-  const handleFormikSubmit = async (values: ProjectHistory) => {
-    if (values.currentlyInProject) {
-      values.endMonthYear = "present";
-    }
-    const projects = props.projectHistory || [];
-    projects.push({ ...values, id: uniqueIdGenerator() });
-    setProjectHistories(projects);
-    await updateUser({ projects }, props.userId);
   };
 
   const showErrors = (
@@ -93,150 +118,143 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
     }
   };
 
-  useEffect(() => {
-    setProjectHistories(props.projectHistory!);
-  }, []);
-
   return (
     <Grid.Column>
-      <Grid>
-        {projectHistories?.map((object: ProjectHistory) => {
-          return (
-            <Grid.Row key={object.id}>
-              <Grid.Column id="project-card" width={14}>
-                <Header as="h3">{object.role}</Header>
-                <span className="project-info-row">
-                  <p>{object.projectTitle}</p>
-                  <i>{"Ac: " + object.accountName}</i>
-                </span>
-                <p id="industry">{object.industry}</p>
-                <p id="duration">{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
-                <p className="max-width-hidden">{object.projectDescription}</p>
-              </Grid.Column>
-              <Grid.Column width={2} textAlign="right" verticalAlign="middle">
-                <Button icon circular id="delete-project">
-                  <Icon name="delete" onClick={() => handleDelete(object.id)} />
-                </Button>
-              </Grid.Column>
-            </Grid.Row>
-          );
-        })}
-      </Grid>
+      <ProjectCards
+        projectHistory={projectHistories}
+        handleDelete={handleDelete}
+      />
       <Header id="no-bottom-margin" as="h3">
         Add a new project
       </Header>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={projectHistorySchema}
-        onSubmit={(values) => handleFormikSubmit(values)}
-      >
-        {({
-          values,
-          handleChange,
-          handleSubmit,
-          errors,
-          touched,
-          setFieldValue,
-        }) => (
-          <Form onSubmit={handleSubmit}>
-            <Grid centered>
-              <Grid.Row columns={1}>
-                <Grid.Column>
-                  <Input name="id" id="input-hidden" />
-                  {showErrors(errors.id, touched.id)}
-                  <Label id="form-labels">Role</Label>
-                  <Input
-                    fluid
-                    value={values.role}
-                    name="role"
-                    onChange={handleChange}
-                  />
-                  {showErrors(errors.role, touched.role)}
-                  <Label id="form-labels">Project Title</Label>
-                  <Input
-                    fluid
-                    value={values.projectTitle}
-                    name="projectTitle"
-                    onChange={handleChange}
-                  />
-                  {showErrors(errors.projectTitle, touched.projectTitle)}
-                </Grid.Column>
-                <Grid.Column id="project-info-row">
-                  <Label id="form-labels">Account Name</Label>
-                  <Input
-                    value={values.accountName}
-                    name="accountName"
-                    onChange={handleChange}
-                  />
-                  <Label id="form-labels">Industry</Label>
-                  <Input
-                    value={values.industry}
-                    name="industry"
-                    onChange={handleChange}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid centered>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <Input name="id" id="input-hidden" />
+              {showErrors(formik.errors.id, formik.touched.id)}
+              <Label id="form-labels">Role</Label>
+              <Input
+                fluid
+                value={formik.values.role}
+                name="role"
+                onChange={formik.handleChange}
+              />
+              {showErrors(formik.errors.role, formik.touched.role)}
+              <Label id="form-labels">Project Title</Label>
+              <Input
+                fluid
+                value={formik.values.projectTitle}
+                name="projectTitle"
+                onChange={formik.handleChange}
+              />
+              {showErrors(
+                formik.errors.projectTitle,
+                formik.touched.projectTitle
+              )}
+            </Grid.Column>
+            <Grid.Column>
+              <Label id="form-labels">Account Name</Label>
+              <Input
+                value={formik.values.accountName}
+                name="accountName"
+                onChange={formik.handleChange}
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <Label id="form-labels">Industry</Label>
+              <BasicDropdown
+                options={industriesOptions}
+                fieldName="industry"
+                value={formik.values.industry}
+                setFieldValue={formik.setFieldValue}
+                reset={triggerReset}
+              />
+            </Grid.Column>
+          </Grid.Row>
 
-              <Grid.Row id="no-padding-y">
-                <Grid.Column>
-                  <Label id="form-labels">Time Period</Label>
-                  <Checkbox
-                    id="currentlyInProject"
-                    name="currentlyInProject"
-                    checked={values.currentlyInProject}
-                    label="Currently in project"
-                    onChange={handleChange}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+          <Grid.Row id="no-padding-y">
+            <Grid.Column>
+              <Label id="form-labels">Time Period</Label>
+              <Checkbox
+                id="currentlyInProject"
+                name="currentlyInProject"
+                checked={formik.values.currentlyInProject}
+                label="Currently in project"
+                onChange={formik.handleChange}
+              />
+            </Grid.Column>
+          </Grid.Row>
 
-              <Grid.Row>
-                <Grid.Column>
-                  <Label id="form-labels">From</Label>
-                  <div className="flex-container">
-                    <CustomCalendar
-                      option="date"
-                      name="startMonthYear"
-                      value={values.startMonthYear}
-                      setFieldValue={setFieldValue}
-                    />
+          <Grid.Row>
+            <Grid.Column>
+              <Label id="form-labels">From</Label>
+              <div className="flex-container">
+                <CustomCalendar
+                  option="date"
+                  name="startMonthYear"
+                  value={formik.values.startMonthYear}
+                  setFieldValue={formik.setFieldValue}
+                />
 
-                    {showErrors(errors.startMonthYear, touched.startMonthYear)}
-                    <p id="yos-to">TO</p>
-                    <EndDateComponent
-                      value={values.endMonthYear}
-                      placeholder="Month/Year"
-                      name="endMonthYear"
-                      setFieldValue={setFieldValue}
-                      present={values.currentlyInProject}
-                    />
-                    {showErrors(errors.endMonthYear, touched.endMonthYear)}
-                  </div>
-                </Grid.Column>
-              </Grid.Row>
+                {showErrors(
+                  formik.errors.startMonthYear,
+                  formik.touched.startMonthYear
+                )}
+                <p id="yos-to">TO</p>
+                <EndDateComponent
+                  value={formik.values.endMonthYear}
+                  placeholder="Month/Year"
+                  name="endMonthYear"
+                  setFieldValue={formik.setFieldValue}
+                  present={formik.values.currentlyInProject}
+                />
+                {showErrors(
+                  formik.errors.endMonthYear,
+                  formik.touched.endMonthYear
+                )}
+              </div>
+            </Grid.Column>
+          </Grid.Row>
 
-              <Grid.Row>
-                <Grid.Column>
-                  <TextArea
-                    name="projectDescription"
-                    placeholder="Enter your description here..."
-                    value={values.projectDescription}
-                    id="edu-text-area"
-                    onChange={handleChange}
-                  />
-                  {showErrors(
-                    errors.projectDescription,
-                    touched.projectDescription
-                  )}
-                  <Button id="edu-add-button" type="submit">
-                    Add
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Form>
-        )}
-      </Formik>
+          <Grid.Row>
+            <Grid.Column>
+              <TextAreaInput
+                id="edu-text-area"
+                value={formik.values.projectDescription}
+                name="projectDescription"
+                placeholder="Enter your description here..."
+                handleChange={formik.handleChange}
+                characterLimit={2500}
+                onExceedLimit={setIsCharLimitExceeded}
+              />
+              {showErrors(
+                formik.errors.projectDescription,
+                formik.touched.projectDescription
+              )}
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <ProjectSkills
+                addSkill={formik.setFieldValue}
+                resetSkills={triggerReset}
+              />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Button
+                id="edu-add-button"
+                type="submit"
+                disabled={isCharLimitExceeded}
+              >
+                Add
+              </Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </form>
     </Grid.Column>
   );
 }

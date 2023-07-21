@@ -24,6 +24,10 @@ function EducationComponent(props: EducationProps) {
   const [updateUser] = useUpdateUser();
   const [_openStartDatePick, setOpenStartDatePick] = useState(false);
   const [_openEndDatePick, setOpenEndDatePick] = useState(false);
+  const [education, setEducation] = useState<Education[]>(
+    props.education ?? []
+  );
+  const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
 
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
@@ -35,15 +39,18 @@ function EducationComponent(props: EducationProps) {
     setOpenEndDatePick(false);
   };
 
-  const handleDelete = (id: string) => {
-    const deleteDegree = props?.education?.filter((object) => object.id !== id);
-    updateUser({ education: deleteDegree }, props.userId).catch(() => {});
+  const handleDelete = async (id: string) => {
+    const filteredDegrees =
+      education.filter((object) => object.id !== id) ?? [];
+    setEducation(filteredDegrees);
+    await updateUser({ education: filteredDegrees }, props.userId);
   };
 
-  const handleFormikSubmit = (values: Education) => {
-    const degrees = props.education || [];
+  const handleFormikSubmit = async (values: Education) => {
+    const degrees = education || [];
     degrees.push({ ...values, id: uniqueIdGenerator() });
-    updateUser({ education: degrees }, props.userId).catch(() => {});
+    setEducation(degrees);
+    await updateUser({ education: degrees }, props.userId);
   };
   const showErrors = (
     error: string | undefined,
@@ -57,6 +64,7 @@ function EducationComponent(props: EducationProps) {
       );
     }
   };
+
   return (
     <Grid.Column>
       <Formik
@@ -132,12 +140,21 @@ function EducationComponent(props: EducationProps) {
               <Grid.Row>
                 <Grid.Column width={16}>
                   <Label id="form-labels">Description</Label>
-                  <TextAreaInput
+                  {/* <TextAreaInput
                     name="degreeDescription"
                     placeholder="Enter your description here..."
                     value={values.degreeDescription}
                     handleChange={handleChange}
                     id="edu-text-area"
+                  /> */}
+                  <TextAreaInput
+                    id="edu-text-area"
+                    value={values.degreeDescription}
+                    name="degreeDescription"
+                    placeholder="Enter your bio here"
+                    handleChange={handleChange}
+                    onExceedLimit={setIsCharLimitExceeded}
+                    characterLimit={1250}
                   />
                   {showErrors(
                     errors.degreeDescription,
@@ -147,7 +164,11 @@ function EducationComponent(props: EducationProps) {
               </Grid.Row>
               <Grid.Row id="edu-button-row">
                 <Grid.Column>
-                  <Button id="edu-add-button" type="submit">
+                  <Button
+                    id="edu-add-button"
+                    type="submit"
+                    disabled={isCharLimitExceeded}
+                  >
                     Add
                   </Button>
                 </Grid.Column>
@@ -156,7 +177,7 @@ function EducationComponent(props: EducationProps) {
           </Form>
         )}
       </Formik>
-      {props.education?.toString() !== "" && (
+      {education.length > 0 && (
         <Grid columns={3} textAlign="left" verticalAlign="top">
           <Grid.Row>
             <Grid.Column>
@@ -169,7 +190,7 @@ function EducationComponent(props: EducationProps) {
               <Header as="h4">Date</Header>
             </Grid.Column>
           </Grid.Row>
-          {props.education?.map((object: Education) => {
+          {education.map((object: Education) => {
             return (
               <Grid.Row key={object.id}>
                 <Grid.Column>
@@ -185,12 +206,14 @@ function EducationComponent(props: EducationProps) {
                         <p>{`${object.startMonthYear} - ${object.endMonthYear}`}</p>
                       </Grid.Column>
                       <Grid.Column width={6}>
-                        <Icon
+                        <Button
+                          icon
                           circular
-                          style={{ color: "#161632" }}
-                          name="delete"
+                          id="edu-delete-button"
                           onClick={() => handleDelete(object.id)}
-                        />
+                        >
+                          <Icon name="delete" />
+                        </Button>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

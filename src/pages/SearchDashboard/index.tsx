@@ -8,7 +8,7 @@ import EmployeeSearch from "../../components/EmployeeSearch/EmployeeSearch";
 import { EmployeeUser } from "../../types/types";
 import "./index.scss";
 
-function StaffingDashboard() {
+function SearchDashboard() {
   const { authState } = useOktaAuth();
 
   const [filterResults, setFilterResults] = useState<EmployeeUser[]>([]);
@@ -52,4 +52,4 @@ function StaffingDashboard() {
   );
 }
 
-export default StaffingDashboard;
+export default SearchDashboard;

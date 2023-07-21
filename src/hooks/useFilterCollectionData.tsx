@@ -1,3 +1,4 @@
+// TODO: This custom hook is currently unused. Leaving it for now, but remove if unused in the future.
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { database } from "../services/firestoreService";

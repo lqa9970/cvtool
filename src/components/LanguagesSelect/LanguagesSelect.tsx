@@ -28,7 +28,7 @@ function LanguagesSelect(props: LanguageSelectProps) {
     if (props.profileLanguages) {
       setLanguagesWithProficiencies(props.profileLanguages);
     }
-  }, []);
+  }, [props.profileLanguages]);
 
   const languages = useGetLanguages();
 

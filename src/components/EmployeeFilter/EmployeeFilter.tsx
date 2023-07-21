@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import useFilter from '../../hooks/useFilter';
-import { EmployeeUser, Filters } from '../../types/types';
+import useGetUsersWithFilters from "../../hooks/useGetUsersWithFilters";
+import { EmployeeUser, Filters } from "../../types/types";
 import FilterDropdowns from "../FilterDropdowns/FilterDropdowns";
 
 const initialFilters: Filters = {
@@ -11,7 +11,7 @@ const initialFilters: Filters = {
   certificate: [],
   location: [],
   languages: [],
-  nationality: []
+  nationality: [],
 };
 
 type EmployeeFilterProps = {
@@ -21,18 +21,18 @@ type EmployeeFilterProps = {
 
 function EmployeeFilter({
   setLastUpdated,
-  setFilterResults
+  setFilterResults,
 }: EmployeeFilterProps) {
-  const [filters, setFilters] = useState<Filters>(initialFilters)
-  const results = useFilter(filters);
+  const [filters, setFilters] = useState<Filters>(initialFilters);
+  const results = useGetUsersWithFilters(filters);
   setFilterResults(results); // Empty array when search doesn't match
   useEffect(() => {
     if (filters !== initialFilters) {
-      setLastUpdated('filter');
+      setLastUpdated("filter");
     }
   }, [filters]);
 
-  return <FilterDropdowns filters= {filters} setFilters={setFilters} />;
+  return <FilterDropdowns filters={filters} setFilters={setFilters} />;
 }
 
 export default EmployeeFilter;

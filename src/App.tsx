@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./stylesheet/style.scss";
 
 import NotificationsComponent from "./components/Notifications/Notifications";
+import { ActivityProvider } from "./context/ActivityContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { AppRoutes } from "./routes";
 
@@ -11,8 +12,10 @@ function App() {
     <div id="App">
       <BrowserRouter>
         <NotificationProvider>
-          <AppRoutes />
-          <NotificationsComponent />
+          <ActivityProvider>
+            <AppRoutes />
+            <NotificationsComponent />
+          </ActivityProvider>
         </NotificationProvider>
       </BrowserRouter>
     </div>

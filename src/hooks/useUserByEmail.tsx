@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { useState, useEffect, useContext } from "react";
+import {
+  query,
+  collection,
+  getDocs,
+  where,
+  Timestamp,
+} from "firebase/firestore";
+import { ActivityContext } from "../context/ActivityContext";
 import { database } from "../services/firestoreService";
 import {
   Certifications,
   Education,
   EmployeeUser,
+  IActivity,
   LanguagesWithProficiency,
   ProjectHistory,
   Role,
@@ -12,11 +20,12 @@ import {
   UserTechSkill,
 } from "../types/types";
 
-const useUserDetails = (
+const useUserByEmail = (
   email: string
 ): [EmployeeUser | null, string | null] => {
   const [userDetails, setUserDetails] = useState<EmployeeUser | null>(null);
   const [roles, _setRoles] = useState<string | null>(null);
+  const { setActivities } = useContext(ActivityContext);
 
   useEffect(() => {
     const getUser = async () => {
@@ -49,9 +58,14 @@ const useUserDetails = (
             certifications: user.data().certifications as Certifications[],
             projects: user.data().projects as ProjectHistory[],
             tech_skills: user.data().tech_skills as UserTechSkill[],
+            last_cv_update: user.data().last_cv_update as Timestamp,
+            activity: user.data().activity as IActivity[],
           });
         });
         setUserDetails(users[0]);
+        if (users[0].activity) {
+          setActivities(users[0].activity);
+        }
       }
     };
 
@@ -61,4 +75,4 @@ const useUserDetails = (
   return [userDetails, roles];
 };
 
-export default useUserDetails;
+export default useUserByEmail;

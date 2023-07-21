@@ -4,7 +4,7 @@ import { Filters } from "../../types/types";
 import SearchableSelect from "../Dropdown/SearchableSelect";
 
 type FilterDropdownProps = {
-  multiSelected?: boolean,
+  multiSelected?: boolean;
   label: string;
   options: { text: string; value: string }[];
   filterKey: keyof Filters;
@@ -24,11 +24,11 @@ function FilterDropdown({
     <Header as="h5">
       {label}
       <SearchableSelect
-        multiSelected = {multiSelected}
+        multiSelected={multiSelected}
         allOptions={options}
         value={filters[filterKey]}
-        filter={(value) => setFilters({ ...filters, [filterKey]: value })}
         placeholder=""
+        onSelect={(data) => setFilters({ ...filters, [filterKey]: data.value })}
       />
     </Header>
   );

@@ -42,7 +42,8 @@ module.exports = {
         selector: 'function',
         format: ['PascalCase', 'camelCase'],
       }
-    ]
+    ],
+    "react/hook-use-state": "off"
   },
 
   overrides: [

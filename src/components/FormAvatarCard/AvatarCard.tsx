@@ -1,5 +1,5 @@
-import { Button, Card, Image } from 'semantic-ui-react';
-import ninja from '../../assets/ninja.png';
+import { Button, Card, Image } from "semantic-ui-react";
+import ninja from "../../assets/ninja.png";
 
 function AvatarCard() {
   return (
@@ -8,7 +8,7 @@ function AvatarCard() {
       <Card.Content extra>
         <Button
           disabled
-          style={{ backgroundColor: 'rgb(22,22,50)', color: 'white' }}
+          style={{ backgroundColor: "rgb(22,22,50)", color: "white" }}
         >
           Change Avatar
         </Button>

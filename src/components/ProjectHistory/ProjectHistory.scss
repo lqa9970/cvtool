@@ -1,4 +1,5 @@
 @import '/src/styles/mixins';
+
 #datepicker-row {
   display: flex;
   justify-content: space-around;
@@ -18,21 +19,21 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+
 #no-padding-bottom {
   padding-bottom: 0;
 }
 
 .center-child {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto 5px;
 }
 
 .project-info-row {
   display: flex;
   gap: 1em;
   font-size: 16px;
+
   i {
     color: $text_primary;
   }
@@ -44,9 +45,10 @@
 }
 
 #delete-project {
-  //background-color: $nc_white;
   background-color: white;
   color: $nc_dark_blue;
+
+  // background-color: $nc_white;
 }
 
 #industry {
@@ -59,5 +61,5 @@
 }
 
 #project-card * {
-  margin: 0 0 0 0;
+  margin: 0;
 }

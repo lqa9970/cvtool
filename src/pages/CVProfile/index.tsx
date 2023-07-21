@@ -16,9 +16,9 @@ import Education from "../../components/Education/Education";
 import AvatarCard from "../../components/FormAvatarCard/AvatarCard";
 import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
 import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
-import SkillComponent from "../../components/Skills/Skills"
+import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
-import useGetUser from "../../hooks/useGetUser";
+import useGetUser from "../../hooks/useUserByEmail";
 import CVPreview from "../CVPreview";
 
 import "./index.scss";
@@ -32,7 +32,6 @@ function CreateCV() {
   }
 
   const techSkills = userDetails.tech_skills || [];
-
 
   return (
     <>
@@ -77,15 +76,15 @@ function CreateCV() {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-            <Grid.Column>
-              <Header dividing as="h3">
-                Project History
-              </Header>
-              <ProjectHistoryComponent
-                projectHistory={userDetails?.projects}
-                userId={userDetails.id}
-               />
-            </Grid.Column>
+              <Grid.Column>
+                <Header dividing as="h3">
+                  Project History
+                </Header>
+                <ProjectHistoryComponent
+                  projectHistory={userDetails?.projects}
+                  userId={userDetails.id}
+                />
+              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
@@ -112,7 +111,7 @@ function CreateCV() {
             <Grid.Row>
               <Grid.Column>
                 <Header as="h3" dividing>
-                <Divider hidden />
+                  <Divider hidden />
                   Competence
                 </Header>
                 <SkillComponent

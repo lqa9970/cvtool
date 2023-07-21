@@ -22,8 +22,3 @@ export const initialValues: Education = {
   endMonthYear: "10/09/2023",
   degreeDescription: "",
 };
-
-export const formatDate = (date: Date) => {
-  const d = new Date(date);
-  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-};

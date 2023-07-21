@@ -3,11 +3,12 @@ import { Formik, Form } from "formik";
 import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import { Education } from "../../types/types";
+import { formatDate } from "../../utils/date";
 import { uniqueIdGenerator } from "../../utils/uid";
 import "./Education.scss";
 import CustomCalendar from "../Calendar/Calendar";
 import TextAreaInput from "../TextAreaInput/TextArea";
-import { educationSchema, formatDate, initialValues } from "./EducationUtils";
+import { educationSchema, initialValues } from "./EducationUtils";
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -140,13 +141,6 @@ function EducationComponent(props: EducationProps) {
               <Grid.Row>
                 <Grid.Column width={16}>
                   <Label id="form-labels">Description</Label>
-                  {/* <TextAreaInput
-                    name="degreeDescription"
-                    placeholder="Enter your description here..."
-                    value={values.degreeDescription}
-                    handleChange={handleChange}
-                    id="edu-text-area"
-                  /> */}
                   <TextAreaInput
                     id="edu-text-area"
                     value={values.degreeDescription}

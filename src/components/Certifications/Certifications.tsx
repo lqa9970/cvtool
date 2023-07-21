@@ -21,7 +21,7 @@ type CertificationProps = {
 function CertificationComponent(props: CertificationProps) {
   const [updateUser] = useUpdateUser();
 
-  const { data } = useGetFirestoreCollection({ collection: "certification" });
+  const { data } = useGetFirestoreCollection({ collection: "certifications" });
   const certData = data as Certification[];
 
   const [localCerts, setLocalCerts] = useState<Certification[]>(

@@ -1,125 +1,55 @@
 import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
-import { Icon, Segment, Popup, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Icon, Segment } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
-
-import ninja from "../../assets/ninja.png";
-import useGetUser from "../../hooks/useUserByEmail";
+import useUserByEmail from "../../hooks/useUserByEmail";
+import { EmployeeUser } from "../../types/types";
+import AccountMenu from "./AccountMenu";
 
 import "./Navbar.scss";
-import { EmployeeUser } from "../../types/types";
-
-type PopupProps = {
-  handleChangeRole: (role: string) => void;
-  user: EmployeeUser | null;
-  userRole?: string;
-};
-
-function PopupContent({ handleChangeRole, user, userRole }: PopupProps) {
-  return (
-    <>
-      <div className="PopupContent">
-        <h1>{user?.name}</h1>
-        <p>{user?.email}</p>
-        <p>Roles:</p>
-        {user?.roles?.map((role) => (
-          <div
-            key={role.name}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginBottom: "1em",
-            }}
-          >
-            {userRole === role.name ? (
-              <Button
-                style={{ backgroundColor: "#161632" }}
-                color="green"
-                onClick={() => handleChangeRole(role.name)}
-              >
-                <span>{role.name}</span>
-              </Button>
-            ) : (
-              <Button onClick={() => handleChangeRole(role.name)}>
-                <span>{role.name}</span>
-              </Button>
-            )}
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
 
 function Navbar() {
-  const [openModal, setOpenModal] = useState(false);
   const { authState } = useOktaAuth();
-  const [userRole, setUserRole] = useState<string | undefined>();
-  const [user] = useGetUser(authState?.idToken?.claims.email ?? "");
+  const [user] = useUserByEmail(authState?.idToken?.claims.email ?? "");
+  const [userRole, setUserRole] = useState<string>("talent");
 
-  const handleClick = () => {
-    setOpenModal(!openModal);
-  };
-
-  const handleChangeRole = (role: string) => {
+  const handleRoleChange = (role: string) => {
     setUserRole(role);
   };
 
   useEffect(() => {
     if (!userRole) {
-      setUserRole(user?.roles[0].name);
+      setUserRole(user?.roles[0].name as string);
     }
   }, [userRole, user]);
 
   switch (userRole) {
     case "staff":
+    case "admin":
       return (
         <>
           <Segment id="Nav" className="NavContent">
             <div className="NavContent_logo">
-              <a href="/">
+              <Link to="/">
                 <img src={logo} alt="Nordcloud, an IBM company" />
-              </a>
+              </Link>
             </div>
             <div className="NavContent_pages">
-              <a href="/staff">
+              <Link to="/staff">
                 <Icon name="clipboard" size="small" />
                 dashboard
-              </a>
-              <a href="/#">
+              </Link>
+              <Link to="/#">
                 <Icon name="bars" size="small" />
                 projects
-              </a>
-              <a href="/#">
+              </Link>
+              <Link to="/#">
                 <Icon name="briefcase" size="small" />
                 talents
-              </a>
+              </Link>
             </div>
-            <div className="NavContent_user">
-              <Popup
-                on="click"
-                position="bottom center"
-                size="large"
-                trigger={
-                  <button type="button" onClick={handleClick}>
-                    <img src={ninja} alt="Ninja avatar" />
-                    <p>{user?.name?.split(" ")[0]}</p>
-                    {openModal === false ? (
-                      <Icon inverted name="chevron down" />
-                    ) : (
-                      <Icon inverted name="chevron up" />
-                    )}
-                  </button>
-                }
-                content={
-                  <PopupContent
-                    handleChangeRole={handleChangeRole}
-                    user={user}
-                    userRole={userRole}
-                  />
-                }
-              />
-            </div>
+            <AccountMenu user={user as EmployeeUser} userRole={userRole} onRoleChange={handleRoleChange}/>
           </Segment>
         </>
       );
@@ -129,37 +59,11 @@ function Navbar() {
         <>
           <Segment id="Nav" className="NavContent">
             <div className="NavContent_logo">
-              <a href="/" rel="noreferrer">
+              <Link to="/" rel="noreferrer">
                 <img src={logo} alt="Nordcloud, an IBM company" />
-              </a>
+              </Link>
             </div>
-            <div className="NavContent_user">
-              <Popup
-                on="click"
-                position="bottom center"
-                size="large"
-                trigger={
-                  <button type="button" onClick={handleClick}>
-                    <img src={ninja} alt="Ninja avatar" />
-                    <p>{user?.name?.split(" ")[0]}</p>
-                    {openModal === false ? (
-                      <Icon inverted name="chevron down" />
-                    ) : (
-                      <>
-                        <Icon inverted name="chevron up" />
-                      </>
-                    )}
-                  </button>
-                }
-                content={
-                  <PopupContent
-                    handleChangeRole={handleChangeRole}
-                    user={user}
-                    userRole={userRole}
-                  />
-                }
-              />
-            </div>
+            <AccountMenu user={user as EmployeeUser} userRole={userRole} onRoleChange={handleRoleChange}/>
           </Segment>
         </>
       );

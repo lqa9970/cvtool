@@ -113,4 +113,20 @@ a {
   span {
     text-transform: capitalize;
   }
+
+  .RoleButtonContainer {
+    display: flex;
+    flex-direction: column;
+  
+    .ui.button.RoleButton{
+      margin: 0.4em 0em;
+      text-transform: uppercase;
+
+      &.active {
+        background-color: #161632;
+        color: white;
+      }
+    }
+
+  }
 }

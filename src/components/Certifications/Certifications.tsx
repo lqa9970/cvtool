@@ -10,6 +10,7 @@ import {
   certificationSchema,
   defaultStartDate,
   defaultEndDate,
+  sortCertifications
 } from "./CertificationsUtils";
 import "./Certifications.scss";
 
@@ -174,7 +175,7 @@ function CertificationComponent(props: CertificationProps) {
             </Grid.Column>
           </Grid.Row>
 
-          {localCerts.map((cert: Certification) => (
+          {sortCertifications(localCerts).map((cert: Certification) => (
             <Grid.Row key={cert.id}>
               <Grid.Column id="cert-column" verticalAlign="middle" width={8}>
                 <p>{cert.name}</p>

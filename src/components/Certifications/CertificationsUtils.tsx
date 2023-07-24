@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { Certification } from "../../types/types";
 import { formatDate } from "../../utils/date";
 
 const currentDate = new Date();
@@ -16,3 +17,13 @@ export const certificationSchema = Yup.object().shape({
   validFrom: Yup.string().required("Valid starting date is required"),
   validTo: Yup.string().required("Valid to date is required"),
 });
+
+export const sortCertifications = (certifications: Certification[]) => {
+  return [...certifications].sort(
+    (certA: Certification, certB: Certification) => {
+      const certADate = certA.validFrom.split("").reverse().join("");
+      const certBDate = certB.validFrom.split("").reverse().join("");
+      return certBDate.localeCompare(certADate);
+    }
+  );
+};

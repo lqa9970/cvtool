@@ -75,12 +75,11 @@ export type LanguagesWithProficiency = {
   proficiency: string;
 };
 
-export type Certifications = {
-  validFrom?: any;
-  validTo?: any;
-  id?: string;
+export type Certification = {
+  validFrom: string;
+  validTo: string;
+  id: string;
   name: string;
-  date?: string;
 };
 
 export type IActivity = {
@@ -113,7 +112,7 @@ export type EmployeeUser = {
   reminders?: Reminders[];
   last_activity?: string[];
   education?: Education[];
-  certifications?: Certifications[];
+  certifications?: Certification[];
   last_cv_update?: Timestamp;
   activity?: IActivity[];
 };

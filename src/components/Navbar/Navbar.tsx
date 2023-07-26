@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
 import { Link } from "react-router-dom";
 import { Icon, Segment } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
-import useUserByEmail from "../../hooks/useUserByEmail";
+import {useUserContext} from "../../context/UserContext";
 import { EmployeeUser } from "../../types/types";
 import AccountMenu from "./AccountMenu";
 
 import "./Navbar.scss";
 
 function Navbar() {
-  const { authState } = useOktaAuth();
-  const [user] = useUserByEmail(authState?.idToken?.claims.email ?? "");
+  const {user} = useUserContext()
   const [userRole, setUserRole] = useState<string>("talent");
 
   const handleRoleChange = (role: string) => {

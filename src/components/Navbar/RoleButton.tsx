@@ -1,4 +1,4 @@
-import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 type RoleButtonProps = {
   role: {
@@ -16,9 +16,13 @@ function RoleButton({ role, active, onClick }: RoleButtonProps) {
   const buttonClassName = `RoleButton ${active ? "active" : ""}`;
 
   return (
-    <Button className={buttonClassName} onClick={handleButtonClick}>
+    <Link
+      className={buttonClassName}
+      to={role.name === "talent" ? "/" : `/${role.name}`}
+      onClick={handleButtonClick}
+    >
       {role.name}
-    </Button>
+    </Link>
   );
 }
 

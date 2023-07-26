@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -12,6 +11,7 @@ import {
 import "./admin.scss";
 import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
+import { useUserContext } from "../../context/UserContext";
 import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
@@ -29,15 +29,15 @@ const getUsersOptions = (customHook: typeof useGetCollectionWithFields, collecti
 function AdminDashboard() {
   const [isDeleteActive, setDeleteActive] = useState(false);
   const [chosenCV, setChosenCV] = useState("");
-  const { authState } = useOktaAuth();
+  const { user } = useUserContext()
 
   const users = getUsersOptions(useGetCollectionWithFields,"test_users1", ["id", "name"]);
   
   const handleOnSelect = (data: DropdownProps) => {
-    const selectedUser = data.options?.find(
-      (user) => user.value === data.value
+    const selectedEmployee = data.options?.find(
+      (employee) => employee.value === data.value
     );
-    setChosenCV(selectedUser?.key as string);
+    setChosenCV(selectedEmployee?.key as string);
   };
   const handleDeleteCV = async () => {
     return await removeUser(chosenCV);
@@ -124,8 +124,8 @@ function AdminDashboard() {
         <Grid>
           <Grid.Column width={4}>
             <UserCard
-              name={authState?.idToken?.claims.name}
-              email={authState?.idToken?.claims.email}
+              name={user?.name}
+              email={user?.email}
             />
           </Grid.Column>
           <Grid.Column width={11}>

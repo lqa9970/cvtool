@@ -1,4 +1,3 @@
-import { useOktaAuth } from "@okta/okta-react";
 import {
   Container,
   Grid,
@@ -18,20 +17,19 @@ import LanguagesSelect from "../../components/LanguagesSelect/LanguagesSelect";
 import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHistory";
 import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
-import useGetUser from "../../hooks/useUserByEmail";
+import { useUserContext } from "../../context/UserContext";
 import CVPreview from "../CVPreview";
+
 
 import "./index.scss";
 
 function CreateCV() {
-  const { authState } = useOktaAuth();
-  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
-
-  if (!userDetails?.id) {
+  const { user } = useUserContext()
+  if (!user?.id) {
     return <p />;
   }
 
-  const techSkills = userDetails.tech_skills || [];
+  const techSkills = user.tech_skills || [];
 
   return (
     <>
@@ -46,7 +44,7 @@ function CreateCV() {
               trigger={<Button secondary content="Preview CV" />}
             >
               <Segment id="cv-preview-container">
-                <CVPreview employee={userDetails} />
+                <CVPreview employee={user} />
               </Segment>
             </TransitionablePortal>
           </Grid.Column>
@@ -56,7 +54,7 @@ function CreateCV() {
                 <Header dividing as="h3">
                   Basic Info
                 </Header>
-                <BasicInfo userDetails={userDetails} />
+                <BasicInfo userDetails={user} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -64,7 +62,7 @@ function CreateCV() {
                 <Header dividing as="h3">
                   Bio Description
                 </Header>
-                <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
+                <BioForm bio={user?.bio} userId={user?.id} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -72,7 +70,7 @@ function CreateCV() {
                 <Header dividing as="h3">
                   Links
                 </Header>
-                {userDetails && <Socials userDetails={userDetails} />}
+                {user && <Socials userDetails={user} />}
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -81,8 +79,8 @@ function CreateCV() {
                   Project History
                 </Header>
                 <ProjectHistoryComponent
-                  projectHistory={userDetails?.projects}
-                  userId={userDetails.id}
+                  projectHistory={user?.projects}
+                  userId={user.id}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -92,8 +90,8 @@ function CreateCV() {
                   Language Skills
                 </Header>
                 <LanguagesSelect
-                  profileLanguages={userDetails?.languages}
-                  userId={userDetails?.id}
+                  profileLanguages={user?.languages}
+                  userId={user?.id}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -103,29 +101,29 @@ function CreateCV() {
                   Educations
                 </Header>
                 <Education
-                  education={userDetails?.education}
-                  userId={userDetails?.id}
+                  education={user?.education}
+                  userId={user?.id}
                 />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                   <Divider hidden />
                   Competence
                 </Header>
                 <SkillComponent
-                  userId={userDetails?.id} tech_skills={techSkills}                />
+                  userId={user?.id} tech_skills={techSkills}                />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h3">
                 <Divider hidden />
                   Certifications
                 </Header>
                 <CertificationComponent
-                  userId={userDetails?.id} certifications={userDetails?.certifications}                />
+                  userId={user?.id} certifications={user?.certifications}                />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>

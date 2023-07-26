@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon, Segment } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
-import {useUserContext} from "../../context/UserContext";
+import { useUserContext } from "../../context/UserContext";
 import { EmployeeUser } from "../../types/types";
 import AccountMenu from "./AccountMenu";
 
 import "./Navbar.scss";
 
 function Navbar() {
-  const {user} = useUserContext()
+  const { user } = useUserContext()
   const [userRole, setUserRole] = useState<string>("talent");
 
   const handleRoleChange = (role: string) => {

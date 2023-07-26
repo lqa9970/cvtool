@@ -1,12 +1,12 @@
-import { useOktaAuth } from "@okta/okta-react";
 import { Link } from "react-router-dom";
 import { Container, Grid, Accordion, Button } from "semantic-ui-react";
 import UserCard from "../../components/UserCard/UserCard";
+import { useUserContext } from "../../context/UserContext";
 
 import "./staff.scss";
 
 function StaffDashboard() {
-  const { authState } = useOktaAuth();
+  const { user } = useUserContext()
 
   const panels = [
     {
@@ -46,8 +46,8 @@ function StaffDashboard() {
         <Grid>
           <Grid.Column width={4}>
             <UserCard
-              name={authState?.idToken?.claims.name}
-              email={authState?.idToken?.claims.email}
+              name={user?.name}
+              email={user?.email}
             />
           </Grid.Column>
           <Grid.Column width={11}>

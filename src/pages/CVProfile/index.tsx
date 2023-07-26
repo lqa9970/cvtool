@@ -121,7 +121,10 @@ function CreateCV() {
                   <Divider hidden />
                   <FontAwesomeIcon icon={faLayerGroup} size="xs" /> Competence
                 </Header>
-                <SkillComponent userId={user?.id} tech_skills={techSkills} />
+                <SkillComponent
+                  userId={user?.id}
+                  tech_skills={techSkills}
+                />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row id="cv-info-row">

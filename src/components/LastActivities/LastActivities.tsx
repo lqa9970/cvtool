@@ -15,17 +15,17 @@ function LastActivities() {
       <Segment>
         {sortedActivities.length > 0
           ? sortedActivities?.map((object) => (
-            <Grid key={uniqueIdGenerator()} columns={2}>
-              <Grid.Row>
-                <Grid.Column computer={8} mobile={16} textAlign="left">
-                  <p>{object.message}</p>
-                </Grid.Column>
-                <Grid.Column computer={8} mobile={16} textAlign="center">
-                  <span>{formatDate(object?.date.toDate())}</span>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          ))
+              <Grid key={uniqueIdGenerator()} columns={2}>
+                <Grid.Row>
+                  <Grid.Column computer={8} mobile={16} textAlign="left">
+                    <p>{object.message}</p>
+                  </Grid.Column>
+                  <Grid.Column computer={8} mobile={16} textAlign="center">
+                    <span>{formatDate(object?.date.toDate())}</span>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            ))
           : "No activities yet"}
       </Segment>
     </>

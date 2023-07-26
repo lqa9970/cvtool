@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Header, Segment, Icon } from "semantic-ui-react";
 
-
 function Badges() {
   const navigate = useNavigate();
 

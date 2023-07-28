@@ -1,3 +1,14 @@
+import {
+  faUser,
+  faPen,
+  faLink,
+  faClockRotateLeft,
+  faLanguage,
+  faSchool,
+  faScroll,
+  faLayerGroup,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOktaAuth } from "@okta/okta-react";
 import {
   Container,
@@ -21,6 +32,7 @@ import Socials from "../../components/Socials/Socials";
 import useGetUser from "../../hooks/useUserByEmail";
 import CVPreview from "../CVPreview";
 
+// eslint-disable-next-line import/max-dependencies
 import "./index.scss";
 
 function CreateCV() {
@@ -51,34 +63,35 @@ function CreateCV() {
             </TransitionablePortal>
           </Grid.Column>
           <Grid.Column>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Basic Info
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faUser} size="xs" /> Basic Info
                 </Header>
                 <BasicInfo userDetails={userDetails} />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Bio Description
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faPen} size="xs" /> Bio Description
                 </Header>
                 <BioForm bio={userDetails?.bio} userId={userDetails?.id} />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Links
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faLink} size="xs" /> Links
                 </Header>
                 {userDetails && <Socials userDetails={userDetails} />}
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Project History
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faClockRotateLeft} size="xs" /> Project
+                  History
                 </Header>
                 <ProjectHistoryComponent
                   projectHistory={userDetails?.projects}
@@ -86,10 +99,11 @@ function CreateCV() {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Language Skills
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faLanguage} size="xs" /> Language
+                  Skills
                 </Header>
                 <LanguagesSelect
                   profileLanguages={userDetails?.languages}
@@ -97,10 +111,10 @@ function CreateCV() {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header dividing as="h3">
-                  Educations
+                <Header dividing as="h2">
+                  <FontAwesomeIcon icon={faSchool} size="xs" /> Educations
                 </Header>
                 <Education
                   education={userDetails?.education}
@@ -108,24 +122,28 @@ function CreateCV() {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header as="h3" dividing>
+                <Header dividing as="h2">
                   <Divider hidden />
-                  Competence
+                  <FontAwesomeIcon icon={faLayerGroup} size="xs" /> Competence
                 </Header>
                 <SkillComponent
-                  userId={userDetails?.id} tech_skills={techSkills}                />
+                  userId={userDetails?.id}
+                  tech_skills={techSkills}
+                />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row id="cv-info-row">
               <Grid.Column>
-                <Header as="h3" dividing>
-                <Divider hidden />
-                  Certifications
+                <Header dividing as="h2">
+                  <Divider hidden />
+                  <FontAwesomeIcon icon={faScroll} size="xs" /> Certifications
                 </Header>
                 <CertificationComponent
-                  userId={userDetails?.id} certifications={userDetails?.certifications}                />
+                  userId={userDetails?.id}
+                  certifications={userDetails?.certifications}
+                />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>

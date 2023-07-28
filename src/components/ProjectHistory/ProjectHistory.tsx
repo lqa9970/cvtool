@@ -249,7 +249,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                 type="submit"
                 disabled={isCharLimitExceeded}
               >
-                Add
+                Save experience
               </Button>
             </Grid.Column>
           </Grid.Row>

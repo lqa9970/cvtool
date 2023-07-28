@@ -10,15 +10,17 @@ import "./Navbar.scss";
 
 function Navbar() {
   const { user } = useUserContext()
-  const [userRole, setUserRole] = useState<string>("talent");
+  const defautUserRole = localStorage.getItem('userRole') as string
+  const [userRole, setUserRole] = useState<string>(defautUserRole);
 
   const handleRoleChange = (role: string) => {
     setUserRole(role);
+    localStorage.setItem('userRole', role);
   };
 
   useEffect(() => {
     if (!userRole) {
-      setUserRole(user?.roles[0].name as string);
+      localStorage.setItem('userRole', user?.roles[0].name as string);
     }
   }, [userRole, user]);
 

@@ -10,7 +10,7 @@ import {
   certificationSchema,
   defaultStartDate,
   defaultEndDate,
-  sortCertifications
+  sortCertifications,
 } from "./CertificationsUtils";
 import "./Certifications.scss";
 
@@ -83,7 +83,7 @@ function CertificationComponent(props: CertificationProps) {
   return (
     <Grid.Column>
       <Formik
-      validationSchema={certificationSchema}
+        validationSchema={certificationSchema}
         initialValues={{
           name: "",
           validFrom: defaultStartDate,
@@ -114,6 +114,7 @@ function CertificationComponent(props: CertificationProps) {
                     as={Dropdown}
                     options={certificateOptions}
                     name="certifications"
+                    id="certifications"
                     value={values.name}
                     onChange={(
                       event: React.SyntheticEvent<HTMLElement>,

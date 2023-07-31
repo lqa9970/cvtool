@@ -112,6 +112,7 @@ function SkillComponent(props: SkillProps) {
                     as={Dropdown}
                     options={techOptions}
                     name="tech"
+                    id="tech"
                     value={values.name}
                     onChange={(
                       event: React.SyntheticEvent<HTMLElement>,
@@ -128,6 +129,7 @@ function SkillComponent(props: SkillProps) {
                     as={Dropdown}
                     options={experienceOptions}
                     name="experience"
+                    id="experience"
                     value={values.experience}
                     onChange={(
                       event: React.SyntheticEvent<HTMLElement>,

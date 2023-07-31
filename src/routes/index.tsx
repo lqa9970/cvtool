@@ -2,6 +2,7 @@ import { OktaAuth } from "@okta/okta-auth-js";
 import { Security, LoginCallback } from "@okta/okta-react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
+import { UserProvider } from "../context/UserContext";
 import useAuthorizationOkta from "../hooks/useOktaAuth";
 import AdminDashboard from "../pages/AdminDashboard";
 import CVPreview from "../pages/CVPreview";
@@ -20,17 +21,19 @@ export function AppRoutes() {
       oktaAuth={useAuthorizationOkta}
       restoreOriginalUri={restoreOriginalUri}
     >
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login/callback" Component={LoginCallback} />
-        <Route path="/" element={<Login />} />
-        <Route path="/cv" element={<CreateCV />} />
-        <Route path="/search" element={<SearchDashboard />} />
-        <Route path="/preview" element={<CVPreview employee={null} />} />
-        <Route path="/staff" element={<StaffDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
+      <UserProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login/callback" Component={LoginCallback} />
+          <Route path="/" element={<Login />} />
+          <Route path="/cv" element={<CreateCV />} />
+          <Route path="/search" element={<SearchDashboard />} />
+          <Route path="/preview" element={<CVPreview employee={null} />} />
+          <Route path="/staff" element={<StaffDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Routes>
+      </UserProvider>
     </Security>
   );
 }

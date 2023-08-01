@@ -1,19 +1,18 @@
-import { useOktaAuth } from "@okta/okta-react";
 import { Grid, GridColumn, Container, GridRow } from "semantic-ui-react";
 import Availability from "../../components/Availability/Availability";
 import Badges from "../../components/Badges/Badges";
 import CreateEditCv from "../../components/CreateEditCv/CreateEditCv";
 import LastActivities from "../../components/LastActivities/LastActivities";
 import UserCard from "../../components/UserCard/UserCard";
-import useGetUser from "../../hooks/useUserByEmail";
+import { useUserContext } from "../../context/UserContext";
+
 
 import "./index.scss";
 
 function Dashboard() {
-  const { authState } = useOktaAuth();
-  const [userDetails] = useGetUser(authState?.idToken?.claims.email || "");
+  const { user } = useUserContext()
 
-  if (!userDetails) {
+  if (!user) {
     return null;
   }
 
@@ -22,15 +21,15 @@ function Dashboard() {
       <Grid>
         <Grid.Column width={4}>
           <UserCard
-            name={authState?.idToken?.claims.name}
-            email={authState?.idToken?.claims.email}
+            name={user.name}
+            email={user.email}
           />
         </Grid.Column>
         <GridColumn width={8}>
           <Grid>
             <GridRow>
               <Grid.Column width={6}>
-                <CreateEditCv last_cv_update={userDetails?.last_cv_update} />
+                <CreateEditCv last_cv_update={user?.last_cv_update} />
               </Grid.Column>
               <Grid.Column width={10}>
                 <Availability />

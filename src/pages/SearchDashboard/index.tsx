@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
 import { Grid } from "semantic-ui-react";
 
 import DisplayMatchCard from "../../components/DisplayMatchCard/DisplayMatchCard";
 import EmployeeFilter from "../../components/EmployeeFilter/EmployeeFilter";
 import EmployeeSearch from "../../components/EmployeeSearch/EmployeeSearch";
+import { useUserContext } from "../../context/UserContext";
 import { EmployeeUser } from "../../types/types";
 import "./index.scss";
 
 function SearchDashboard() {
-  const { authState } = useOktaAuth();
+  const { user } = useUserContext()
 
   const [filterResults, setFilterResults] = useState<EmployeeUser[]>([]);
   const [searchResults, setSearchResults] = useState<EmployeeUser[]>([]);
@@ -27,7 +27,7 @@ function SearchDashboard() {
 
   return (
     <>
-      {authState ? (
+      {user ? (
         <div id="grid-box">
           <Grid stackable divided doubling columns={2}>
             <Grid.Column width={4}>

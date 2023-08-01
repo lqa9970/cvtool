@@ -1,4 +1,4 @@
-@import '/src/styles/mixins';
+@import "/src/styles/mixins";
 
 #cv-preview-container {
   right: 0;
@@ -7,4 +7,8 @@
   position: absolute;
   top: 10%;
   z-index: 1000;
+}
+
+#cv-info-row {
+  margin-bottom: 2em;
 }

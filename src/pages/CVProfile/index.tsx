@@ -9,7 +9,6 @@ import {
   faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useOktaAuth } from "@okta/okta-react";
 import {
   Container,
   Grid,
@@ -35,7 +34,7 @@ import CVPreview from "../CVPreview";
 import "./index.scss";
 
 function CreateCV() {
-  const { user } = useUserContext()
+  const { user } = useUserContext();
   if (!user?.id) {
     return <p />;
   }
@@ -113,10 +112,7 @@ function CreateCV() {
                 <Header dividing as="h2">
                   <FontAwesomeIcon icon={faSchool} size="xs" /> Educations
                 </Header>
-                <Education
-                  education={user?.education}
-                  userId={user?.id}
-                />
+                <Education education={user?.education} userId={user?.id} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row id="cv-info-row">
@@ -125,10 +121,7 @@ function CreateCV() {
                   <Divider hidden />
                   <FontAwesomeIcon icon={faLayerGroup} size="xs" /> Competence
                 </Header>
-                <SkillComponent
-                  userId={userDetails?.id}
-                  tech_skills={techSkills}
-                />
+                <SkillComponent userId={user?.id} tech_skills={techSkills} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row id="cv-info-row">
@@ -138,8 +131,8 @@ function CreateCV() {
                   <FontAwesomeIcon icon={faScroll} size="xs" /> Certifications
                 </Header>
                 <CertificationComponent
-                  userId={userDetails?.id}
-                  certifications={userDetails?.certifications}
+                  userId={user?.id}
+                  certifications={user?.certifications}
                 />
               </Grid.Column>
             </Grid.Row>

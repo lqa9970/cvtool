@@ -1,3 +1,9 @@
+import {
+  faPenToSquare,
+  faUserPlus,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { Container, Grid, Accordion, Button } from "semantic-ui-react";
 import UserCard from "../../components/UserCard/UserCard";
@@ -6,7 +12,7 @@ import { useUserContext } from "../../context/UserContext";
 import "./staff.scss";
 
 function StaffDashboard() {
-  const { user } = useUserContext()
+  const { user } = useUserContext();
 
   const panels = [
     {
@@ -17,10 +23,14 @@ function StaffDashboard() {
           <>
             <div id="staff-cv">
               <Link to="/cv">
-                <Button id="staff-button">Modify CV</Button>
+                <Button id="staff-button">
+                  <FontAwesomeIcon icon={faPenToSquare} /> Modify CV
+                </Button>
               </Link>
               <Link to="/">
-                <Button id="staff-button">Create CV</Button>
+                <Button id="staff-button">
+                  <FontAwesomeIcon icon={faUserPlus} /> Create CV
+                </Button>
               </Link>
             </div>
           </>
@@ -33,7 +43,9 @@ function StaffDashboard() {
       content: {
         content: (
           <Link to="/search">
-            <Button id="staff-button">Search Employee</Button>
+            <Button id="staff-button">
+              <FontAwesomeIcon icon={faMagnifyingGlass} /> Search Employee
+            </Button>
           </Link>
         ),
       },
@@ -45,10 +57,7 @@ function StaffDashboard() {
       <Container className="dashboard">
         <Grid>
           <Grid.Column width={4}>
-            <UserCard
-              name={user?.name}
-              email={user?.email}
-            />
+            <UserCard name={user?.name} email={user?.email} />
           </Grid.Column>
           <Grid.Column width={11}>
             <Accordion

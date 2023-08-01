@@ -10,6 +10,7 @@ import CreateCV from "../pages/CVProfile";
 import { Login } from "../pages/login";
 import SearchDashboard from "../pages/SearchDashboard";
 import StaffDashboard from "../pages/StaffDashboard";
+import AuthRoute from "./AuthRoute";
 
 export function AppRoutes() {
   const navigate = useNavigate();
@@ -27,11 +28,13 @@ export function AppRoutes() {
           <Route path="/" element={<Login />} />
           <Route path="/login/callback" Component={LoginCallback} />
           <Route path="/" element={<Login />} />
-          <Route path="/cv" element={<CreateCV />} />
-          <Route path="/search" element={<SearchDashboard />} />
-          <Route path="/preview" element={<CVPreview employee={null} />} />
-          <Route path="/staff" element={<StaffDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route element={<AuthRoute />}>
+            <Route path="/cv" element={<CreateCV />} />
+            <Route path="/search" element={<SearchDashboard />} />
+            <Route path="/preview" element={<CVPreview employee={null} />} />
+            <Route path="/staff" element={<StaffDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Route>
         </Routes>
       </UserProvider>
     </Security>

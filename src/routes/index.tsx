@@ -25,9 +25,6 @@ export function AppRoutes() {
       <UserProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login/callback" Component={LoginCallback} />
-          <Route path="/" element={<Login />} />
           <Route element={<AuthRoute />}>
             <Route path="/cv" element={<CreateCV />} />
             <Route path="/search" element={<SearchDashboard />} />
@@ -35,6 +32,8 @@ export function AppRoutes() {
             <Route path="/staff" element={<StaffDashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Route>
+          <Route path="/login/callback" Component={LoginCallback} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </UserProvider>
     </Security>

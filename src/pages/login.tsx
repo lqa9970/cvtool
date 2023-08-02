@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Loader } from "semantic-ui-react";
 import { decodeOktaToken } from "../services/jwtDecodeService";
 import { OktaTokenPayload } from "../types/types";
 import Dashboard from "./Dashboard";
@@ -32,8 +33,6 @@ export function Login() {
       <Dashboard />
     </>
   ) : (
-    <div>
-      <p>Logging In ...</p>
-    </div>
+    <Loader active />
   );
 }

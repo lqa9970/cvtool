@@ -48,7 +48,7 @@ export type ProjectHistory = {
   projectTitle: string;
   role: string;
   startMonthYear: string;
-  skills: Skills[];
+  skills: Skill[];
 };
 
 export type Industry = {
@@ -132,4 +132,24 @@ export type Filters = {
   location: string[];
   languages: string[];
   nationality: string[];
+};
+export type PdfOptions = {
+  name: boolean;
+  email: boolean;
+  location: boolean;
+  job_title: boolean;
+  manager_name: boolean;
+  manager_email: boolean;
+  nationality: boolean;
+  main_tech: boolean;
+  phone_number: boolean;
+  social_links: boolean;
+  bio: boolean;
+  languages: boolean;
+  skills: boolean;
+  workabroad: boolean;
+  experience_level: boolean;
+  projects: boolean;
+  education: boolean;
+  certifications: boolean;
 };

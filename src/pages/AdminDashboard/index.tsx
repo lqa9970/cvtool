@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -16,7 +16,16 @@ import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
 
-const getUsersOptions = (customHook: typeof useGetCollectionWithFields, collectionName: string, fields: string[]) => {
+type DropdownOption = {
+  key: string | undefined;
+  text: string;
+  value: string;
+};
+const getUsersOptions = (
+  customHook: typeof useGetCollectionWithFields,
+  collectionName: string,
+  fields: string[]
+):DropdownOption[] => {
   const { data } = customHook(collectionName, fields);
   const typedData = data as EmployeeUser[];
   return typedData.map((user) => ({
@@ -27,12 +36,25 @@ const getUsersOptions = (customHook: typeof useGetCollectionWithFields, collecti
 };
 
 function AdminDashboard() {
+  const [dataFetched, setDataFetched] = useState(false);
   const [isDeleteActive, setDeleteActive] = useState(false);
   const [chosenCV, setChosenCV] = useState("");
-  const { user } = useUserContext()
+  const { user } = useUserContext();
 
-  const users = getUsersOptions(useGetCollectionWithFields,"test_users1", ["id", "name"]);
-  
+  const users = getUsersOptions(useGetCollectionWithFields, "test_users1", [
+    "id",
+    "name",
+  ]);
+  const [localUsers, setLocalUsers] = useState<DropdownOption[]>(users);
+
+  // useEffect to trigger the deferred state update once the data is fetched
+  useEffect(() => {
+    if (users && users.length > 0 && !dataFetched) {
+      setLocalUsers(users);
+      setDataFetched(true);
+    }
+  }, [users, dataFetched]);
+
   const handleOnSelect = (data: DropdownProps) => {
     const selectedEmployee = data.options?.find(
       (employee) => employee.value === data.value
@@ -40,7 +62,14 @@ function AdminDashboard() {
     setChosenCV(selectedEmployee?.key as string);
   };
   const handleDeleteCV = async () => {
-    return await removeUser(chosenCV);
+    try {
+      await removeUser(chosenCV);
+      setLocalUsers((prevUsers) =>
+        prevUsers.filter((localUser) => localUser.key !== chosenCV)
+      );
+    } catch (error) {
+      console.error("Error deleting CV:", error);
+    }
   };
 
   const panels = [
@@ -123,10 +152,7 @@ function AdminDashboard() {
       <Container className="dashboard">
         <Grid>
           <Grid.Column width={4}>
-            <UserCard
-              name={user?.name}
-              email={user?.email}
-            />
+            <UserCard name={user?.name} email={user?.email} />
           </Grid.Column>
           <Grid.Column width={11}>
             {!isDeleteActive ? (
@@ -148,7 +174,7 @@ function AdminDashboard() {
                   <Grid.Column width={9}>
                     <div id="dropdown">
                       <SearchableSelect
-                        allOptions={users}
+                        allOptions={localUsers}
                         placeholder="Choose CV to delete"
                         onSelect={(data: DropdownProps) => handleOnSelect(data)}
                       />

@@ -20,11 +20,11 @@ function SearchableSelect({
   placeholder,
   multiSelected,
   value,
-  onSelect
+  onSelect,
 }: SearchableSelectProps) {
   const handleChange = (event: SyntheticEvent, data: DropdownProps) => {
     event.preventDefault();
-    onSelect(data); 
+    onSelect(data);
   };
 
   return (

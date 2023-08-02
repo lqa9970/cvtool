@@ -8,6 +8,7 @@ import {
   List,
   Button,
   Popup,
+  Label,
 } from "semantic-ui-react";
 
 import CloudLogo from "../../assets/cloud-logo.png";
@@ -53,7 +54,7 @@ function CVPreview({ employee }: IEmployee) {
                 }))}
               />
             )}
-            
+
             {employee.main_tech && (
               <LabelGroup title="MAIN TECH" labels={["React"]} />
             )}

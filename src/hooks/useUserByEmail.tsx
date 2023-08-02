@@ -9,7 +9,7 @@ import {
 import { ActivityContext } from "../context/ActivityContext";
 import { database } from "../services/firestoreService";
 import {
-  Certifications,
+  Certification,
   Education,
   EmployeeUser,
   IActivity,
@@ -55,7 +55,7 @@ const useUserByEmail = (
             education: user.data().education as Education[],
             bio: user.data().bio as string,
             languages: user.data().languages as LanguagesWithProficiency[],
-            certifications: user.data().certifications as Certifications[],
+            certifications: user.data().certifications as Certification[],
             projects: user.data().projects as ProjectHistory[],
             tech_skills: user.data().tech_skills as UserTechSkill[],
             last_cv_update: user.data().last_cv_update as Timestamp,

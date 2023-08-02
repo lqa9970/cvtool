@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 import { OktaAuth } from "@okta/okta-auth-js";
 import { Security, LoginCallback } from "@okta/okta-react";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -5,6 +6,8 @@ import Navbar from "../components/Navbar/Navbar";
 import { UserProvider } from "../context/UserContext";
 import useAuthorizationOkta from "../hooks/useOktaAuth";
 import AdminDashboard from "../pages/AdminDashboard";
+import CVPdf from "../pages/CVPdf";
+import PdfPreviewWithoutMemo from "../pages/CVPdfPreview";
 import CVPreview from "../pages/CVPreview";
 import CreateCV from "../pages/CVProfile";
 import { Login } from "../pages/login";
@@ -32,6 +35,8 @@ export function AppRoutes() {
           <Route path="/preview" element={<CVPreview employee={null} />} />
           <Route path="/staff" element={<StaffDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/pdf" element={<CVPdf />} />
+          <Route path="/pdfpreview" element={<PdfPreviewWithoutMemo />} />
         </Routes>
       </UserProvider>
     </Security>

@@ -9,18 +9,18 @@ import AccountMenu from "./AccountMenu";
 import "./Navbar.scss";
 
 function Navbar() {
-  const { user } = useUserContext()
-  const defautUserRole = localStorage.getItem('userRole') as string
+  const { user } = useUserContext();
+  const defautUserRole = localStorage.getItem("userRole") as string;
   const [userRole, setUserRole] = useState<string>(defautUserRole);
 
   const handleRoleChange = (role: string) => {
     setUserRole(role);
-    localStorage.setItem('userRole', role);
+    localStorage.setItem("userRole", role);
   };
 
   useEffect(() => {
     if (!userRole) {
-      localStorage.setItem('userRole', user?.roles[0].name as string);
+      localStorage.setItem("userRole", user?.roles[0].name as string);
     }
   }, [userRole, user]);
 
@@ -49,7 +49,11 @@ function Navbar() {
                 talents
               </Link>
             </div>
-            <AccountMenu user={user as EmployeeUser} userRole={userRole} onRoleChange={handleRoleChange}/>
+            <AccountMenu
+              user={user as EmployeeUser}
+              userRole={userRole}
+              onRoleChange={handleRoleChange}
+            />
           </Segment>
         </>
       );
@@ -63,7 +67,11 @@ function Navbar() {
                 <img src={logo} alt="Nordcloud, an IBM company" />
               </Link>
             </div>
-            <AccountMenu user={user as EmployeeUser} userRole={userRole} onRoleChange={handleRoleChange}/>
+            <AccountMenu
+              user={user as EmployeeUser}
+              userRole={userRole}
+              onRoleChange={handleRoleChange}
+            />
           </Segment>
         </>
       );

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -6,10 +7,15 @@ import {
   Accordion,
   Button,
   DropdownProps,
+  Table,
+  Pagination,
+  Input,
+  Icon,
+  Header,
+  Modal,
 } from "semantic-ui-react";
 
 import "./admin.scss";
-import SearchableSelect from "../../components/Dropdown/SearchableSelect";
 import UserCard from "../../components/UserCard/UserCard";
 import { useUserContext } from "../../context/UserContext";
 import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
@@ -20,30 +26,37 @@ type DropdownOption = {
   key: string | undefined;
   text: string;
   value: string;
+  email?: string;
+  roles?: any;
 };
 const getUsersOptions = (
   customHook: typeof useGetCollectionWithFields,
   collectionName: string,
   fields: string[]
-):DropdownOption[] => {
+): DropdownOption[] => {
   const { data } = customHook(collectionName, fields);
+  console.log(data);
+
   const typedData = data as EmployeeUser[];
   return typedData.map((user) => ({
     key: user.id,
     text: user.name,
     value: user.name,
+    email: user.email,
+    roles: user.roles.map((role) => role.name).join(", "),
   }));
 };
 
 function AdminDashboard() {
   const [dataFetched, setDataFetched] = useState(false);
-  const [isDeleteActive, setDeleteActive] = useState(false);
   const [chosenCV, setChosenCV] = useState("");
   const { user } = useUserContext();
 
   const users = getUsersOptions(useGetCollectionWithFields, "test_users1", [
     "id",
     "name",
+    "email",
+    "roles",
   ]);
   const [localUsers, setLocalUsers] = useState<DropdownOption[]>(users);
 
@@ -55,97 +68,70 @@ function AdminDashboard() {
     }
   }, [users, dataFetched]);
 
-  const handleOnSelect = (data: DropdownProps) => {
-    const selectedEmployee = data.options?.find(
-      (employee) => employee.value === data.value
-    );
-    setChosenCV(selectedEmployee?.key as string);
+
+  const [activePage, setActivePage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState<any | null>(null);
+  const itemsPerPage = 20;
+
+  const handlePaginationChange = (
+    e: React.SyntheticEvent,
+    { activePage }: any
+  ) => {
+    setActivePage(activePage);
   };
-  const handleDeleteCV = async () => {
+  const handleClick = (user: any) => {
+    if (selectedUser && selectedUser.key === user.key) {
+      setSelectedUser(null);
+      setChosenCV(selectedUser?.key as string);
+    } else {
+      setSelectedUser(user);
+      setChosenCV(selectedUser?.key as string);
+    }
+  };
+
+  const modifyUser = (user: any) => {
+    // add modify user functionality
+    alert(`Modifying ${user.value}`);
+  };
+
+  const deleteUser = (user: any) => {
+    setSelectedUser(user);
+    setConfirmDeleteOpen(true);
+  };
+
+  const addPermissions = (user: any) => {
+    // add addPermissions functionality
+    alert(`Adding permissions for ${user.value}`);
+  };
+
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
+  const handleConfirmDelete = async () => {
     try {
-      await removeUser(chosenCV);
+      await removeUser(selectedUser.key);
       setLocalUsers((prevUsers) =>
-        prevUsers.filter((localUser) => localUser.key !== chosenCV)
+        prevUsers.filter((localUser) => localUser.key !== selectedUser.key)
       );
     } catch (error) {
       console.error("Error deleting CV:", error);
     }
+    setConfirmDeleteOpen(false);
   };
 
-  const panels = [
-    {
-      key: "cv",
-      title: "CV",
-      content: {
-        content: (
-          <>
-            <div id="staff-cv">
-              <Link
-                to=""
-                onClick={() => {
-                  setDeleteActive(true);
-                }}
-              >
-                <Button id="staff-button">Delete CV</Button>
-              </Link>
-              <Link to="/cv">
-                <Button id="staff-button">Modify CV</Button>
-              </Link>
-            </div>
-          </>
-        ),
-      },
-    },
-    {
-      key: "management",
-      title: "Management",
-      content: {
-        content: (
-          <>
-            <Link to="/search">
-              <Button id="staff-button">Search Employee</Button>
-            </Link>
-            <Link to="/search">
-              <Button id="staff-button">Search Employee</Button>
-            </Link>
-          </>
-        ),
-      },
-    },
-    {
-      key: "access-control",
-      title: "Access Control",
-      content: {
-        content: (
-          <>
-            <Link to="/search">
-              <Button id="staff-button">Permissions</Button>
-            </Link>
-          </>
-        ),
-      },
-    },
-  ];
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const panels2 = [
-    {
-      key: "cv",
-      title: "CV",
-      content: {
-        content: (
-          <div id="staff-cv">
-            <Grid.Row>
-              <Grid.Column width={8} floated="right">
-                <Link to="">
-                  <Button id="staff-button">Delete CV</Button>
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-          </div>
-        ),
-      },
-    },
-  ];
+  const filteredUsers = users.filter((user) =>
+    user.value?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const paginatedUsers = filteredUsers.slice(
+    (activePage - 1) * itemsPerPage,
+    activePage * itemsPerPage
+  );
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [searchTerm]);
 
   return (
     <>
@@ -155,59 +141,91 @@ function AdminDashboard() {
             <UserCard name={user?.name} email={user?.email} />
           </Grid.Column>
           <Grid.Column width={11}>
-            {!isDeleteActive ? (
-              <Accordion
-                defaultActiveIndex={[0, 1, 2]}
-                panels={panels}
-                exclusive={false}
+            <div className="search-input">
+              <Input
+                icon={<Icon name="search" />}
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
-            ) : (
-              <>
-                <Grid.Row>
-                  <Accordion
-                    defaultActiveIndex={[0]}
-                    panels={panels2}
-                    exclusive={false}
-                  />
-                </Grid.Row>
-                <Grid columns={2}>
-                  <Grid.Column width={9}>
-                    <div id="dropdown">
-                      <SearchableSelect
-                        allOptions={localUsers}
-                        placeholder="Choose CV to delete"
-                        onSelect={(data: DropdownProps) => handleOnSelect(data)}
-                      />
-                    </div>
-                  </Grid.Column>
-                  <Grid.Column width={6}>
-                    {chosenCV.length > 0 && (
-                      <Button
-                        id="delete-button"
-                        content="Delete"
-                        icon="trash"
-                        color="google plus"
-                        labelPosition="left"
-                        floated="right"
-                        onClick={handleDeleteCV}
-                      />
+            </div>
+            <Header as="h3">Total No. of Talents: {users.length}</Header>
+            <i>( Click on the row to perform action)</i>
+            <Table celled className="ui table">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell>Permissions</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                {paginatedUsers.map((user) => (
+                  <>
+                    <Table.Row
+                      className="pointer-on-hover"
+                      key={user.key}
+                      onClick={() => handleClick(user)}
+                    >
+                      <Table.Cell>{user.value}</Table.Cell>
+                      <Table.Cell>{user.email}</Table.Cell>
+                      <Table.Cell>{user.roles}</Table.Cell>
+                    </Table.Row>
+
+                    {selectedUser && selectedUser.key === user.key && (
+                      <Table.Row>
+                        <Table.Cell colSpan="3">
+                          <Button
+                            id="edu-add-button"
+                            onClick={() => modifyUser(selectedUser)}
+                          >
+                            Modify CV
+                          </Button>
+                          <Button
+                            id="edu-add-button"
+                            onClick={() => deleteUser(selectedUser)}
+                          >
+                            Delete CV
+                          </Button>
+                          <Button
+                            id="edu-add-button"
+                            onClick={() => addPermissions(selectedUser)}
+                          >
+                            Add Permissions
+                          </Button>
+                        </Table.Cell>
+                      </Table.Row>
                     )}
-                  </Grid.Column>
-                </Grid>
-                <Grid.Row>
-                  <Button
-                    id="back-button"
-                    content="Home"
-                    icon="arrow left"
-                    labelPosition="left"
-                    floated="left"
-                    onClick={() => setDeleteActive(false)}
-                  />
-                </Grid.Row>
-              </>
-            )}
+                  </>
+                ))}
+              </Table.Body>
+            </Table>
+            <div className="pagination-container">
+              <Pagination
+                defaultActivePage={1}
+                totalPages={Math.ceil(filteredUsers.length / itemsPerPage)}
+                onPageChange={handlePaginationChange}
+              />
+            </div>
           </Grid.Column>
         </Grid>
+        <Modal
+          size="tiny"
+          open={confirmDeleteOpen}
+          onClose={() => setConfirmDeleteOpen(false)}
+        >
+          <Modal.Header>Delete User</Modal.Header>
+          <Modal.Content>
+            <p>Are you sure you want to delete {selectedUser?.name}?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={() => setConfirmDeleteOpen(false)}>No</Button>
+            <Button id="edu-add-button" onClick={handleConfirmDelete}>
+              Yes
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Container>
     </>
   );

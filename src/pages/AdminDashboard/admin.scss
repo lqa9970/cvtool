@@ -10,3 +10,68 @@
 #back-button {
   margin-top: 1em;
 }
+
+.pointer-on-hover {
+  cursor: pointer;
+}
+
+.ui.table {
+  border-collapse: collapse !important; // Remove spacing between cells
+
+  .pointer-on-hover {
+    cursor: pointer;
+  }
+
+  th, td {
+    border: none !important; // Hide borders
+    padding: 10px !important; // Add padding to cells
+  }
+
+  thead {
+    th {
+      // Styling for header cells (e.g., similar to "edu-add-button" style)
+      background-color: rgb(22,22,50) !important; // Grey background
+      color: #fff !important; // Dark text
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+    }
+  }
+
+  tbody {
+    tr {
+      // Alternating grey background for rows
+      &:nth-child(odd) {
+        background-color: #f9f9f9 !important; // Light grey for odd rows
+      }
+      &:nth-child(even) {
+        background-color: #f0f0f0 !important; // Darker grey for even rows
+      }
+    }
+  }
+}
+
+.search-input {
+  display: flex;
+  justify-content: flex-start; // Center the input
+  margin-bottom: 20px; // Add some space below the input
+
+  .ui.input {
+    border: 1px solid rgb(22,22,50) !important; // Primary color border
+    border-radius: 3px; // Slightly rounded corners
+
+    input {
+      padding: 10px !important; // More padding for a larger input
+      color: rgb(22,22,50) !important; // Primary color text
+    }
+
+    i.icon {
+      color: rgb(22,22,50) !important; // Primary color for icon
+    }
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center; // Center the pagination component
+  margin-top: 20px; // Add some space above the pagination
+}

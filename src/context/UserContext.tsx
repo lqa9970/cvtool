@@ -23,7 +23,9 @@ function UserProvider({ children }: UserProviderProps) {
   const [user] = useUserByEmail(userEmail || "");
   const userContextValue = useMemo(() => ({ user }), [user]);
   return (
-    <UserContext.Provider value={userContextValue}>{children}</UserContext.Provider>
+    <UserContext.Provider value={userContextValue}>
+      {children}
+    </UserContext.Provider>
   );
 }
 

@@ -6,11 +6,10 @@ import LastActivities from "../../components/LastActivities/LastActivities";
 import UserCard from "../../components/UserCard/UserCard";
 import { useUserContext } from "../../context/UserContext";
 
-
 import "./index.scss";
 
 function Dashboard() {
-  const { user } = useUserContext()
+  const { user } = useUserContext();
 
   if (!user) {
     return null;
@@ -20,10 +19,7 @@ function Dashboard() {
     <Container id="dashboard">
       <Grid>
         <Grid.Column width={4}>
-          <UserCard
-            name={user.name}
-            email={user.email}
-          />
+          <UserCard name={user.name} email={user.email} />
         </Grid.Column>
         <GridColumn width={8}>
           <Grid>

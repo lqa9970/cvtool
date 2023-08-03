@@ -18,6 +18,7 @@ import {
   Role,
   SocialLinks,
   UserTechSkill,
+  Skill,
 } from "../types/types";
 
 const useUserByEmail = (
@@ -58,6 +59,7 @@ const useUserByEmail = (
             certifications: user.data().certifications as Certification[],
             projects: user.data().projects as ProjectHistory[],
             tech_skills: user.data().tech_skills as UserTechSkill[],
+            soft_skills: user.data().soft_skills as Skill[],
             last_cv_update: user.data().last_cv_update as Timestamp,
             activity: user.data().activity as IActivity[],
           });

@@ -29,19 +29,19 @@ Font.register({
   family: "Rubik",
   fonts: [
     {
-      src: "http://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1UE80V4bVkA.ttf",
+      src: "https://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1UE80V4bVkA.ttf",
       fontWeight: 300,
     },
     {
-      src: "http://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-B4i1UE80V4bVkA.ttf",
+      src: "https://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-B4i1UE80V4bVkA.ttf",
       fontWeight: 400,
     },
     {
-      src: "http://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-NYi1UE80V4bVkA.ttf",
+      src: "https://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-NYi1UE80V4bVkA.ttf",
       fontWeight: 500,
     },
     {
-      src: "http://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-4I-1UE80V4bVkA.ttf",
+      src: "https://fonts.gstatic.com/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-4I-1UE80V4bVkA.ttf",
       fontWeight: 700,
     },
   ],
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     width: 100,
     padding: 10,
     borderRadius: 50,
-    marginLeft: 30,
     backgroundColor: "white",
   },
   h2: {
@@ -338,7 +337,6 @@ export function MyDocument(documentProps: PdfPreviewProps) {
 function PdfPreviewWithoutMemo() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { state }: PdfLocationProps = useLocation();
-  console.log(state.options);
   if (state.talent === null) {
     return <p> Something went wrong. We have our best monkeys on it!</p>;
   }

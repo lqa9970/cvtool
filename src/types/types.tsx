@@ -134,6 +134,15 @@ export type Filters = {
   nationality: string[];
 };
 export type PdfOptions = {
+  singles: PdfSingles;
+  languages: boolean[];
+  tech_skills: boolean[];
+  projects: boolean[];
+  education: boolean[];
+  certifications: boolean[];
+};
+
+export type PdfSingles = {
   name: boolean;
   email: boolean;
   location: boolean;
@@ -145,11 +154,6 @@ export type PdfOptions = {
   phone_number: boolean;
   social_links: boolean;
   bio: boolean;
-  languages: boolean;
-  skills: boolean;
   workabroad: boolean;
   experience_level: boolean;
-  projects: boolean;
-  education: boolean;
-  certifications: boolean;
 };

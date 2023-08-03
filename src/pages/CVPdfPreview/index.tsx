@@ -178,9 +178,11 @@ export function MyDocument(documentProps: PdfPreviewProps) {
             <View style={styles.leftColumn}>
               <Image style={styles.image} src={ninja} />
               <View style={styles.section}>
-                {options.name && <Text style={styles.h2}>{talent.name}</Text>}
+                {options.singles.name && (
+                  <Text style={styles.h2}>{talent.name}</Text>
+                )}
                 <View style={styles.section}>
-                  {options.phone_number && (
+                  {options.singles.phone_number && (
                     <>
                       <Text style={styles.h3}>Phone</Text>
                       <Text style={styles.textPadding}>
@@ -188,85 +190,107 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                       </Text>
                     </>
                   )}
-                  {options.email && (
+                  {options.singles.email && (
                     <>
                       <Text style={styles.h3}>Email</Text>
                       <Text style={styles.textPadding}>{talent.email}</Text>
                     </>
                   )}
-                  {options.location && (
+                  {options.singles.location && (
                     <>
                       <Text style={styles.h3}>Location</Text>
                       <Text style={styles.textPadding}>{talent.location}</Text>
                     </>
                   )}
                 </View>
-                <View style={styles.section}>
-                  <Text style={styles.h2}>
-                    Skills, <Text style={styles.redText}>Competences</Text>
-                  </Text>
+                {options.tech_skills.includes(true) && (
                   <View style={styles.section}>
-                    {talent.tech_skills?.map((skill) => {
-                      return (
-                        <Text key={skill.id} style={styles.textPadding}>
-                          {skill.name}
-                        </Text>
-                      );
-                    })}
+                    <Text style={styles.h2}>
+                      Skills, <Text style={styles.redText}>Competences</Text>
+                    </Text>
+                    <View style={styles.section}>
+                      {talent.tech_skills?.map((skill, index) => {
+                        if (options.tech_skills[index]) {
+                          return (
+                            <Text key={skill.id} style={styles.textPadding}>
+                              {skill.name}
+                            </Text>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </View>
                   </View>
-                </View>
+                )}
                 {/* <View style={styles.section}>
                   <Text style={styles.h2}>Soft Skills</Text>
-                </View>
-                <View style={styles.section}>
-                  <Text style={styles.h2}>Certifications</Text>
-                  {talent.certifications?.map((certification, index) => {
-                    return (
-                      <View
-                        key={certification.name + index.toString()}
-                        style={styles.section}
-                      >
-                        <Text style={styles.textPadding}>
-                          {certification.name}
-                        </Text>
-                        <Text style={styles.textPadding}>
-                          {certification.validFrom} - {certification.validTo}
-                        </Text>
-                      </View>
-                    );
-                  })}
                 </View> */}
-                <View style={styles.section}>
-                  <Text style={styles.h2}>Education</Text>
-                  {talent.education?.map((education) => {
-                    return (
-                      <View key={education.id} style={styles.section}>
-                        <Text style={styles.paddedH3}>{education.degree}</Text>
-                        <Text style={styles.textPadding}>
-                          {education.school}
-                        </Text>
-                        <Text style={styles.textPadding}>
-                          {education.endMonthYear.slice(-4)}
-                        </Text>
-                      </View>
-                    );
-                  })}
-                </View>
-                <View style={styles.section}>
-                  <Text style={styles.h2}>Languages</Text>
+                {options.certifications.includes(true) && (
                   <View style={styles.section}>
-                    {talent.languages?.map((language, index) => {
+                    <Text style={styles.h2}>Certifications</Text>
+                    {talent.certifications?.map((certification, index) => {
                       return (
-                        <Text
-                          key={language.name + index.toString()}
-                          style={styles.textPadding}
+                        <View
+                          key={certification.name + index.toString()}
+                          style={styles.section}
                         >
-                          {language.name} - {language.proficiency}
-                        </Text>
+                          <Text style={styles.textPadding}>
+                            {certification.name}
+                          </Text>
+                          <Text style={styles.textPadding}>
+                            {certification.validFrom} - {certification.validTo}
+                          </Text>
+                        </View>
                       );
                     })}
                   </View>
-                </View>
+                )}
+                {options.education.includes(true) && (
+                  <View style={styles.section}>
+                    <Text style={styles.h2}>Education</Text>
+                    {talent.education?.map((education, index) => {
+                      if (options.education[index]) {
+                        return (
+                          <View key={education.id} style={styles.section}>
+                            <Text style={styles.paddedH3}>
+                              {education.degree}
+                            </Text>
+                            <Text style={styles.textPadding}>
+                              {education.school}
+                            </Text>
+                            <Text style={styles.textPadding}>
+                              {education.endMonthYear.slice(-4)}
+                            </Text>
+                          </View>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
+                  </View>
+                )}
+                {options.languages.includes(true) && (
+                  <View style={styles.section}>
+                    <Text style={styles.h2}>Languages</Text>
+                    <View style={styles.section}>
+                      {talent.languages?.map((language, index) => {
+                        if (options.languages[index]) {
+                          return (
+                            <Text
+                              key={language.name + index.toString()}
+                              style={styles.textPadding}
+                            >
+                              {language.name} - {language.proficiency}
+                            </Text>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </View>
+                  </View>
+                )}
               </View>
             </View>
 
@@ -279,22 +303,26 @@ export function MyDocument(documentProps: PdfPreviewProps) {
 
               <View style={styles.horizontalLine} />
               <View style={styles.verticalLine}>
-                {talent.projects?.map((project) => {
-                  return (
-                    <View key={project.id} style={styles.section}>
-                      <View fixed style={styles.experienceSection} />
-                      <Text style={styles.textPaddingRight}>
-                        {project.startMonthYear} - {project.endMonthYear}
-                      </Text>
-                      <Text style={styles.paddedH4Right}>
-                        {project.projectTitle}
-                      </Text>
-                      <Text style={styles.paddedH3Right}>{project.role}</Text>
-                      <Text style={styles.textPaddingRight}>
-                        {project.projectDescription}
-                      </Text>
-                    </View>
-                  );
+                {talent.projects?.map((project, index) => {
+                  if (options.projects[index]) {
+                    return (
+                      <View key={project.id} style={styles.section}>
+                        <View fixed style={styles.experienceSection} />
+                        <Text style={styles.textPaddingRight}>
+                          {project.startMonthYear} - {project.endMonthYear}
+                        </Text>
+                        <Text style={styles.paddedH4Right}>
+                          {project.projectTitle}
+                        </Text>
+                        <Text style={styles.paddedH3Right}>{project.role}</Text>
+                        <Text style={styles.textPaddingRight}>
+                          {project.projectDescription}
+                        </Text>
+                      </View>
+                    );
+                  } else {
+                    return null;
+                  }
                 })}
               </View>
 

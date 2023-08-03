@@ -9,7 +9,7 @@ import { EmployeeUser } from "../../types/types";
 import "./index.scss";
 
 function SearchDashboard() {
-  const { user } = useUserContext()
+  const { user } = useUserContext();
 
   const [filterResults, setFilterResults] = useState<EmployeeUser[]>([]);
   const [searchResults, setSearchResults] = useState<EmployeeUser[]>([]);

@@ -124,6 +124,7 @@ function CreateCV() {
                 <SkillComponent
                   userId={user?.id}
                   tech_skills={techSkills}
+                  soft_skills={user?.soft_skills || []}
                 />
               </Grid.Column>
             </Grid.Row>

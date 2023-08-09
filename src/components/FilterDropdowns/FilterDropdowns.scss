@@ -1,6 +1,14 @@
-@import '../../stylesheet/mixins';
+@import "../../stylesheet/mixins";
 
 .header-wrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+#reset-button {
+  cursor: pointer;
+  color: $nc-dark-blue;
+  background-color: $nc-gray;
+  padding: 0.5em 0.5em;
+  border-radius: 5px;
 }

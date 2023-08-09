@@ -13,3 +13,14 @@
   font-weight: weight(medium);
   font-family: $font;
 }
+
+body {
+  font-family: $font !important;
+}
+
+.ui {
+  font-family: $font !important;
+  .header {
+    font-weight: weight(thick) !important;
+  }
+}

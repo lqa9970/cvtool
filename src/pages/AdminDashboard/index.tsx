@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
-import { Link } from "react-router-dom";
 import {
   Container,
   Grid,
-  Accordion,
   Button,
-  DropdownProps,
   Table,
   Pagination,
+  PaginationProps,
   Input,
   Icon,
   Header,
@@ -22,21 +19,19 @@ import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
 import { EmployeeUser } from "../../types/types";
 
-type DropdownOption = {
+type UserTableItem = {
   key: string | undefined;
   text: string;
   value: string;
   email?: string;
-  roles?: any;
+  roles?: string;
 };
 const getUsersOptions = (
   customHook: typeof useGetCollectionWithFields,
   collectionName: string,
   fields: string[]
-): DropdownOption[] => {
+): UserTableItem[] => {
   const { data } = customHook(collectionName, fields);
-  console.log(data);
-
   const typedData = data as EmployeeUser[];
   return typedData.map((user) => ({
     key: user.id,
@@ -48,17 +43,22 @@ const getUsersOptions = (
 };
 
 function AdminDashboard() {
-  const [dataFetched, setDataFetched] = useState(false);
-  const [chosenCV, setChosenCV] = useState("");
-  const { user } = useUserContext();
+  const { user: loggedInUser } = useUserContext();
 
-  const users = getUsersOptions(useGetCollectionWithFields, "test_users1", [
-    "id",
-    "name",
-    "email",
-    "roles",
-  ]);
-  const [localUsers, setLocalUsers] = useState<DropdownOption[]>(users);
+  const users: UserTableItem[] = getUsersOptions(
+    useGetCollectionWithFields,
+    "test_users1",
+    ["id", "name", "email", "roles"]
+  );
+
+  const [localUsers, setLocalUsers] = useState(users);
+  const [dataFetched, setDataFetched] = useState(false);
+  const [activePage, setActivePage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState<UserTableItem | null>(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const itemsPerPage = 20;
 
   // useEffect to trigger the deferred state update once the data is fetched
   useEffect(() => {
@@ -68,49 +68,47 @@ function AdminDashboard() {
     }
   }, [users, dataFetched]);
 
-
-  const [activePage, setActivePage] = useState(1);
-  const [selectedUser, setSelectedUser] = useState<any | null>(null);
-  const itemsPerPage = 20;
+  useEffect(() => {
+    setActivePage(1);
+  }, [searchTerm]);
 
   const handlePaginationChange = (
-    e: React.SyntheticEvent,
-    { activePage }: any
+    _event: React.MouseEvent<HTMLAnchorElement>,
+    data: PaginationProps
   ) => {
-    setActivePage(activePage);
+    setActivePage(data.activePage as number);
   };
-  const handleClick = (user: any) => {
-    if (selectedUser && selectedUser.key === user.key) {
+
+  const handleClick = (targetUser: UserTableItem) => {
+    if (selectedUser && selectedUser.key === targetUser.key) {
       setSelectedUser(null);
-      setChosenCV(selectedUser?.key as string);
     } else {
-      setSelectedUser(user);
-      setChosenCV(selectedUser?.key as string);
+      setSelectedUser(targetUser);
     }
   };
 
-  const modifyUser = (user: any) => {
+  const modifyUser = (targetUser: UserTableItem) => {
     // add modify user functionality
-    alert(`Modifying ${user.value}`);
+    // eslint-disable-next-line no-alert
+    alert(`Modifying ${JSON.stringify(targetUser)}`);
   };
 
-  const deleteUser = (user: any) => {
-    setSelectedUser(user);
+  const deleteUser = (targetUser: UserTableItem) => {
+    setSelectedUser(targetUser);
     setConfirmDeleteOpen(true);
   };
 
-  const addPermissions = (user: any) => {
+  const addPermissions = (targetUser: UserTableItem) => {
     // add addPermissions functionality
-    alert(`Adding permissions for ${user.value}`);
+    // eslint-disable-next-line no-alert
+    alert(`Adding permissions for ${targetUser.value}`);
   };
-
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const handleConfirmDelete = async () => {
     try {
-      await removeUser(selectedUser.key);
+      await removeUser(selectedUser?.key as string);
       setLocalUsers((prevUsers) =>
-        prevUsers.filter((localUser) => localUser.key !== selectedUser.key)
+        prevUsers.filter((localUser) => localUser.key !== selectedUser?.key)
       );
     } catch (error) {
       console.error("Error deleting CV:", error);
@@ -118,9 +116,7 @@ function AdminDashboard() {
     setConfirmDeleteOpen(false);
   };
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = localUsers.filter((user) =>
     user.value?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -129,16 +125,12 @@ function AdminDashboard() {
     activePage * itemsPerPage
   );
 
-  useEffect(() => {
-    setActivePage(1);
-  }, [searchTerm]);
-
   return (
     <>
       <Container className="dashboard">
         <Grid>
           <Grid.Column width={4}>
-            <UserCard name={user?.name} email={user?.email} />
+            <UserCard name={loggedInUser?.name} email={loggedInUser?.email} />
           </Grid.Column>
           <Grid.Column width={11}>
             <div className="search-input">
@@ -164,8 +156,8 @@ function AdminDashboard() {
                 {paginatedUsers.map((user) => (
                   <>
                     <Table.Row
-                      className="pointer-on-hover"
                       key={user.key}
+                      className="pointer-on-hover"
                       onClick={() => handleClick(user)}
                     >
                       <Table.Cell>{user.value}</Table.Cell>
@@ -210,24 +202,42 @@ function AdminDashboard() {
             </div>
           </Grid.Column>
         </Grid>
-        <Modal
-          size="tiny"
+        <DeleteUserModal
           open={confirmDeleteOpen}
+          user={selectedUser}
           onClose={() => setConfirmDeleteOpen(false)}
-        >
-          <Modal.Header>Delete User</Modal.Header>
-          <Modal.Content>
-            <p>Are you sure you want to delete {selectedUser?.name}?</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={() => setConfirmDeleteOpen(false)}>No</Button>
-            <Button id="edu-add-button" onClick={handleConfirmDelete}>
-              Yes
-            </Button>
-          </Modal.Actions>
-        </Modal>
+          onConfirm={handleConfirmDelete}
+        />
       </Container>
     </>
+  );
+}
+
+// Delete User Modal component
+function DeleteUserModal({
+  open,
+  onClose,
+  onConfirm,
+  user,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => Promise<void>;
+  user: UserTableItem | null;
+}) {
+  return (
+    <Modal size="tiny" open={open} onClose={onClose}>
+      <Modal.Header>Delete User</Modal.Header>
+      <Modal.Content>
+        <p>Are you sure you want to remove user <strong>{user?.value}</strong>?</p>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={onClose}>No</Button>
+        <Button id="edu-add-button" onClick={onConfirm}>
+          Yes
+        </Button>
+      </Modal.Actions>
+    </Modal>
   );
 }
 

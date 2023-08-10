@@ -13,19 +13,13 @@ function DisplayMatchCard({ results }: { results: EmployeeUser[] }) {
     showingTo,
   } = usePagination(results);
 
-  console.log("results", results);
-
   return (
     <Grid divided="vertically" id="display">
       {!showingFrom && !showingTo ? (
-        <Header as="h3">
-          {/* It's an index so + 1 */}
-          No talent found
-        </Header>
+        <Header as="h3">No talent found</Header>
       ) : (
         <>
           <Header as="h3">
-            {/* It's an index so + 1 */}
             Showing {showingFrom + 1} to {showingTo} of {results.length} talents
           </Header>
           <Grid.Row columns={3}>

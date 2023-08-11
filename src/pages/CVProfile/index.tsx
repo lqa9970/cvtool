@@ -99,7 +99,6 @@ function CreateCV() {
               <Grid.Column>
                 <Header dividing as="h2">
                   <FontAwesomeIcon icon={faLanguage} size="xs" /> Language
-                  Skills
                 </Header>
                 <LanguagesSelect
                   profileLanguages={user?.languages}

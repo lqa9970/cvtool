@@ -1,24 +1,26 @@
+/* eslint-disable max-lines-per-function */
 import { Field, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Grid, Header, Label } from "semantic-ui-react";
-import useUserByEmail from "../../hooks/useUserByEmail";
-import { PdfOptions } from "../../types/types";
+import { EmployeeUser, PdfOptions } from "../../types/types";
 import "./index.scss";
+
+type LocationProps = {
+  state: EmployeeUser;
+};
 
 const options: PdfOptions = {
   name: true,
   email: true,
   location: false,
   job_title: false,
-  manager_name: true,
-  manager_email: true,
-  nationality: true,
   main_tech: false,
   phone_number: true,
   social_links: false,
   bio: false,
   workabroad: false,
   experience_level: false,
+  avatar: false,
   languages: [],
   tech_skills: [],
   projects: [],
@@ -28,7 +30,9 @@ const options: PdfOptions = {
 };
 
 function CVPdf() {
-  const talent = useUserByEmail("markus.helminen@nordcloud.com");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { state }: LocationProps = useLocation();
+  const talent = state;
 
   return (
     <Container>
@@ -64,13 +68,17 @@ function CVPdf() {
                         <Field type="checkbox" name="location" />
                         <Label htmlFor="email">Location</Label>
                       </Grid.Column>
+                      <Grid.Column>
+                        <Field type="checkbox" name="avatar" />
+                        <Label htmlFor="avatar">Avatar</Label>
+                      </Grid.Column>
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.tech_skills?.length &&
-                        talent[0].tech_skills.length > 0 && (
+                      {talent.tech_skills?.length &&
+                        talent.tech_skills.length > 0 && (
                           <>
                             <Header as="h4">Tech skills</Header>
-                            {talent[0]?.tech_skills?.map((skill) => {
+                            {talent.tech_skills?.map((skill) => {
                               return (
                                 <Grid.Column key={skill.id}>
                                   <Field
@@ -88,11 +96,11 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.soft_skills?.length &&
-                        talent[0].soft_skills.length > 0 && (
+                      {talent.soft_skills?.length &&
+                        talent.soft_skills.length > 0 && (
                           <>
                             <Header as="h4">Soft skills</Header>
-                            {talent[0]?.soft_skills?.map((skill) => {
+                            {talent.soft_skills?.map((skill) => {
                               return (
                                 <Grid.Column key={skill.id}>
                                   <Field
@@ -110,11 +118,11 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.certifications?.length &&
-                        talent[0].certifications.length > 0 && (
+                      {talent.certifications?.length &&
+                        talent.certifications.length > 0 && (
                           <>
                             <Header as="h4">Certfications</Header>
-                            {talent[0]?.certifications?.map((certification) => {
+                            {talent.certifications?.map((certification) => {
                               return (
                                 <Grid.Column key={certification.id}>
                                   <Field
@@ -132,11 +140,11 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.education?.length &&
-                        talent[0].education.length > 0 && (
+                      {talent.education?.length &&
+                        talent.education.length > 0 && (
                           <>
                             <Header as="h4">Education</Header>
-                            {talent[0]?.education?.map((education) => {
+                            {talent.education?.map((education) => {
                               return (
                                 <Grid.Column key={education.id}>
                                   <Field
@@ -154,11 +162,11 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.languages?.length &&
-                        talent[0].languages.length > 0 && (
+                      {talent.languages?.length &&
+                        talent.languages.length > 0 && (
                           <>
                             <Header as="h4">Languages</Header>
-                            {talent[0]?.languages?.map((language) => {
+                            {talent.languages?.map((language) => {
                               return (
                                 <Grid.Column key={language.name}>
                                   <Field
@@ -176,11 +184,11 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                     <Grid.Column>
-                      {talent[0]?.projects?.length &&
-                        talent[0].projects.length > 0 && (
+                      {talent.projects?.length &&
+                        talent.projects.length > 0 && (
                           <>
                             <Header as="h4">Experience</Header>
-                            {talent[0]?.projects?.map((project) => {
+                            {talent.projects?.map((project) => {
                               return (
                                 <Grid.Column key={project.id}>
                                   <Field
@@ -204,7 +212,7 @@ function CVPdf() {
                     <Grid.Column>
                       <Link
                         to="/pdfpreview"
-                        state={{ options: values, talent: talent[0] }}
+                        state={{ options: values, talent }}
                       >
                         <Button type="submit">Preview the pdf</Button>
                       </Link>

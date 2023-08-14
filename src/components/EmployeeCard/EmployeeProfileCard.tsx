@@ -39,8 +39,8 @@ function EmployeeProfileCard({ employee }: IEmployee): JSX.Element {
         <Feed>
           <Feed.Content>
             <Card.Header as="h4">Tech Stack</Card.Header>
-            {employee.tech_skills?.map((skill: UserTechSkill, index) => (
-              <div key={index}>
+            {employee.tech_skills?.map((skill: UserTechSkill) => (
+              <div key={skill.id}>
                 <span>{skill.name}</span>
               </div>
             ))}

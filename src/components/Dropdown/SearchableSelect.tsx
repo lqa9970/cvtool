@@ -1,6 +1,8 @@
 import { SyntheticEvent } from "react";
 import { Dropdown, DropdownProps } from "semantic-ui-react";
 
+import "./SearchableSelect.scss";
+
 type SearchableSelectProps = {
   allOptions: Option[];
   placeholder: string;
@@ -36,6 +38,7 @@ function SearchableSelect({
       multiple={multiSelected}
       options={allOptions}
       value={value}
+      id="search-dropdown"
       onChange={handleChange}
     />
   );

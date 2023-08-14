@@ -134,15 +134,12 @@ export type Filters = {
   nationality: string[];
 };
 export type PdfOptions = {
-  singles: PdfSingles;
-  languages: boolean[];
-  tech_skills: boolean[];
-  projects: boolean[];
-  education: boolean[];
-  certifications: boolean[];
-};
-
-export type PdfSingles = {
+  languages: string[];
+  tech_skills: string[];
+  projects: string[];
+  education: string[];
+  certifications: string[];
+  soft_skills: string[];
   name: boolean;
   email: boolean;
   location: boolean;

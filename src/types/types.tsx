@@ -134,15 +134,12 @@ export type Filters = {
   nationality: string[];
 };
 export type PdfOptions = {
-  singles: PdfSingles;
-  languages: boolean[];
-  tech_skills: boolean[];
-  projects: boolean[];
-  education: boolean[];
-  certifications: boolean[];
-};
-
-export type PdfSingles = {
+  languages: string[];
+  tech_skills: string[];
+  projects: string[];
+  education: string[];
+  certifications: string[];
+  soft_skills: string[];
   name: boolean;
   email: boolean;
   location: boolean;
@@ -156,4 +153,12 @@ export type PdfSingles = {
   bio: boolean;
   workabroad: boolean;
   experience_level: boolean;
+};
+
+export type UserTableItem = {
+  key: string | undefined;
+  text: string;
+  value: string;
+  email?: string;
+  roles?: string;
 };

@@ -9,7 +9,6 @@ import {
   Input,
   Icon,
   Header,
-  Modal,
 } from "semantic-ui-react";
 
 import "./admin.scss";
@@ -17,15 +16,9 @@ import UserCard from "../../components/UserCard/UserCard";
 import { useUserContext } from "../../context/UserContext";
 import useGetCollectionWithFields from "../../hooks/useGetCollectionWithFields";
 import removeUser from "../../hooks/useRemoveUser";
-import { EmployeeUser } from "../../types/types";
+import { EmployeeUser, UserTableItem  } from "../../types/types";
+import DeleteUserModal from "./DeleteUserModal";
 
-type UserTableItem = {
-  key: string | undefined;
-  text: string;
-  value: string;
-  email?: string;
-  roles?: string;
-};
 const getUsersOptions = (
   customHook: typeof useGetCollectionWithFields,
   collectionName: string,
@@ -141,7 +134,7 @@ function AdminDashboard() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Header as="h3">Total No. of Talents: {users.length}</Header>
+            <Header as="h3">Total No. of Talents: {filteredUsers.length}</Header>
             <i>( Click on the row to perform action)</i>
             <Table celled className="ui table">
               <Table.Header>
@@ -210,34 +203,6 @@ function AdminDashboard() {
         />
       </Container>
     </>
-  );
-}
-
-// Delete User Modal component
-function DeleteUserModal({
-  open,
-  onClose,
-  onConfirm,
-  user,
-}: {
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => Promise<void>;
-  user: UserTableItem | null;
-}) {
-  return (
-    <Modal size="tiny" open={open} onClose={onClose}>
-      <Modal.Header>Delete User</Modal.Header>
-      <Modal.Content>
-        <p>Are you sure you want to remove user <strong>{user?.value}</strong>?</p>
-      </Modal.Content>
-      <Modal.Actions>
-        <Button onClick={onClose}>No</Button>
-        <Button id="edu-add-button" onClick={onConfirm}>
-          Yes
-        </Button>
-      </Modal.Actions>
-    </Modal>
   );
 }
 

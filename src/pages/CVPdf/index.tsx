@@ -1,128 +1,34 @@
-/* eslint-disable max-lines-per-function */
-import { ChangeEvent, useState } from "react";
+import { Field, Formik } from "formik";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Grid,
-  Header,
-  Input,
-  InputOnChangeData,
-  Label,
-} from "semantic-ui-react";
+import { Button, Container, Grid, Header, Label } from "semantic-ui-react";
 import useUserByEmail from "../../hooks/useUserByEmail";
-import { EmployeeUser, PdfOptions, PdfSingles } from "../../types/types";
+import { PdfOptions } from "../../types/types";
 import "./index.scss";
 
 const options: PdfOptions = {
-  singles: {
-    name: true,
-    email: true,
-    location: true,
-    job_title: true,
-    manager_name: true,
-    manager_email: true,
-    nationality: true,
-    main_tech: true,
-    phone_number: true,
-    social_links: true,
-    bio: true,
-    workabroad: true,
-    experience_level: true,
-  },
+  name: true,
+  email: true,
+  location: false,
+  job_title: false,
+  manager_name: true,
+  manager_email: true,
+  nationality: true,
+  main_tech: false,
+  phone_number: true,
+  social_links: false,
+  bio: false,
+  workabroad: false,
+  experience_level: false,
   languages: [],
   tech_skills: [],
   projects: [],
   education: [],
   certifications: [],
+  soft_skills: [],
 };
-
-function fillOptions(talent: EmployeeUser) {
-  talent.languages?.forEach((x, index) => {
-    options.languages[index] = true;
-  });
-  talent.tech_skills?.forEach((x, index) => {
-    options.tech_skills[index] = true;
-  });
-  talent.projects?.forEach((x, index) => {
-    options.projects[index] = true;
-  });
-  talent.education?.forEach((x, index) => {
-    options.education[index] = true;
-  });
-  talent.certifications?.forEach((x, index) => {
-    options.certifications[index] = true;
-  });
-}
 
 function CVPdf() {
   const talent = useUserByEmail("markus.helminen@nordcloud.com");
-  const [pdfOptions, setPdfOptions] = useState<PdfOptions>(options);
-
-  if (talent[0] !== null) {
-    fillOptions(talent[0]);
-  }
-
-  const handleOnChangeSingle = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.singles[event.target.id as keyof PdfSingles] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
-  const handleOnChangeLanguages = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.languages[parseInt(event.target.id.slice(-1), 10)] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
-  const handleOnChangeTechSkills = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.tech_skills[parseInt(event.target.id.slice(-1), 10)] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
-  const handleOnChangeProjects = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.projects[parseInt(event.target.id.slice(-1), 10)] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
-  const handleOnChangeEducations = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.education[parseInt(event.target.id.slice(-1), 10)] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
-  const handleOnChangeCertifications = (
-    event: ChangeEvent,
-    data: InputOnChangeData
-  ) => {
-    setPdfOptions((prev) => {
-      prev.certifications[parseInt(event.target.id.slice(-1), 10)] =
-        data.value === "on" ? false : true;
-      return prev;
-    });
-  };
 
   return (
     <Container>
@@ -130,143 +36,186 @@ function CVPdf() {
         <Grid.Row>
           <Grid.Column width={12}>
             <Header as="h2">Hide fields</Header>
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h4">Basic</Header>
-                <Grid.Column>
-                  <Input
-                    type="checkbox"
-                    name="name"
-                    id="name"
-                    onChange={handleOnChangeSingle}
-                  />
-                  <Label htmlFor="name">Name</Label>
-                </Grid.Column>
-                <Grid.Column>
-                  <Input
-                    type="checkbox"
-                    name="phone"
-                    id="phone"
-                    onChange={handleOnChangeSingle}
-                  />
-                  <Label htmlFor="phone">Phone</Label>
-                </Grid.Column>
-                <Grid.Column>
-                  <Input
-                    type="checkbox"
-                    name="email"
-                    id="email"
-                    onChange={handleOnChangeSingle}
-                  />
-                  <Label htmlFor="email">Email</Label>
-                </Grid.Column>
-                <Grid.Column>
-                  <Input
-                    type="checkbox"
-                    name="location"
-                    id="location"
-                    onChange={handleOnChangeSingle}
-                  />
-                  <Label htmlFor="email">Location</Label>
-                </Grid.Column>
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4">Tech Skills</Header>
-                {talent[0]?.tech_skills?.map((skill, index) => {
-                  return (
-                    <Grid.Column key={skill.id}>
-                      <Input
-                        type="checkbox"
-                        name={skill.name}
-                        id={`${skill.name}-${index}`}
-                        onChange={handleOnChangeTechSkills}
-                      />
-                      <Label htmlFor={skill.name}>{skill.name}</Label>
+            <Formik
+              initialValues={options}
+              onSubmit={(values, { setSubmitting }) => {
+                console.log(values);
+                setSubmitting(false);
+              }}
+            >
+              {({ handleSubmit, values }) => (
+                <form onSubmit={handleSubmit}>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h4">Basic</Header>
+                      <Grid.Column>
+                        <Field type="checkbox" name="name" />
+                        <Label htmlFor="name">Name</Label>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Field type="checkbox" name="phone_number" />
+                        <Label htmlFor="phone_number">Phone</Label>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Field type="checkbox" name="email" />
+                        <Label htmlFor="email">Email</Label>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Field type="checkbox" name="location" />
+                        <Label htmlFor="email">Location</Label>
+                      </Grid.Column>
                     </Grid.Column>
-                  );
-                })}
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4">Certfications</Header>
-                {talent[0]?.certifications?.map((certification, index) => {
-                  return (
-                    <Grid.Column key={certification.id}>
-                      <Input
-                        type="checkbox"
-                        name={certification.name}
-                        id={`${certification.name}-${index}`}
-                        onChange={handleOnChangeCertifications}
-                      />
-                      <Label htmlFor={certification.name}>
-                        {certification.name}
-                      </Label>
+                    <Grid.Column>
+                      {talent[0]?.tech_skills?.length &&
+                        talent[0].tech_skills.length > 0 && (
+                          <>
+                            <Header as="h4">Tech skills</Header>
+                            {talent[0]?.tech_skills?.map((skill) => {
+                              return (
+                                <Grid.Column key={skill.id}>
+                                  <Field
+                                    type="checkbox"
+                                    name="tech_skills"
+                                    value={skill.name}
+                                  />
+                                  <Label htmlFor={skill.name}>
+                                    {skill.name}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
                     </Grid.Column>
-                  );
-                })}
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4">Education</Header>
-                {talent[0]?.education?.map((education, index) => {
-                  return (
-                    <Grid.Column key={education.id}>
-                      <Input
-                        type="checkbox"
-                        name={education.degree}
-                        id={`${education.degree}-${index}`}
-                        onChange={handleOnChangeEducations}
-                      />
-                      <Label htmlFor={education.degree}>
-                        {education.degree}
-                      </Label>
+                    <Grid.Column>
+                      {talent[0]?.soft_skills?.length &&
+                        talent[0].soft_skills.length > 0 && (
+                          <>
+                            <Header as="h4">Soft skills</Header>
+                            {talent[0]?.soft_skills?.map((skill) => {
+                              return (
+                                <Grid.Column key={skill.id}>
+                                  <Field
+                                    type="checkbox"
+                                    name="tech_skills"
+                                    value={skill.name}
+                                  />
+                                  <Label htmlFor={skill.name}>
+                                    {skill.name}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
                     </Grid.Column>
-                  );
-                })}
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4">Languages</Header>
-                {talent[0]?.languages?.map((language, index) => {
-                  return (
-                    <Grid.Column key={language.name}>
-                      <Input
-                        type="checkbox"
-                        name={language.name}
-                        id={`${language.name}-${index}`}
-                        onChange={handleOnChangeLanguages}
-                      />
-                      <Label htmlFor={language.name}>{language.name}</Label>
+                    <Grid.Column>
+                      {talent[0]?.certifications?.length &&
+                        talent[0].certifications.length > 0 && (
+                          <>
+                            <Header as="h4">Certfications</Header>
+                            {talent[0]?.certifications?.map((certification) => {
+                              return (
+                                <Grid.Column key={certification.id}>
+                                  <Field
+                                    type="checkbox"
+                                    name="certifications"
+                                    value={certification.name}
+                                  />
+                                  <Label htmlFor={certification.name}>
+                                    {certification.name}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
                     </Grid.Column>
-                  );
-                })}
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4">Experience</Header>
-                {talent[0]?.projects?.map((project, index) => {
-                  return (
-                    <Grid.Column key={project.id}>
-                      <Input
-                        type="checkbox"
-                        name={project.projectTitle}
-                        id={`${project.projectTitle}-${index}`}
-                        onChange={handleOnChangeProjects}
-                      />
-                      <Label htmlFor={project.projectTitle}>
-                        {project.projectTitle}
-                      </Label>
+                    <Grid.Column>
+                      {talent[0]?.education?.length &&
+                        talent[0].education.length > 0 && (
+                          <>
+                            <Header as="h4">Education</Header>
+                            {talent[0]?.education?.map((education) => {
+                              return (
+                                <Grid.Column key={education.id}>
+                                  <Field
+                                    type="checkbox"
+                                    name="education"
+                                    value={education.id}
+                                  />
+                                  <Label htmlFor="education">
+                                    {education.degree}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
                     </Grid.Column>
-                  );
-                })}
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Link
-                  to="/pdfpreview"
-                  state={{ options: pdfOptions, talent: talent[0] }}
-                >
-                  <Button>Preview the pdf</Button>
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
+                    <Grid.Column>
+                      {talent[0]?.languages?.length &&
+                        talent[0].languages.length > 0 && (
+                          <>
+                            <Header as="h4">Languages</Header>
+                            {talent[0]?.languages?.map((language) => {
+                              return (
+                                <Grid.Column key={language.name}>
+                                  <Field
+                                    type="checkbox"
+                                    name="languages"
+                                    value={language.name}
+                                  />
+                                  <Label htmlFor={language.name}>
+                                    {language.name}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
+                    </Grid.Column>
+                    <Grid.Column>
+                      {talent[0]?.projects?.length &&
+                        talent[0].projects.length > 0 && (
+                          <>
+                            <Header as="h4">Experience</Header>
+                            {talent[0]?.projects?.map((project) => {
+                              return (
+                                <Grid.Column key={project.id}>
+                                  <Field
+                                    type="checkbox"
+                                    name="projects"
+                                    value={project.id}
+                                  />
+                                  <Label htmlFor={project.projectTitle}>
+                                    {project.projectTitle +
+                                      " : " +
+                                      project.role}
+                                  </Label>
+                                </Grid.Column>
+                              );
+                            })}
+                          </>
+                        )}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Link
+                        to="/pdfpreview"
+                        state={{ options: values, talent: talent[0] }}
+                      >
+                        <Button type="submit">Preview the pdf</Button>
+                      </Link>
+                      <Button type="button" onClick={() => console.log(values)}>
+                        Log
+                      </Button>
+                    </Grid.Column>
+                  </Grid.Row>
+                </form>
+              )}
+            </Formik>
           </Grid.Column>
         </Grid.Row>
       </Grid>

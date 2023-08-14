@@ -21,7 +21,7 @@ function LanguageProficiencies({
   };
 
   return (
-    <div className="display-flex">
+    <div className="display-flex-column">
       <p>Choose the level:</p>
       <div className="radio-button-group">
         <Radio

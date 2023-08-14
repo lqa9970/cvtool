@@ -1,7 +1,12 @@
-@import '/src/styles/mixins';
+@import "/src/styles/mixins";
 
 .display-flex {
   display: flex;
+}
+
+.display-flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .radio-button-group {

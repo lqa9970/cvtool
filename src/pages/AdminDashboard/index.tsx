@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -37,10 +38,11 @@ const getUsersOptions = (
 
 function AdminDashboard() {
   const { user: loggedInUser } = useUserContext();
+  const navigate = useNavigate();
 
   const users: UserTableItem[] = getUsersOptions(
     useGetCollectionWithFields,
-    "test_users1",
+    "users",
     ["id", "name", "email", "roles"]
   );
 
@@ -81,9 +83,11 @@ function AdminDashboard() {
   };
 
   const modifyUser = (targetUser: UserTableItem) => {
-    // add modify user functionality
-    // eslint-disable-next-line no-alert
-    alert(`Modifying ${JSON.stringify(targetUser)}`);
+    navigate('/cv',{
+      state: {
+        email: targetUser.email,
+      }
+    });
   };
 
   const deleteUser = (targetUser: UserTableItem) => {

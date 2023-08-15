@@ -37,46 +37,38 @@ export function MyDocument(documentProps: PdfPreviewProps) {
         <View style={styles.container}>
           <View style={styles.flexRow}>
             <View style={styles.leftColumn}>
-              <Image style={styles.image} src={ninja} />
+              {!options.avatar && <Image style={styles.image} src={ninja} />}
               <View style={styles.section}>
                 {!options.name && <Text style={styles.h3}>{talent.name}</Text>}
                 <View style={styles.section}>
                   {!options.phone_number && (
                     <>
                       <Text style={styles.h4}>Phone</Text>
-                      <Text style={styles.textPadding}>
-                        {talent.phone_number}
-                      </Text>
+                      <Text>{talent.phone_number}</Text>
                     </>
                   )}
                   {!options.email && (
                     <>
                       <Text style={styles.h4}>Email</Text>
-                      <Text style={styles.textPadding}>{talent.email}</Text>
+                      <Text>{talent.email}</Text>
                     </>
                   )}
                   {!options.location && (
                     <>
                       <Text style={styles.h4}>Location</Text>
-                      <Text style={styles.textPadding}>{talent.location}</Text>
+                      <Text>{talent.location}</Text>
                     </>
                   )}
                 </View>
                 {options.tech_skills.length !== talent.tech_skills?.length &&
                   talent.tech_skills && (
                     <View style={styles.section}>
-                      <Text style={styles.h2}>Skills</Text>
+                      <Text style={styles.h3}>Skills</Text>
                       <View style={styles.section}>
                         {talent.tech_skills?.map((skill) => {
-                          if (!options.tech_skills.includes(skill.name)) {
-                            return (
-                              <Text key={skill.id} style={styles.textPadding}>
-                                {skill.name}
-                              </Text>
-                            );
-                          } else {
-                            return null;
-                          }
+                          return !options.tech_skills.includes(skill.name) ? (
+                            <Text key={skill.id}>{skill.name}</Text>
+                          ) : null;
                         })}
                       </View>
                     </View>
@@ -84,18 +76,12 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                 {options.soft_skills.length !== talent.soft_skills?.length &&
                   talent.soft_skills && (
                     <View style={styles.section}>
-                      <Text style={styles.h2}>Soft skills</Text>
+                      <Text style={styles.h3}>Soft skills</Text>
                       <View style={styles.section}>
                         {talent.soft_skills?.map((skill) => {
-                          if (!options.soft_skills.includes(skill.name)) {
-                            return (
-                              <Text key={skill.id} style={styles.textPadding}>
-                                {skill.name}
-                              </Text>
-                            );
-                          } else {
-                            return null;
-                          }
+                          return !options.soft_skills.includes(skill.name) ? (
+                            <Text key={skill.id}>{skill.name}</Text>
+                          ) : null;
                         })}
                       </View>
                     </View>
@@ -104,7 +90,7 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                   talent.certifications?.length &&
                   talent.certifications && (
                     <View style={styles.section}>
-                      <Text style={styles.h2}>Certifications</Text>
+                      <Text style={styles.h3}>Certifications</Text>
                       {talent.certifications?.map((certification, index) => {
                         if (
                           !options.certifications.includes(certification.name)
@@ -114,10 +100,8 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                               key={certification.name + index.toString()}
                               style={styles.section}
                             >
-                              <Text style={styles.textPadding}>
-                                {certification.name}
-                              </Text>
-                              <Text style={styles.textPadding}>
+                              <Text>{certification.name}</Text>
+                              <Text>
                                 {certification.validFrom} -{" "}
                                 {certification.validTo}
                               </Text>
@@ -132,20 +116,14 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                 {options.education.length !== talent.education?.length &&
                   talent.education && (
                     <View style={styles.section}>
-                      <Text style={styles.h2}>Education</Text>
+                      <Text style={styles.h3}>Education</Text>
                       {talent.education?.map((education) => {
                         if (!options.education.includes(education.id)) {
                           return (
                             <View key={education.id} style={styles.section}>
-                              <Text style={styles.paddedH4}>
-                                {education.degree}
-                              </Text>
-                              <Text style={styles.textPadding}>
-                                {education.school}
-                              </Text>
-                              <Text style={styles.textPadding}>
-                                {education.endMonthYear.slice(-4)}
-                              </Text>
+                              <Text>{education.degree}</Text>
+                              <Text>{education.school}</Text>
+                              <Text>{education.endMonthYear?.slice(-4)}</Text>
                             </View>
                           );
                         } else {
@@ -157,15 +135,12 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                 {options.languages.length !== talent.languages?.length &&
                   talent.languages && (
                     <View style={styles.section}>
-                      <Text style={styles.h2}>Languages</Text>
+                      <Text style={styles.h3}>Languages</Text>
                       <View style={styles.section}>
                         {talent.languages?.map((language, index) => {
                           if (!options.languages.includes(language.name)) {
                             return (
-                              <Text
-                                key={language.name + index.toString()}
-                                style={styles.textPadding}
-                              >
+                              <Text key={language.name + index.toString()}>
                                 {language.name} - {language.proficiency}
                               </Text>
                             );
@@ -179,13 +154,13 @@ export function MyDocument(documentProps: PdfPreviewProps) {
               </View>
             </View>
             <View style={styles.rightColumn}>
-              <Text style={styles.h2}>{talent.job_title}</Text>
+              <Text style={styles.h3paddingBottom}>{talent.job_title}</Text>
               <Text style={styles.wrappingText}>{talent.bio}</Text>
               <View style={styles.topMargin} />
               {options.projects.length !== talent.projects?.length &&
                 talent.projects && (
                   <>
-                    <Text style={styles.h2}>Experience</Text>
+                    <Text style={styles.h3}>Experience</Text>
                     <View style={styles.horizontalLine} />
                     <View style={styles.verticalLine}>
                       {talent.projects?.map((project) => {
@@ -198,10 +173,10 @@ export function MyDocument(documentProps: PdfPreviewProps) {
                                 {project.endMonthYear}
                               </Text>
                               <Text style={styles.paddedH4Right}>
-                                {project.projectTitle}
-                              </Text>
-                              <Text style={styles.paddedH3Right}>
                                 {project.role}
+                              </Text>
+                              <Text style={styles.bold}>
+                                {project.projectTitle}
                               </Text>
                               <Text style={styles.projectText}>
                                 {project.projectDescription}
@@ -227,13 +202,14 @@ export function MyDocument(documentProps: PdfPreviewProps) {
 function PdfPreviewWithoutMemo() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { state }: PdfLocationProps = useLocation();
+  console.log(state);
   if (state.talent === null) {
     return <p> Something went wrong. We have our best monkeys on it!</p>;
   }
 
   return (
     <Grid.Row columns={3}>
-      <Link to="/pdf" className="top-content">
+      <Link to="/pdf" state={state.talent} className="top-content">
         <Icon size="big" name="angle left" />
       </Link>
       <PDFViewer style={styles.viewer}>

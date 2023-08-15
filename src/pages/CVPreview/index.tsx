@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -15,8 +16,8 @@ import CloudLogo from "../../assets/cloud-logo.png";
 import Ninja from "../../assets/ninja.png";
 import LabelGroup from "../../components/LabelGroup/LabelGroup";
 import ValueList from "../../components/ValueList/ValueList";
+import { useUserContext } from "../../context/UserContext";
 import { EmployeeUser } from "../../types/types";
-
 import "./index.scss";
 
 type IEmployee = {
@@ -24,6 +25,8 @@ type IEmployee = {
 };
 
 function CVPreview({ employee }: IEmployee) {
+  const { user } = useUserContext();
+
   if (!employee?.id) {
     return <p>Generating preview failed</p>;
   }
@@ -97,15 +100,25 @@ function CVPreview({ employee }: IEmployee) {
                 <Grid.Column width={10}>
                   <Header as="h1">{employee.name}</Header>
                 </Grid.Column>
-                <Grid.Column width={6}>
-                  <Popup
-                    content="Print"
-                    position="bottom center"
-                    trigger={
-                      <Button id="print-button" icon="print" floated="right" />
-                    }
-                  />
-                </Grid.Column>
+                {user?.roles.some((role) => {
+                  return role.id === "1" || role.id === "2";
+                }) && (
+                  <Grid.Column width={6}>
+                    <Popup
+                      content="Print"
+                      position="bottom center"
+                      trigger={
+                        <Link to="/pdf" state={employee}>
+                          <Button
+                            id="print-button"
+                            icon="print"
+                            floated="right"
+                          />
+                        </Link>
+                      }
+                    />
+                  </Grid.Column>
+                )}
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>

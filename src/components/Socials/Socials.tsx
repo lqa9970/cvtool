@@ -42,7 +42,7 @@ function Socials({ userDetails }: ISocials) {
         }}
         onSubmit={(values) => handleFormikSubmit(values)}
       >
-        {({ values, handleChange, handleSubmit, errors, isValid }) => (
+        {({ values, handleChange, handleSubmit, errors, isValid, dirty }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
               <SocialLink
@@ -68,7 +68,11 @@ function Socials({ userDetails }: ISocials) {
               />
               <Grid.Row id="soc-button-row">
                 <Grid.Column>
-                  <Button id="soc-add-button" type="submit" disabled={!isValid}>
+                  <Button
+                    id="soc-add-button"
+                    type="submit"
+                    disabled={!isValid || !dirty}
+                  >
                     Save
                   </Button>
                 </Grid.Column>

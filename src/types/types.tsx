@@ -144,15 +144,13 @@ export type PdfOptions = {
   email: boolean;
   location: boolean;
   job_title: boolean;
-  manager_name: boolean;
-  manager_email: boolean;
-  nationality: boolean;
   main_tech: boolean;
   phone_number: boolean;
   social_links: boolean;
   bio: boolean;
   workabroad: boolean;
   experience_level: boolean;
+  avatar: boolean;
 };
 
 export type UserTableItem = {

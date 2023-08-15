@@ -55,7 +55,6 @@ export const styles = StyleSheet.create({
   },
   section: {
     marginTop: 5,
-    paddingTop: 5,
   },
   horizontalLine: {
     marginTop: 10,
@@ -63,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   verticalLine: {
     borderLeft: "1px solid black",
-    marginTop: 5,
+    marginTop: 3,
   },
   leftColumn: {
     display: "flex",
@@ -75,7 +74,7 @@ export const styles = StyleSheet.create({
   rightColumn: {
     display: "flex",
     flexDirection: "column",
-    marginTop: 100,
+    marginTop: 70,
     marginHorizontal: 5,
     paddingBottom: 10,
     paddingHorizontal: 5,
@@ -95,10 +94,6 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: "white",
   },
-  h2: {
-    fontSize: "16",
-    color: "black",
-  },
   h3: {
     fontSize: "14",
     color: "black",
@@ -106,21 +101,6 @@ export const styles = StyleSheet.create({
   h4: {
     fontSize: "12",
     color: "black",
-  },
-  paddedH3: {
-    fontSize: "14",
-    color: "black",
-    paddingLeft: 5,
-  },
-  paddedH4: {
-    fontSize: "12",
-    color: "black",
-    paddingLeft: 5,
-  },
-  paddedH3Right: {
-    fontSize: "14",
-    color: "black",
-    paddingLeft: 10,
   },
   paddedH4Right: {
     fontSize: "12",
@@ -130,14 +110,20 @@ export const styles = StyleSheet.create({
   wrappingText: {
     width: 350,
   },
-  textPadding: {
-    paddingLeft: 5,
-  },
   textPaddingRight: {
     paddingLeft: 10,
   },
   projectText: {
     paddingLeft: 10,
     width: 330,
+  },
+  h3paddingBottom: {
+    fontSize: "14",
+    color: "black",
+    paddingBottom: 10,
+  },
+  bold: {
+    fontWeight: "bold",
+    paddingLeft: 10,
   },
 });

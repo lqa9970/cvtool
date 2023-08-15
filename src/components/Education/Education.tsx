@@ -71,7 +71,10 @@ function EducationComponent(props: EducationProps) {
       <Formik
         initialValues={initialValues}
         validationSchema={educationSchema}
-        onSubmit={(values) => handleFormikSubmit(values)}
+        onSubmit={async (values, { resetForm }) => {
+          await handleFormikSubmit(values);
+          resetForm();
+        }}
       >
         {({
           values,
@@ -80,6 +83,8 @@ function EducationComponent(props: EducationProps) {
           errors,
           touched,
           setFieldValue,
+          dirty,
+          isValid,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -161,7 +166,7 @@ function EducationComponent(props: EducationProps) {
                   <Button
                     id="edu-add-button"
                     type="submit"
-                    disabled={isCharLimitExceeded}
+                    disabled={isCharLimitExceeded || !dirty || !isValid}
                   >
                     Add
                   </Button>

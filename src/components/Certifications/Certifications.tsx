@@ -102,6 +102,8 @@ function CertificationComponent(props: CertificationProps) {
           errors,
           touched,
           isSubmitting,
+          isValid,
+          dirty,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -152,7 +154,7 @@ function CertificationComponent(props: CertificationProps) {
               <Grid.Row>
                 <Grid.Column>
                   <Button
-                    disabled={!values.name || isSubmitting}
+                    disabled={!isValid || isSubmitting || !dirty}
                     id="edu-add-button"
                     type="submit"
                   >

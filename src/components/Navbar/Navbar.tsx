@@ -24,120 +24,54 @@ function Navbar() {
     }
   }, [userRole, user]);
 
-  switch (userRole) {
-    case "staff":
-      return (
-        <>
-          <Segment id="Nav" className="NavContent">
-            <div className="NavContent_logo">
-              <Link to="/">
-                <img src={logo} alt="Nordcloud, an IBM company" />
-              </Link>
-            </div>
-            <div className="NavContent_pages">
-              <Link to="/staff">
-                <Icon name="clipboard" size="small" />
-                dashboard
-              </Link>
-              <Link to="/#">
-                <Icon name="bars" size="small" />
-                projects
-              </Link>
-              <Link to="/#">
-                <Icon name="briefcase" size="small" />
-                talents
-              </Link>
-            </div>
-            <AccountMenu
-              user={user as EmployeeUser}
-              userRole={userRole}
-              onRoleChange={handleRoleChange}
-            />
-          </Segment>
-        </>
-      );
-    case "admin":
-      return (
-        <>
-          <Segment id="Nav" className="NavContent">
-            <div className="NavContent_logo">
-              <Link to="/">
-                <img src={logo} alt="Nordcloud, an IBM company" />
-              </Link>
-            </div>
-            <div className="NavContent_pages">
-              <Link to="/staff">
-                <Icon name="clipboard" size="small" />
-                dashboard
-              </Link>
-              <Link to="/#">
-                <Icon name="bars" size="small" />
-                projects
-              </Link>
-              <Link to="/#">
-                <Icon name="briefcase" size="small" />
-                talents
-              </Link>
-            </div>
-            <AccountMenu
-              user={user as EmployeeUser}
-              userRole={userRole}
-              onRoleChange={handleRoleChange}
-            />
-          </Segment>
-        </>
-      );
-
-    case "talent":
-      return (
-        <>
-          <Segment id="Nav" className="NavContent">
-            <div className="NavContent_logo">
-              <Link to="/" rel="noreferrer">
-                <img src={logo} alt="Nordcloud, an IBM company" />
-              </Link>
-            </div>
-            <AccountMenu
-              user={user as EmployeeUser}
-              userRole={userRole}
-              onRoleChange={handleRoleChange}
-            />
-          </Segment>
-        </>
-      );
-
-    default:
-      return (
-        <>
-          <Segment id="Nav" className="NavContent">
-            <div className="NavContent_logo">
-              <Link to="/">
-                <img src={logo} alt="Nordcloud, an IBM company" />
-              </Link>
-            </div>
-            <div className="NavContent_pages">
-              <Link to="/staff">
-                <Icon name="clipboard" size="small" />
-                dashboard
-              </Link>
-              <Link to="/#">
-                <Icon name="bars" size="small" />
-                projects
-              </Link>
-              <Link to="/#">
-                <Icon name="briefcase" size="small" />
-                talents
-              </Link>
-            </div>
-            <AccountMenu
-              user={user as EmployeeUser}
-              userRole={userRole}
-              onRoleChange={handleRoleChange}
-            />
-          </Segment>
-        </>
-      );
+  if (userRole === "talent") {
+    return (
+      <>
+        <Segment id="Nav" className="NavContent">
+          <div className="NavContent_logo">
+            <Link to="/" rel="noreferrer">
+              <img src={logo} alt="Nordcloud, an IBM company" />
+            </Link>
+          </div>
+          <AccountMenu
+            user={user as EmployeeUser}
+            userRole={userRole}
+            onRoleChange={handleRoleChange}
+          />
+        </Segment>
+      </>
+    );
   }
+  return (
+    <>
+      <Segment id="Nav" className="NavContent">
+        <div className="NavContent_logo">
+          <Link to="/">
+            <img src={logo} alt="Nordcloud, an IBM company" />
+          </Link>
+        </div>
+        <div className="NavContent_pages">
+          <Link to="/staff">
+            <Icon name="clipboard" size="small" />
+            dashboard
+          </Link>
+          <Link to="/#">
+            <Icon name="bars" size="small" />
+            projects
+          </Link>
+          <Link to="/#">
+            <Icon name="briefcase" size="small" />
+            talents
+          </Link>
+        </div>
+        <AccountMenu
+          user={user as EmployeeUser}
+          userRole={userRole}
+          onRoleChange={handleRoleChange}
+        />
+      </Segment>
+    </>
+  );
 }
 
 export default Navbar;

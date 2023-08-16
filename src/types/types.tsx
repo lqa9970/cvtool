@@ -152,3 +152,11 @@ export type PdfOptions = {
   experience_level: boolean;
   avatar: boolean;
 };
+
+export type UserTableItem = {
+  key: string | undefined;
+  text: string;
+  value: string;
+  email?: string;
+  roles?: string;
+};

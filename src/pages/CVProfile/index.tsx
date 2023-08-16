@@ -9,6 +9,7 @@ import {
   faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -29,12 +30,18 @@ import ProjectHistoryComponent from "../../components/ProjectHistory/ProjectHist
 import SkillComponent from "../../components/Skills/Skills";
 import Socials from "../../components/Socials/Socials";
 import { useUserContext } from "../../context/UserContext";
+import useUserByEmail from "../../hooks/useUserByEmail";
 import CVPreview from "../CVPreview";
 // eslint-disable-next-line import/max-dependencies
 import "./index.scss";
 
 function CreateCV() {
-  const { user } = useUserContext();
+  const location = useLocation();
+  const locationState = (location.state as {email? : string});
+  const email = locationState?.email;
+  const { user: userFromContext } = useUserContext();
+  const [userDetails] = useUserByEmail(email!);
+  const user = email ? userDetails : userFromContext;
   if (!user?.id) {
     return <p />;
   }

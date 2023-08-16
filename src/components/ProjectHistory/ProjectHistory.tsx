@@ -247,7 +247,9 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
               <Button
                 id="edu-add-button"
                 type="submit"
-                disabled={isCharLimitExceeded}
+                disabled={
+                  isCharLimitExceeded || !formik.dirty || !formik.isValid
+                }
               >
                 Save experience
               </Button>

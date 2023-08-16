@@ -27,11 +27,20 @@ function BioForm({ bio, userId }: BioProps) {
       {userId && (
         <Formik<FormValues>
           initialValues={{ bioDescription: bio }}
-          onSubmit={(values) => {
-            updateUser({ bio: values.bioDescription }, userId).catch(() => {});
+          onSubmit={(values, { setSubmitting }) => {
+            updateUser({ bio: values.bioDescription }, userId)
+              .catch(() => {})
+              .finally(() => setSubmitting(false));
           }}
         >
-          {({ values, handleChange, handleSubmit }) => (
+          {({
+            values,
+            handleChange,
+            handleSubmit,
+            isSubmitting,
+            dirty,
+            isValid,
+          }) => (
             <Form onSubmit={handleSubmit}>
               <Grid>
                 <Grid.Row>
@@ -52,7 +61,12 @@ function BioForm({ bio, userId }: BioProps) {
                     <Button
                       id="bio-add-button"
                       type="submit"
-                      disabled={isCharLimitExceeded}
+                      disabled={
+                        isCharLimitExceeded ||
+                        isSubmitting ||
+                        !dirty ||
+                        !isValid
+                      }
                     >
                       Save
                     </Button>

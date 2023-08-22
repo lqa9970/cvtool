@@ -7,6 +7,7 @@ import { formatDate } from "../../utils/date";
 import { uniqueIdGenerator } from "../../utils/uid";
 import "./Education.scss";
 import CustomCalendar from "../Calendar/Calendar";
+import CustomInput from "../CustomInput/CustomInput";
 import TextAreaInput from "../TextAreaInput/TextArea";
 import { educationSchema, initialValues } from "./EducationUtils";
 
@@ -94,28 +95,20 @@ function EducationComponent(props: EducationProps) {
                   {showErrors(errors.id, touched.id)}
                 </Grid.Column>
                 <Grid.Column>
-                  <Label id="form-labels">Institution</Label>
-                  <Input
+                  <CustomInput
                     fluid
-                    value={values.school}
-                    placeholder="Institution"
+                    required
+                    label="Institution"
                     name="school"
-                    onChange={handleChange}
-                  />
-                  {showErrors(errors.school, touched.school)}
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Label id="form-labels">Degree</Label>
-                  <Input
+                    charLimit={200}
+                    />
+                  <CustomInput
                     fluid
-                    value={values.degree}
-                    placeholder="Degree"
+                    required
+                    label="Degree"
                     name="degree"
-                    onChange={handleChange}
-                  />
-                  {showErrors(errors.degree, touched.degree)}
+                    charLimit={200}
+                    />
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>

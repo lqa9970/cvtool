@@ -42,30 +42,12 @@ function Socials({ userDetails }: ISocials) {
         }}
         onSubmit={(values) => handleFormikSubmit(values)}
       >
-        {({ values, handleChange, handleSubmit, errors, isValid, dirty }) => (
+        {({ handleSubmit, isValid, dirty }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
-              <SocialLink
-                fieldName="linkedin"
-                iconName="linkedin"
-                urlValue={values.linkedin}
-                errorMsg={errors.linkedin}
-                onChange={handleChange}
-              />
-              <SocialLink
-                fieldName="github"
-                iconName="github"
-                urlValue={values.github}
-                errorMsg={errors.github}
-                onChange={handleChange}
-              />
-              <SocialLink
-                fieldName="website"
-                iconName="world"
-                urlValue={values.website}
-                errorMsg={errors.website}
-                onChange={handleChange}
-              />
+              <SocialLink fieldName="linkedin" iconName="linkedin" />
+              <SocialLink fieldName="github" iconName="github" />
+              <SocialLink fieldName="website" iconName="world" />
               <Grid.Row id="soc-button-row">
                 <Grid.Column>
                   <Button

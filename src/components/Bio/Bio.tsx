@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid } from "semantic-ui-react";
+import * as Yup from "yup";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import TextAreaInput from "../TextAreaInput/TextArea";
 import "./Bio.scss";
@@ -14,19 +15,21 @@ type BioProps = {
   userId: string | undefined;
 };
 
+const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\',.’-]*$', 'gu');
+const bioSchema = Yup.object().shape({
+  bioDescription: Yup.string().min(4, "Too Short").max(1250,"Character limit exceeded").matches(regexWithSpecialCharacters, 'Not a valid description'),
+});
+
 function BioForm({ bio, userId }: BioProps) {
   const [updateUser] = useUpdateUser();
   const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
-  if (bio === undefined) {
-    // eslint-disable-next-line no-param-reassign
-    bio = "";
-  }
 
-  return (
+ return (
     <Grid.Column>
       {userId && (
         <Formik<FormValues>
-          initialValues={{ bioDescription: bio }}
+          initialValues={{ bioDescription: bio ?? "" }}
+          validationSchema={bioSchema}
           onSubmit={(values, { setSubmitting }) => {
             updateUser({ bio: values.bioDescription }, userId)
               .catch(() => {})

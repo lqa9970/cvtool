@@ -13,7 +13,7 @@ export const educationSchema = Yup.object().shape({
   degree: Yup.string().min(4, "Too Short!").max(200,"Character limit exceeded").required("Required").matches(regex, 'Not a valid degree'),
   startMonthYear: Yup.string().required(),
   endMonthYear: Yup.string().required(),
-  degreeDescription: Yup.string().required().matches(regexWithSpecialCharacters, 'Not a valid description'),
+  degreeDescription: Yup.string().required().max(1250,"Character limit exceeded").matches(regexWithSpecialCharacters, 'Not a valid description'),
 });
 
 export const initialValues: Education = {

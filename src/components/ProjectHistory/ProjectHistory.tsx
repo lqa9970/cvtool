@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import {
-  Button,
   Grid,
   Input,
   Checkbox,
@@ -18,6 +17,7 @@ import { uniqueIdGenerator } from "../../utils/uid";
 import CustomCalendar from "../Calendar/Calendar";
 import CustomInput from "../CustomInput/CustomInput";
 import BasicDropdown from "../Dropdown/BasicDropdown";
+import SubmitButton from "../Submit/SubmitButton";
 import TextAreaInput from "../TextAreaInput/TextArea";
 import ProjectCards from "./ProjectCards/ProjectCards";
 import { initialValues, projectHistorySchema } from "./ProjectHistoryUtils";
@@ -127,8 +127,6 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
         }}
       >
         {({
-          dirty,
-          isValid,
           values,
           errors,
           touched,
@@ -236,17 +234,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                   />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Button
-                    id="edu-add-button"
-                    type="submit"
-                    disabled={isCharLimitExceeded || !dirty || !isValid}
-                  >
-                    Save experience
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
+              <SubmitButton label="Save experience"/>
             </Grid>
           </Form>
         )}

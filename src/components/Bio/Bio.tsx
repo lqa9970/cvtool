@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import { Button, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import * as Yup from "yup";
 import useUpdateUser from "../../hooks/useUpdateUser";
+import SubmitButton from "../Submit/SubmitButton";
 import TextAreaInput from "../TextAreaInput/TextArea";
 import "./Bio.scss";
 
@@ -40,9 +41,6 @@ function BioForm({ bio, userId }: BioProps) {
             values,
             handleChange,
             handleSubmit,
-            isSubmitting,
-            dirty,
-            isValid,
           }) => (
             <Form onSubmit={handleSubmit}>
               <Grid>
@@ -59,22 +57,7 @@ function BioForm({ bio, userId }: BioProps) {
                     />
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row id="button-row-position">
-                  <Grid.Column>
-                    <Button
-                      id="bio-add-button"
-                      type="submit"
-                      disabled={
-                        isCharLimitExceeded ||
-                        isSubmitting ||
-                        !dirty ||
-                        !isValid
-                      }
-                    >
-                      Save
-                    </Button>
-                  </Grid.Column>
-                </Grid.Row>
+                <SubmitButton label="Save"/>
               </Grid>
             </Form>
           )}

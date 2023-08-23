@@ -1,9 +1,9 @@
 import { Formik, Form } from "formik";
-import { Button, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import { EmployeeUser } from "../../types/types";
 import SocialLink from "../SocialLink/SocialLink";
-import "./Socials.scss";
+import SubmitButton from "../Submit/SubmitButton";
 import { linksSchema, SocialLinks } from "./SocialsUtils";
 
 type ISocials = {
@@ -42,26 +42,14 @@ function Socials({ userDetails }: ISocials) {
         }}
         onSubmit={(values) => handleFormikSubmit(values)}
       >
-        {({ handleSubmit, isValid, dirty }) => (
-          <Form onSubmit={handleSubmit}>
-            <Grid>
-              <SocialLink fieldName="linkedin" iconName="linkedin" />
-              <SocialLink fieldName="github" iconName="github" />
-              <SocialLink fieldName="website" iconName="world" />
-              <Grid.Row id="soc-button-row">
-                <Grid.Column>
-                  <Button
-                    id="soc-add-button"
-                    type="submit"
-                    disabled={!isValid || !dirty}
-                  >
-                    Save
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Form>
-        )}
+        <Form>
+          <Grid>
+            <SocialLink fieldName="linkedin" iconName="linkedin" />
+            <SocialLink fieldName="github" iconName="github" />
+            <SocialLink fieldName="website" iconName="world" />
+            <SubmitButton label="Save" />
+          </Grid>
+        </Form>
       </Formik>
     </Grid.Column>
   );

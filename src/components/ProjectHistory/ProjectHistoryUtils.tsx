@@ -14,7 +14,7 @@ export const projectHistorySchema = Yup.object().shape({
   startMonthYear: Yup.string().required(),
   endMonthYear: Yup.string().required(),
   currentlyInProject: Yup.boolean(),
-  projectDescription: Yup.string().required().matches(regexWithSpecialCharacters, 'Not a valid description'),
+  projectDescription: Yup.string().required().max(2500,"Character limit exceeded").matches(regexWithSpecialCharacters, 'Not a valid description'),
   accountName: Yup.string().max(100,"Character limit exceeded").matches(regex, 'Not a valid name'),
   industry: Yup.string(),
   skills: Yup.array(

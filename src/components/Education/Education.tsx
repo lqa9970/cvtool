@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Button, Grid, Input, Header, Label, Icon } from "semantic-ui-react";
@@ -5,11 +6,13 @@ import useUpdateUser from "../../hooks/useUpdateUser";
 import { Education } from "../../types/types";
 import { formatDate } from "../../utils/date";
 import { uniqueIdGenerator } from "../../utils/uid";
-import "./Education.scss";
 import CustomCalendar from "../Calendar/Calendar";
 import CustomInput from "../CustomInput/CustomInput";
+import SubmitButton from "../Submit/SubmitButton";
 import TextAreaInput from "../TextAreaInput/TextArea";
 import { educationSchema, initialValues } from "./EducationUtils";
+import "./Education.scss";
+
 
 type EducationProps = {
   education: Education[] | undefined;
@@ -84,8 +87,6 @@ function EducationComponent(props: EducationProps) {
           errors,
           touched,
           setFieldValue,
-          dirty,
-          isValid,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -154,17 +155,7 @@ function EducationComponent(props: EducationProps) {
                   )}
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row id="edu-button-row">
-                <Grid.Column>
-                  <Button
-                    id="edu-add-button"
-                    type="submit"
-                    disabled={isCharLimitExceeded || !dirty || !isValid}
-                  >
-                    Add
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
+              <SubmitButton label="Add"/>
             </Grid>
           </Form>
         )}

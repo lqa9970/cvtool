@@ -32,8 +32,6 @@ function EducationComponent(props: EducationProps) {
   const [education, setEducation] = useState<Education[]>(
     props.education ?? []
   );
-  const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
-
   const _handleStartDateSelect = (date: Date, setFieldValue: SetFieldValue) => {
     setFieldValue("startMonthYear", formatDate(date));
     setOpenStartDatePick(false);
@@ -82,7 +80,6 @@ function EducationComponent(props: EducationProps) {
       >
         {({
           values,
-          handleChange,
           handleSubmit,
           errors,
           touched,
@@ -114,7 +111,7 @@ function EducationComponent(props: EducationProps) {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Label id="form-labels">Year of Study</Label>
+                  <Label id="form-labels">Year of Study <span>*</span></Label>
                   <div className="flex-container">
                     <CustomCalendar
                       name="startMonthYear"
@@ -139,20 +136,13 @@ function EducationComponent(props: EducationProps) {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={16}>
-                  <Label id="form-labels">Description</Label>
+                  <Label id="form-labels">Description <span>*</span></Label>
                   <TextAreaInput
                     id="edu-text-area"
-                    value={values.degreeDescription}
                     name="degreeDescription"
-                    placeholder="Enter your bio here"
-                    handleChange={handleChange}
-                    onExceedLimit={setIsCharLimitExceeded}
+                    placeholder="Enter your description here"
                     characterLimit={1250}
                   />
-                  {showErrors(
-                    errors.degreeDescription,
-                    touched.degreeDescription
-                  )}
                 </Grid.Column>
               </Grid.Row>
               <SubmitButton label="Add"/>

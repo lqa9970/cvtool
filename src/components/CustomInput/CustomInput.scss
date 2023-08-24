@@ -1,0 +1,21 @@
+.ui.container.character-limit-exceeded {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+
+    .error {
+        margin-top: 4px;
+        color: red;
+    }
+
+    .limit {
+        margin-top: 4px;
+        color: gray;
+    }
+}
+  
+#form-labels {
+    span{
+       color: red;
+    }
+}

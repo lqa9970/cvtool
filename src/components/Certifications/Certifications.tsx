@@ -6,6 +6,7 @@ import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import { Certification } from "../../types/types";
 import CustomCalendar from "../Calendar/Calendar";
+import SubmitButton from "../Submit/SubmitButton";
 import {
   certificationSchema,
   defaultStartDate,
@@ -101,9 +102,6 @@ function CertificationComponent(props: CertificationProps) {
           handleSubmit,
           errors,
           touched,
-          isSubmitting,
-          isValid,
-          dirty,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -151,17 +149,7 @@ function CertificationComponent(props: CertificationProps) {
                   </div>
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Button
-                    disabled={!isValid || isSubmitting || !dirty}
-                    id="edu-add-button"
-                    type="submit"
-                  >
-                    Add
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
+              <SubmitButton label="Add"/>
             </Grid>
           </Form>
         )}

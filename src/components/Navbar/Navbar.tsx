@@ -4,7 +4,7 @@ import { Icon, Segment } from "semantic-ui-react";
 import logo from "../../assets/cloud-logo.png";
 import { useUserContext } from "../../context/UserContext";
 import { EmployeeUser } from "../../types/types";
-import AccountMenu from "./AccountMenu";
+import AccountMenu from "./AccountMenu/AccountMenu";
 
 import "./Navbar.scss";
 

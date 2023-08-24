@@ -1,0 +1,28 @@
+@import "../../../stylesheet/mixins";
+
+.avatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 10%;
+  margin: 0 4em 0 0;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+
+  span {
+    color: $nc_white;
+    font-size: 1.2em;
+    margin: 0 0.8rem 0 0;
+  }
+  
+  .ui.avatar.image{
+    height:auto;
+    width:auto;
+    border-radius: 50%;
+    background-color: $nc_white;
+    margin-right: 1em;
+
+  }
+  
+}

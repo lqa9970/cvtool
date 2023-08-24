@@ -206,7 +206,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                     id="edu-text-area"
                     name="projectDescription"
                     placeholder="Enter your description here..."
-                    characterLimit={2500}
+                    charLimit={2500}
                   />
                 </Grid.Column>
               </Grid.Row>

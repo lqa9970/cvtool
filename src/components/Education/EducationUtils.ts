@@ -6,7 +6,7 @@ export const defaultStartDate = new Date("1/1/1970");
 export const defaultEndDate = new Date("31/12/1970");
 
 const regex = new RegExp('^[\\p{L}\\p{M}\\s-]*$','gu'); // Matches strings with only Unicode letters, mark characters, spaces, and hyphens
-const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\',.’-]*$', 'gu');
+const regexWithSpecialCharacters = new RegExp(`^[\\p{L}\\p{M}\\p{N}\\s,.'+’"-]*$`, 'gu'); // The use of backticks (`) is to avoid excessive escaping of single quotes in the regex
 export const educationSchema = Yup.object().shape({
   id: Yup.string().required(),
   school: Yup.string().min(4, "Too Short").max(200,"Character limit exceeded").required("Required").matches(regex, 'Not a valid institution'),

@@ -1,5 +1,5 @@
 import { EmployeeUser } from "../../types/types";
-import RoleButton from "./RoleButton";
+import RoleButton from "./RoleButton/RoleButton";
 
 type PopupContentProps = {
   user: EmployeeUser | null;

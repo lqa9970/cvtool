@@ -141,7 +141,7 @@ function EducationComponent(props: EducationProps) {
                     id="edu-text-area"
                     name="degreeDescription"
                     placeholder="Enter your description here"
-                    characterLimit={1250}
+                    charLimit={1250}
                   />
                 </Grid.Column>
               </Grid.Row>

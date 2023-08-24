@@ -15,10 +15,7 @@ type BioProps = {
   userId: string | undefined;
 };
 
-const regexWithSpecialCharacters = new RegExp(
-  "^[\\p{L}\\p{M}\\p{N}\\s',.’-]*$",
-  "gu"
-);
+const regexWithSpecialCharacters = new RegExp(`^[\\p{L}\\p{M}\\p{N}\\s,.'+’"-]*$`, 'gu'); // The use of backticks (`) is to avoid excessive escaping of single quotes in the regex
 const bioSchema = Yup.object().shape({
   bioDescription: Yup.string()
     .min(4, "Too Short")

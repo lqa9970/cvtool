@@ -17,7 +17,7 @@ function CreateEditCv({ last_cv_update }: ICreateEditCv) {
   return (
     <>
       <Header as="h3">My CV</Header>
-      <Segment placeholder textAlign="center">
+      <Segment placeholder textAlign="center" className="hoverable">
         {lastUpdateOn ? (
           <>
             <Header icon as="h4">

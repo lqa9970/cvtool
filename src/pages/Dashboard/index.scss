@@ -30,3 +30,14 @@
     align-items: center;
   }
 }
+
+.ui.placeholder.segment.hoverable {
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}

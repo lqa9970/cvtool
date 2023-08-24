@@ -7,7 +7,7 @@ function Badges() {
   return (
     <>
       <Header as="h3">Badges</Header>
-      <Segment placeholder textAlign="center">
+      <Segment placeholder textAlign="center" className="hoverable">
         <Header icon as="h4">
           <Icon
             id="cvArea"

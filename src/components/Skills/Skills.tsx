@@ -1,10 +1,11 @@
 /* eslint-disable max-lines-per-function */
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, Grid, Dropdown, Label, Icon } from "semantic-ui-react";
+import { Grid, Dropdown, Label, Icon } from "semantic-ui-react";
 import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import { UserTechSkill, Skill } from "../../types/types";
+import SubmitButton from "../Submit/SubmitButton";
 import { skillSchema } from "./SkillsUtils";
 
 type SkillProps = {
@@ -144,9 +145,6 @@ function SkillComponent(props: SkillProps) {
           handleSubmit,
           errors,
           touched,
-          isSubmitting,
-          isValid,
-          dirty,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Grid>
@@ -172,7 +170,7 @@ function SkillComponent(props: SkillProps) {
                       ) {
                         setSoftSelected(true);
                         values.experience = "0";
-                      } else setSoftSelected(false);
+                      } else {setSoftSelected(false);}
                       setFieldValue("name", value);
                     }}
                   />
@@ -198,17 +196,7 @@ function SkillComponent(props: SkillProps) {
                   {showErrors(errors.name, touched.name)}
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Button
-                    disabled={!isValid || !dirty || isSubmitting}
-                    id="edu-add-button"
-                    type="submit"
-                  >
-                    Add
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
+              <SubmitButton label="Add"/>
             </Grid>
           </Form>
         )}

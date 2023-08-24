@@ -1,45 +1,28 @@
 import { useFormikContext, useField } from "formik";
-import {
-  TextArea,
-  TextAreaProps,
-  Grid,
-  Container,
-  Comment,
-} from "semantic-ui-react";
+import { TextArea, TextAreaProps, Grid } from "semantic-ui-react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-import "./TextArea.scss";
+type TextAreaInputProps = TextAreaProps & {
+  name: string;
+  charLimit: number;
+};
 
-function TextAreaInput({ name, charLimit, ...props }: TextAreaProps) {
-  const fieldName = name as string;
+function TextAreaInput({ name, charLimit, ...props }: TextAreaInputProps) {
   const { setFieldValue, setFieldTouched } = useFormikContext();
-  const [field, meta] = useField(fieldName);
-
+  const [field] = useField(name); // The 'field' object contains the 'value' prop, which will be automatically populated with the field's value.
   const handleInputChange = (
     event_: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { value } = event_.target;
-    setFieldValue(fieldName, value);
-    setFieldTouched(fieldName, true, false);
+    setFieldValue(name, value);
+    setFieldTouched(name, true, false);
   };
 
   return (
     <Grid.Row>
       <Grid.Column>
-        <TextArea
-          {...field}
-          {...props}
-          onChange={handleInputChange}
-        />
-        <Container className="character-limit-exceeded">
-          {meta.touched && meta.error && (
-            <Comment.Content className="error">{meta.error}</Comment.Content>
-          )}
-          {charLimit && meta.touched && meta.error && (
-            <Comment.Content className="limit">
-              {(field.value as string).length}/{charLimit}
-            </Comment.Content>
-          )}
-        </Container>
+        <TextArea {...field} {...props} onChange={handleInputChange} />
+        <ErrorMessage fieldName={name} charLimit={charLimit} />
       </Grid.Column>
     </Grid.Row>
   );

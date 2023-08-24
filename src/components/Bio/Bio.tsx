@@ -16,7 +16,7 @@ type BioProps = {
   userId: string | undefined;
 };
 
-const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\',.’-]*$', 'gu');
+const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\'-,.+’"]*$', 'gu');
 const bioSchema = Yup.object().shape({
   bioDescription: Yup.string().min(4, "Too Short").max(1250,"Character limit exceeded").matches(regexWithSpecialCharacters, 'Not a valid description'),
 });

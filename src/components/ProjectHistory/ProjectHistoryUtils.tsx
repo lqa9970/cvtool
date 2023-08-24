@@ -6,7 +6,7 @@ export const defaultStartDate = new Date("1/1/2015");
 export const defaultEndDate = new Date("31/12/2020");
 
 const regex = new RegExp('^[\\p{L}\\p{M}\\s-]*$','gu'); // Matches strings with only Unicode letters, mark characters, spaces, and hyphens
-const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\',.’-]*$', 'gu');
+const regexWithSpecialCharacters = new RegExp('^[\\p{L}\\p{M}\\p{N}\\s\'-,.+’"]*$', 'gu');
 export const projectHistorySchema = Yup.object().shape({
   id: Yup.string().required(),
   role: Yup.string().min(4, "Too Short").max(100,"Character limit exceeded").required("Required").matches(regex, 'Not a valid role'),

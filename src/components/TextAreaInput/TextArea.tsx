@@ -1,72 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { TextArea, Grid, Container, Comment } from "semantic-ui-react";
+import { useFormikContext, useField } from "formik";
+import { TextArea, TextAreaProps, Grid } from "semantic-ui-react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-import "./TextArea.scss";
-
-type TextAreaInputProps = {
-  id: string;
-  value: string;
+type TextAreaInputProps = TextAreaProps & {
   name: string;
-  characterLimit: number;
-  placeholder: string;
-  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onExceedLimit: (exceeded: boolean) => void;
+  charLimit: number;
 };
 
-function TextAreaInput({
-  id,
-  value,
-  name,
-  placeholder,
-  handleChange,
-  onExceedLimit,
-  characterLimit,
-}: TextAreaInputProps) {
-  const [charCount, setCharCount] = useState(0);
-  const [isExceeded, setIsExceeded] = useState(false);
-
-  // Set initial character count
-  useEffect(() => {
-    setCharCount(value.length);
-    setIsExceeded(value.length > characterLimit);
-  }, [value, characterLimit]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newCharCount = event.target.value.length;
-    const exceeded = newCharCount > characterLimit;
-
-    handleChange(event);
-    setCharCount(newCharCount);
-    setIsExceeded(exceeded);
-    onExceedLimit(exceeded);
+function TextAreaInput({ name, charLimit, ...props }: TextAreaInputProps) {
+  const { setFieldValue, setFieldTouched } = useFormikContext();
+  const [field] = useField(name); // The 'field' object contains the 'value' prop, which will be automatically populated with the field's value.
+  const handleInputChange = (
+    event_: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { value } = event_.target;
+    setFieldValue(name, value);
+    setFieldTouched(name, true, false);
   };
 
   return (
-    <Grid>
+    <Grid.Row>
       <Grid.Column>
-        <Container className="input-container">
-          <TextArea
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            rows={6}
-            onChange={handleInputChange}
-          />
-
-          <Comment.Content
-            className={isExceeded ? "character-limit-exceeded" : ""}
-          >
-            {charCount}/{characterLimit}
-          </Comment.Content>
-        </Container>
-        {isExceeded && (
-          <Comment.Content className="character-limit-exceeded">
-            Character limit exceeded
-          </Comment.Content>
-        )}
+        <TextArea {...field} {...props} onChange={handleInputChange} />
+        <ErrorMessage fieldName={name} charLimit={charLimit} />
       </Grid.Column>
-    </Grid>
+    </Grid.Row>
   );
 }
 

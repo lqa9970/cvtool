@@ -1,13 +1,7 @@
 /* eslint-disable import/max-dependencies */
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import {
-  Grid,
-  Input,
-  Checkbox,
-  Header,
-  Label,
-} from "semantic-ui-react";
+import { Grid, Input, Checkbox, Header, Label } from "semantic-ui-react";
 
 import "./ProjectHistory.scss";
 import useGetFirestoreCollection from "../../hooks/useGetCollectionData";
@@ -63,7 +57,6 @@ function EndDateComponent(props: EndDateComponentProps) {
 }
 
 function ProjectHistoryComponent(props: ProjectHistoryProps) {
-  const [isCharLimitExceeded, setIsCharLimitExceeded] = useState(false);
   const [projectHistories, setProjectHistories] = useState<ProjectHistory[]>(
     props.projectHistory || []
   );
@@ -126,13 +119,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
           await updateUser({ projects }, props.userId);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          setFieldValue,
-        }) => (
+        {({ values, errors, touched, handleChange, setFieldValue }) => (
           <Form>
             <Grid centered>
               <Grid.Row columns={1}>
@@ -155,7 +142,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                   />
                   <CustomInput
                     name="accountName"
-                    label = "Account Name"
+                    label="Account Name"
                     charLimit={100}
                   />
                 </Grid.Column>
@@ -186,7 +173,9 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
 
               <Grid.Row>
                 <Grid.Column>
-                  <Label id="form-labels">From</Label>
+                  <Label id="form-labels">
+                    From <span>*</span>
+                  </Label>
                   <div className="flex-container">
                     <CustomCalendar
                       option="date"
@@ -208,22 +197,17 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                   </div>
                 </Grid.Column>
               </Grid.Row>
-
               <Grid.Row>
                 <Grid.Column>
+                  <Label id="form-labels">
+                    Description <span>*</span>
+                  </Label>
                   <TextAreaInput
                     id="edu-text-area"
-                    value={values.projectDescription}
                     name="projectDescription"
                     placeholder="Enter your description here..."
-                    handleChange={handleChange}
-                    characterLimit={2500}
-                    onExceedLimit={setIsCharLimitExceeded}
+                    charLimit={2500}
                   />
-                  {showErrors(
-                    errors.projectDescription,
-                    touched.projectDescription
-                  )}
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
@@ -234,7 +218,7 @@ function ProjectHistoryComponent(props: ProjectHistoryProps) {
                   />
                 </Grid.Column>
               </Grid.Row>
-              <SubmitButton label="Save experience"/>
+              <SubmitButton label="Save experience" />
             </Grid>
           </Form>
         )}

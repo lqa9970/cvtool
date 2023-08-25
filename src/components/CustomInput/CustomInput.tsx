@@ -1,9 +1,8 @@
 import { useFormikContext, useField } from "formik";
-import { Input, Label, Container, Comment } from "semantic-ui-react";
-import "./CustomInput.scss";
+import { Input, InputProps, Label } from "semantic-ui-react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-type CustomInputProps = {
-  [restProps: string]: any;
+type CustomInputProps = InputProps & {
   name: string;
   label?: string;
   charLimit?: number;
@@ -11,9 +10,9 @@ type CustomInputProps = {
 };
 function CustomInput({
   label,
-  charLimit,
   name,
-  ...restProps
+  charLimit,
+  ...props
 }: CustomInputProps) {
   const { setFieldValue, setFieldTouched } = useFormikContext();
   const [field, meta] = useField(name);
@@ -27,25 +26,16 @@ function CustomInput({
     <div>
       {label && (
         <Label id="form-labels">
-          {label} {restProps.required && <span>*</span>}
+          {label} {props.required && <span>*</span>}
         </Label>
       )}
       <Input
         {...field}
-        {...restProps}
+        {...props}
         error={meta.touched && !!meta.error}
         onChange={handleInputChange}
       />
-      <Container className="character-limit-exceeded">
-        {meta.touched && meta.error && (
-          <Comment.Content className="error">{meta.error}</Comment.Content>
-        )}
-        {charLimit && meta.touched && meta.error && (
-          <Comment.Content className="limit">
-            {(field.value as string).length}/{charLimit}
-          </Comment.Content>
-        )}
-      </Container>
+      <ErrorMessage fieldName={name} charLimit={charLimit} />
     </div>
   );
 }

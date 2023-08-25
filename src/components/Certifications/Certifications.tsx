@@ -107,7 +107,7 @@ function CertificationComponent(props: CertificationProps) {
             <Grid>
               <Grid.Row>
                 <Grid.Column>
-                  <Label id="form-labels">Certificate</Label>
+                  <Label id="form-labels">Certificate <span>*</span></Label>
                   <Field
                     fluid
                     selection
@@ -126,7 +126,7 @@ function CertificationComponent(props: CertificationProps) {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Label id="form-labels">Validity Period</Label>
+                  <Label id="form-labels">Validity Period <span>*</span></Label>
                   <div className="flex-container">
                     <CustomCalendar
                       name="validFrom"

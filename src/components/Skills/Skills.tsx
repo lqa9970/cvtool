@@ -150,7 +150,7 @@ function SkillComponent(props: SkillProps) {
             <Grid>
               <Grid.Row>
                 <Grid.Column style={{ paddingRight: "20px", width: "290px" }}>
-                  <Label id="form-labels">Skill</Label>
+                  <Label id="form-labels">Skill <span>*</span></Label>
                   <Field
                     fluid
                     selection
@@ -177,7 +177,7 @@ function SkillComponent(props: SkillProps) {
                   {showErrors(errors.name, touched.name)}
                 </Grid.Column>
                 <Grid.Column style={{ paddingLeft: "20px", width: "285px" }}>
-                  <Label id="form-labels">Experience</Label>
+                  <Label id="form-labels">Experience <span>*</span></Label>
                   <Field
                     fluid
                     selection

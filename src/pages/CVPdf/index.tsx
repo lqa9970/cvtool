@@ -1,7 +1,14 @@
 /* eslint-disable max-lines-per-function */
 import { Field, Formik } from "formik";
 import { Link, useLocation } from "react-router-dom";
-import { Button, Container, Grid, Header, Label } from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Form,
+  Grid,
+  Header,
+  Label,
+} from "semantic-ui-react";
 import { EmployeeUser, PdfOptions } from "../../types/types";
 import "./index.scss";
 
@@ -21,6 +28,7 @@ const options: PdfOptions = {
   workabroad: false,
   experience_level: false,
   avatar: false,
+  two_page: false,
   languages: [],
   tech_skills: [],
   projects: [],
@@ -37,18 +45,30 @@ function CVPdf() {
   return (
     <Container>
       <Grid>
-        <Grid.Row>
-          <Grid.Column width={12}>
-            <Header as="h2">Hide fields</Header>
-            <Formik
-              initialValues={options}
-              onSubmit={(values, { setSubmitting }) => {
-                console.log(values);
-                setSubmitting(false);
-              }}
-            >
-              {({ handleSubmit, values }) => (
-                <form onSubmit={handleSubmit}>
+        <Formik
+          initialValues={options}
+          onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(false);
+          }}
+        >
+          {({ values }) => (
+            <Form className="formWidth">
+              <Grid.Row>
+                <Grid.Column>
+                  <Header className="paddingTop" as="h2">
+                    Settings
+                  </Header>
+                  <Grid.Row columns={2}>
+                    <Grid.Column>
+                      <Field type="checkbox" name="two_page" />
+                      <Label htmlFor="two_page">Two pages</Label>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={12}>
+                  <Header as="h2">Hide fields</Header>
                   <Grid.Row>
                     <Grid.Column>
                       <Header as="h4">Basic</Header>
@@ -117,6 +137,8 @@ function CVPdf() {
                           </>
                         )}
                     </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
                     <Grid.Column>
                       {talent.certifications?.length &&
                         talent.certifications.length > 0 && (
@@ -208,24 +230,18 @@ function CVPdf() {
                         )}
                     </Grid.Column>
                   </Grid.Row>
-                  <Grid.Row>
-                    <Grid.Column>
-                      <Link
-                        to="/pdfpreview"
-                        state={{ options: values, talent }}
-                      >
-                        <Button type="submit">Preview the pdf</Button>
-                      </Link>
-                      <Button type="button" onClick={() => console.log(values)}>
-                        Log
-                      </Button>
-                    </Grid.Column>
-                  </Grid.Row>
-                </form>
-              )}
-            </Formik>
-          </Grid.Column>
-        </Grid.Row>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Link to="/pdfpreview" state={{ options: values, talent }}>
+                    <Button type="submit">Preview the pdf</Button>
+                  </Link>
+                </Grid.Column>
+              </Grid.Row>
+            </Form>
+          )}
+        </Formik>
       </Grid>
     </Container>
   );

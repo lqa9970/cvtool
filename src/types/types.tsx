@@ -151,6 +151,7 @@ export type PdfOptions = {
   workabroad: boolean;
   experience_level: boolean;
   avatar: boolean;
+  two_page: boolean;
 };
 
 export type UserTableItem = {
@@ -159,4 +160,8 @@ export type UserTableItem = {
   value: string;
   email?: string;
   roles?: string;
+};
+export type PdfProps = {
+  talent: EmployeeUser;
+  options: PdfOptions;
 };

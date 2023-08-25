@@ -23,6 +23,9 @@ Font.register({
 });
 
 export const styles = StyleSheet.create({
+  document: {
+    height: "100vh",
+  },
   page: {
     color: "#161632",
     fontSize: "10",
@@ -37,6 +40,13 @@ export const styles = StyleSheet.create({
   },
   container: {
     padding: 20,
+  },
+  twoPageContainer: {
+    display: "flex",
+    marginTop: 100,
+    marginHorizontal: 20,
+    flexDirection: "row",
+    gap: 10,
   },
   flexRow: {
     display: "flex",
@@ -60,6 +70,12 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     border: "1px solid black",
   },
+  leftHorizontalLine: {
+    marginLeft: 190,
+    marginTop: 10,
+    marginRight: 50,
+    border: "1px solid black",
+  },
   verticalLine: {
     borderLeft: "1px solid black",
     marginTop: 3,
@@ -69,7 +85,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 70,
     paddingHorizontal: 5,
-    width: "30%",
+    width: 150,
   },
   rightColumn: {
     display: "flex",
@@ -78,6 +94,15 @@ export const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingBottom: 10,
     paddingHorizontal: 5,
+  },
+  leftTwoPage: {
+    width: 150,
+    height: "100%",
+  },
+  leftVerticalLine: {
+    borderLeft: "1px solid black",
+    marginTop: 5,
+    left: 10,
   },
   topMargin: {
     marginTop: 10,

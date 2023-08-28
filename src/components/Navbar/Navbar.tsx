@@ -50,20 +50,6 @@ function Navbar() {
             <img src={logo} alt="Nordcloud, an IBM company" />
           </Link>
         </div>
-        <div className="NavContent_pages">
-          <Link to="/staff">
-            <Icon name="clipboard" size="small" />
-            dashboard
-          </Link>
-          <Link to="/#">
-            <Icon name="bars" size="small" />
-            projects
-          </Link>
-          <Link to="/#">
-            <Icon name="briefcase" size="small" />
-            talents
-          </Link>
-        </div>
         <AccountMenu
           user={user as EmployeeUser}
           userRole={userRole}

@@ -9,7 +9,7 @@ type ISocialLink = {
 
 function SocialLink({ fieldName, iconName }: ISocialLink) {
   return (
-    <GridRow columns={2}>
+    <GridRow columns={2} id="soc-link-row">
       <Grid.Column width={2}>
         <Icon bordered id="soc-link-icon" name={iconName} size="large" />
       </Grid.Column>
